@@ -6,11 +6,13 @@
 <title>Setting the Table: The Long Argument of Halakhah</title>
 <meta name="description" content="An interactive, plain-English history of halakhah — from the Talmud's open arguments to the Shulchan Arukh and the Rema's glosses. No Hebrew required, no background assumed.">
 <meta name="theme-color" content="#f2ecdd">
+<meta name="color-scheme" content="light only">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  color-scheme: light only;
   --paper:#f2ecdd;
   --paper-deep:#e9dfc6;
   --paper-card:#faf5e9;
@@ -49,7 +51,7 @@ nav{
 }
 nav .wrap{display:flex;gap:1.1rem;overflow-x:auto;padding:.55rem 1.35rem;white-space:nowrap;scrollbar-width:none}
 nav .wrap::-webkit-scrollbar{display:none}
-nav a{font-family:"Archivo",sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.05em;text-decoration:none;color:var(--ink-soft);padding:.2rem 0}
+nav a{font-family:"Archivo",sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.05em;text-decoration:none;color:var(--ink-soft);padding:.2rem 0;display:inline-flex;align-items:center;white-space:nowrap}
 nav a:hover{color:var(--ink)}
 
 /* ---------- hero ---------- */
@@ -129,7 +131,10 @@ section h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-
 .pill-tabs button[aria-selected="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
 .pill-q{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin-bottom:1rem}
 .pill-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
-@media(max-width:560px){.pill-row{grid-template-columns:1fr}}
+.pill-row.five{grid-template-columns:repeat(5,1fr)}
+@media(max-width:720px){.pill-row.five{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.pill-row{grid-template-columns:1fr}.pill-row.five{grid-template-columns:1fr 1fr}}
+.pcol.small .vote{font-size:1.05rem}
 .pcol{border:1px solid var(--rule);border-radius:10px;padding:.8rem .9rem;background:var(--paper);text-align:center;transition:box-shadow .25s,transform .25s}
 .pcol .who{font-family:"Archivo",sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
 .pcol .vote{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:600;margin:.2rem 0}
@@ -202,12 +207,12 @@ section h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-
 .lk-chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.7rem}
 .lk-chips button{font-family:"Archivo",sans-serif;font-weight:600;font-size:.78rem;border:1.5px solid var(--rule);background:var(--paper-card);border-radius:999px;padding:.35rem .85rem;cursor:pointer;color:var(--ink)}
 .lk-chips button:hover{border-color:var(--ink)}
-#lkCard{margin-top:1rem;background:var(--paper-card);border:1px solid var(--rule);border-left:6px solid var(--lc,var(--ink));border-radius:10px;padding:1rem 1.2rem;display:none}
-#lkCard h3{font-size:1.35rem;margin:0 0 .1em;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-#lkCard .meta{font-family:"Archivo",sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.07em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:.5rem}
-#lkCard p{font-size:1rem;margin:.4em 0}
-#lkCard .relbtn{background:none;border:none;padding:0;font:inherit;font-size:.95rem;cursor:pointer;border-bottom:1.5px dotted var(--rule)}
-#lkCard .relbtn:hover{border-bottom-color:var(--ink)}
+#lkCard,#lkCard2{margin-top:1rem;background:var(--paper-card);border:1px solid var(--rule);border-left:6px solid var(--lc,var(--ink));border-radius:10px;padding:1rem 1.2rem;display:none}
+#lkCard h3,#lkCard2 h3{font-size:1.35rem;margin:0 0 .1em;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+#lkCard .meta,#lkCard2 .meta{font-family:"Archivo",sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.07em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:.5rem}
+#lkCard p,#lkCard2 p{font-size:1rem;margin:.4em 0}
+#lkCard .relbtn,#lkCard2 .relbtn{background:none;border:none;padding:0;font:inherit;font-size:.95rem;cursor:pointer;border-bottom:1.5px dotted var(--rule)}
+#lkCard .relbtn:hover,#lkCard2 .relbtn:hover{border-bottom-color:var(--ink)}
 .lk-type{display:inline-block;font-size:.62rem;background:var(--ink);color:var(--paper);border-radius:4px;padding:.15em .5em;font-family:"Archivo",sans-serif;font-weight:700;letter-spacing:.08em;vertical-align:middle}
 .mapcapdyn{font-size:1rem;margin:.8rem .3rem 0}
 
@@ -264,36 +269,45 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 
 /* medieval map */
 .medmap{position:relative}
-.medmap svg{display:block;min-width:760px;width:100%;height:auto}
-.medmap svg text{font-family:Georgia,serif}
-.eralayer{opacity:0;transition:opacity .55s ease;pointer-events:none}
+#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae}
+#eraMap .mapimg{display:block;width:100%;height:auto}
+#eraMap .overlay{position:absolute;inset:0;width:100%;height:100%}
+.eralayer{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;pointer-events:none}
 .eralayer.on{opacity:1;pointer-events:auto}
-.eralayer .mig{stroke-dasharray:100;stroke-dashoffset:100}
-.eralayer.on .mig{animation:migdraw 1.4s ease .25s forwards}
+.eralayer .mig{stroke-dasharray:1400;stroke-dashoffset:1400}
+.eralayer.on .mig{animation:migdraw 1.6s ease .2s forwards}
 @keyframes migdraw{to{stroke-dashoffset:0}}
-.citydot{cursor:pointer}
-.citydot:hover .cring{stroke-width:2.4}
+.citydot{position:absolute;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:50%;cursor:pointer;border:2px solid #f9f3e1;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.citydot:hover,.citydot.sel{width:19px;height:19px}
+.citylabel{position:absolute;transform:translate(var(--lx,10px),-50%);top:0;font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;color:#2a2119;background:rgba(249,243,225,.88);padding:1px 6px;border-radius:4px;white-space:nowrap;pointer-events:none}
+.edgemarker{position:absolute;transform:translate(-100%,-50%);font-family:"Archivo",sans-serif;font-weight:700;font-size:11px;color:#2a2119;background:rgba(249,243,225,.92);padding:2px 8px;border-radius:4px;border:1.5px dashed #7a6742}
 .timebar{display:flex;align-items:center;gap:.8rem;margin-top:.9rem}
 .timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:1rem;border:1.5px solid var(--ink);background:var(--paper-card);color:var(--ink);border-radius:50%;width:36px;height:36px;cursor:pointer;flex:none}
 .timebar button:hover{background:var(--ink);color:var(--paper)}
 .timebar button:disabled{opacity:.3;cursor:default}
 .timebar input[type=range]{flex:1;accent-color:var(--c-sefarad);height:5px;cursor:pointer}
 .timelabels{display:flex;justify-content:space-between;font-family:"Archivo",sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);margin:.2rem 46px 0}
-.eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:.9rem .2rem .2rem}
-.mapPop{position:absolute;z-index:20;max-width:280px;background:var(--paper-card);border:1.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 26px rgba(38,32,25,.3);display:none}
+.eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:0 .2rem .5rem}
+.mapPop{position:absolute;z-index:20;width:min(280px,70vw);background:var(--paper-card);border:1.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 26px rgba(38,32,25,.35);display:none}
+.mapPop.show{display:block}
 .mapPop h4{font-size:1.1rem;margin:0 0 .1em}
 .mapPop .meta{font-family:"Archivo",sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.4rem}
-.mapPop p{font-size:.92rem;margin:0 0 .6em}
-.mapPop .row{display:flex;gap:.5rem;flex-wrap:wrap}
-.mapPop .row button,.mapPop .row a{font-family:"Archivo",sans-serif;font-weight:600;font-size:.72rem;border:1.5px solid var(--rule);background:var(--paper);border-radius:999px;padding:.3rem .8rem;cursor:pointer;text-decoration:none;color:var(--ink)}
-.mapPop .row button:hover,.mapPop .row a:hover{border-color:var(--ink)}
+.mapPop p{font-size:.9rem;margin:0 0 .6em;max-height:150px;overflow-y:auto}
+.mapPop .row{display:flex;gap:.4rem;flex-wrap:wrap}
+.mapPop .row button{font-family:"Archivo",sans-serif;font-weight:600;font-size:.72rem;border:1.5px solid var(--rule);background:var(--paper);border-radius:999px;padding:.3rem .8rem;cursor:pointer;color:var(--ink)}
+.mapPop .row button:hover{border-color:var(--ink)}
+.mapPop .back{font-family:"Archivo",sans-serif;font-size:.72rem;font-weight:600;border:none;background:none;cursor:pointer;color:var(--ink-soft);padding:0;margin-bottom:.4rem}
+.mapPop .back:hover{color:var(--ink)}
 .mapPop .x{position:absolute;top:6px;right:10px;border:none;background:none;font-size:1.1rem;cursor:pointer;color:var(--ink-soft)}
 
 /* floating minimap */
 #minimap{position:fixed;right:14px;bottom:14px;width:190px;z-index:54;background:rgba(250,245,233,.95);border:1px solid var(--rule);border-radius:10px;padding:6px;display:none;box-shadow:0 4px 18px rgba(38,32,25,.18)}
 @media(min-width:1200px){#minimap.show{display:block}}
 #minimap .cap{font-family:"Archivo",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-align:center;padding:2px 0 1px}
-#minimap svg{display:block;width:100%;height:auto;min-width:0}
+#minimap #minimapMount{position:relative}
+#minimap img{display:block;width:100%;height:auto;border-radius:4px}
+#minimap .mmdot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--c-sefarad);border:1.5px solid #f9f3e1;transform:translate(-50%,-50%);transition:left .8s ease,top .8s ease;box-shadow:0 0 0 3px rgba(166,48,36,.25)}
+#minimap .mmlabel{font-family:"Archivo",sans-serif;font-size:.66rem;font-weight:700;color:var(--ink);text-align:center;margin-top:3px}
 
 /* portrait medallions */
 .bio .pmed{flex:none;width:72px}
@@ -317,6 +331,14 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 #lkModal .box{width:100%;max-width:34rem;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:1.2rem 1.3rem;max-height:80vh;overflow-y:auto;position:relative}
 #lkModal .x{position:absolute;top:10px;right:14px;border:none;background:none;font-size:1.4rem;cursor:pointer;color:var(--ink-soft)}
 
+.pgpage.photo{background-size:100% 100%;background-repeat:no-repeat;box-shadow:2px 3px 10px rgba(38,32,25,.22)}
+.pgr.photo{border:2px solid transparent;border-radius:3px;background:rgba(0,0,0,0)}
+.pgr.photo::after{display:none}
+.pgr.photo b{display:none}
+.pgr.photo:hover{background:rgba(166,48,36,.14);border-color:rgba(38,32,25,.35)}
+.pgr.photo.sel{background:rgba(166,48,36,.22);border-color:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.pgcap .tag{display:inline-block;font-family:"Archivo",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper);border-radius:4px;padding:.15em .5em;margin-bottom:.4rem}
+
 /* end / glossary */
 .gloss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.9rem;margin-top:1.2rem}
 .gitem{background:var(--paper-card);border:1px solid var(--rule);border-radius:8px;padding:.75rem .95rem;font-size:.95rem}
@@ -327,6 +349,18 @@ ul.next li{margin-bottom:.6em}
 </style>
 </head>
 <body>
+<div id="pgbar"></div>
+<div id="rail" aria-label="Section navigation"></div>
+<div id="minimap"><div class="cap">Where we are</div><div id="minimapMount"></div></div>
+<div id="lkModal" role="dialog" aria-modal="true" aria-label="Reference desk search">
+  <div class="box">
+    <button class="x" aria-label="Close search">×</button>
+    <span class="label">Reference desk</span>
+    <input id="lkInput2" type="search" placeholder="Try: Rambam, Beit Yosef, responsa, Tosafot, the Shakh…" aria-label="Search thinkers, books, and terms" style="width:100%;font:inherit;font-size:1.05rem;padding:.65rem 1rem;border:1.5px solid var(--rule);border-radius:999px;background:var(--paper);color:var(--ink);margin-top:.6rem">
+    <div class="lk-chips" id="lkChips2" aria-label="Suggestions"></div>
+    <div id="lkCard2" role="region" aria-live="polite"></div>
+  </div>
+</div>
 
 <nav aria-label="Sections"><div class="wrap">
   <a href="#top">Start</a>
@@ -442,18 +476,24 @@ ul.next li{margin-bottom:.6em}
       <p><span class="motto">“We read everyone — and grade them.”</span>Southern France: geographically and intellectually <em>between</em> the worlds. Provençal scholars translated Sephardic philosophy for Europe, absorbed both traditions, and produced the era’s sharpest <strong>critics</strong>.</p>
     </div><div class="rcard" style="--rc:var(--c-babylon)">
       <h3><span class="chip" style="background:var(--c-babylon)"></span>Babylonia &amp; the East</h3>
-      <p><span class="motto">“The source.”</span>Where it all started — and, after 1492, where much of it ended up: the Ottoman Empire, and above all the little Galilean hill town of <strong>Safed</strong>, welcomed the Spanish exiles.</p>
+      <p><span class="motto">“The source.”</span>Where it all started — and, after 1492, where much of it ended up: the <span class="g" data-def="The Ottoman Empire: the Turkish-ruled empire spanning the eastern Mediterranean, the Balkans, and North Africa, whose sultans welcomed Spain’s exiled Jews after 1492 — turning cities like Salonika and Safed into new centers of Jewish learning.">Ottoman Empire</span>, and above all the little Galilean hill town of <strong>Safed</strong>, welcomed the Spanish exiles.</p>
     </div></div>
 
-  <p>One origin story is worth pausing on, because it explains so much of what follows. The founding families of Ashkenaz came up from <strong>Italy</strong> — invited north as merchants by <span class="g" data-def="Charlemagne (742–814): king of the Franks and first Holy Roman Emperor, whose dynasty encouraged Jewish merchants to settle in the Rhineland — the founding population of Ashkenaz.">Charlemagne</span>’s successors — and they carried with them ancient customs rooted in the old <em>Land-of-Israel</em> tradition, which often differed from the Babylonian Talmud’s rulings. When the Babylonian Talmud swept Europe and became the standard, those cherished older practices weren’t abandoned; they were promoted to the newly sacred status of <em>minhag</em> — binding local custom. Ashkenaz’s famous reverence for custom, in other words, isn’t stubbornness. It’s the community’s oldest inheritance, protected from its own new rulebook — and, after the Crusader massacres you’ll meet shortly, sanctified by martyrdom too.</p>
+  <p>One origin story is worth pausing on, because it explains so much of what follows. The founding families of Ashkenaz came up from <strong>Italy</strong> — invited north as merchants by <span class="g" data-def="Charlemagne (742–814): king of the Franks and first Holy Roman Emperor, whose dynasty encouraged Jewish merchants to settle in the Rhineland — the founding population of Ashkenaz.">Charlemagne</span>’s successors — and they carried with them ancient customs rooted in the old <em>Land-of-Israel</em> tradition, which often differed from the Babylonian Talmud’s rulings. When the Babylonian Talmud swept Europe and became the standard, those cherished older practices weren’t abandoned; they were promoted to the newly sacred status of <span class="g" data-def="Minhag (min-HAHG): custom — a community’s inherited practice. In Ashkenaz especially, entrenched custom could carry nearly the force of law.">minhag</span> — binding local custom. Ashkenaz’s famous reverence for custom, in other words, isn’t stubbornness. It’s the community’s oldest inheritance, protected from its own new rulebook — and, after the Crusader massacres you’ll meet shortly, sanctified by martyrdom too.</p>
 
-  <p>Here’s the map — built to be played with. The story of halakhah <strong>moves when people are forced to move</strong>, and its greatest syntheses were written by refugees; step through the five eras and watch the center of gravity travel from Baghdad to Kraków and Safed.</p>
+  <p>Here’s the map — built to be played with. The story of halakhah <strong>moves when people are forced to move</strong>, and its greatest syntheses were written by refugees; drag the slider (or tap the arrows) through five eras and watch the center of gravity travel from Baghdad to Kraków and Safed. Tap any city for its story.</p>
 
   <div class="mapbox" id="eraBox">
-    <div class="pill-tabs" id="eraTabs" role="tablist" aria-label="Map eras" style="margin-bottom:.4rem"></div>
+    <div class="eratitle" id="eraTitle"></div>
     <div id="eraMap"></div>
+    <div class="timebar">
+      <button id="eraPrev" aria-label="Previous era">‹</button>
+      <input type="range" id="eraSlider" min="0" max="4" step="1" value="0" aria-label="Era slider">
+      <button id="eraNext" aria-label="Next era">›</button>
+    </div>
+    <div class="timelabels"><span>600</span><span>1000</span><span>1300</span><span>1400</span><span>1600</span></div>
     <p class="mapcapdyn" id="eraCap"></p>
-    <p class="mapcap">Schematic — not to scale. Solid arrows are specific journeys and expulsions; dashed arrows are gradual shifts. Hover or tap a dot for who worked there.</p>
+    <p class="mapcap">Map background: hand-drawn medieval-style world map. City positions are approximate. Solid arrows are specific journeys and expulsions; dashed arrows are gradual shifts. Tap a city for its story; some events (Babylonia, deep in Mesopotamia) sit just off this map’s eastern edge and are marked at the border.</p>
   </div>
 </div></section>
 
@@ -536,10 +576,10 @@ ul.next li{margin-bottom:.6em}
   <p>Something remarkable then happened in the print shops of later centuries: the Raavad’s attacks were published <em>inside</em> the Mishneh Torah, wrapped around Rambam’s paragraphs. The monument absorbed its critic and became, itself, a page of argument. Remember this move — <strong>the critical gloss, printed into the text it disputes</strong> — because in the final act, it’s exactly how Ashkenaz will get its voice into the Sephardic code that conquered the world.</p>
 
   <div class="pgx">
-    <span class="label">Interactive · anatomy of a Mishneh Torah page</span>
-    <p style="margin:.5rem 0 0;font-size:1rem">See it for yourself. Here is the monument as later printers built it — the critic inside the walls, and commentators from four countries camped around it. Tap any block; colors follow this site’s regional code.</p>
+    <span class="label">Interactive · a real page of the Mishneh Torah</span>
+    <p style="margin:.5rem 0 0;font-size:1rem">See it for yourself. This is the actual printed page — the same Mishnah about the four categories of damage you’ll meet on the Talmud page shortly, now restated as settled law. Tap any block; colors follow this site’s regional code.</p>
     <div id="mtPGX"></div>
-    <p class="mapcap">Stylized reconstruction of the traditional printed layout — real page scans coming soon.</p>
+    <p class="mapcap">A real printed page (Hilchot Nizkei Mamon, chapter 2), with clickable regions mapped over it.</p>
   </div>
   <h3 style="margin-top:2.4rem;font-size:1.5rem">Barcelona builds a bridge</h3>
   <p>Spain’s next generations pulled the traditions closer anyway — under growing Christian pressure, for by now the <span class="g" data-def="The Reconquista: the centuries-long Christian reconquest of Iberia from Muslim rule, completed with the fall of Granada in January 1492 — after which the expulsion of the Jews followed within weeks.">Reconquista</span> had carried most of Iberia’s Jews from Muslim rule into Christian kingdoms. The bridge-builders came in a chain, beginning with <strong>R. Jonah of Gerona</strong>, who ran a new kind of Spanish academy fusing French Tosafist analysis with German-style piety. Then came his great kinsman:</p>
@@ -621,13 +661,13 @@ ul.next li{margin-bottom:.6em}
   <h2>The machine that changed the rules</h2>
   <p class="lead">Every book in this story so far had a ceiling: it was a <strong>manuscript</strong>. Hand-copied, wildly expensive, no two copies quite identical — and destroyable, as Paris proved in 1242, one wagonload at a time. The regional traditions were, in part, regional <em>bookshelves</em>: your community’s law was whatever texts your community happened to own.</p>
   <p>Then, within a generation of Gutenberg, Jews became some of the most enthusiastic early adopters of the printing press. Hebrew presses were running in Italy by the <strong>1470s</strong> — and it’s telling what the printers reached for first: alongside prayer books and Bibles, among the earliest Hebrew books ever printed was our friend the <strong>Semag</strong>. The press loved exactly what codes offered: organized, decided, finished texts, useful to every community at once.</p>
-  <p>The watershed came in Venice. Between <strong>1519 and 1523</strong>, the Christian printer <strong>Daniel Bomberg</strong> produced the first complete printed Talmud — and his edition’s layout and page numbering became so universal that they have never changed since. For the first time in history, a scholar in Kraków and a scholar in Salonika were looking at <em>literally the same page</em>; and within a few decades, printers had added marginal cross-references wiring every Talmudic passage to the spot in the codes where it was decided. The scattered conversation of five centuries was being physically stitched together.</p>
+  <p>The watershed came in Venice. Between <strong>1519 and 1523</strong>, the Christian printer <span class="g" data-def="Daniel Bomberg (c. 1483–1553): a Christian printer from Antwerp working in Venice who produced the first complete printed Talmud (1519–23) — its page layout and folio numbers remain the industry standard five centuries later.">Daniel Bomberg</span> produced the first complete printed Talmud — and his edition’s layout and page numbering became so universal that they have never changed since. For the first time in history, a scholar in Kraków and a scholar in Salonika were looking at <em>literally the same page</em>; and within a few decades, printers had added marginal cross-references wiring every Talmudic passage to the spot in the codes where it was decided. The scattered conversation of five centuries was being physically stitched together.</p>
 
   <div class="pgx" id="pressPGX-shell">
-    <span class="label">Interactive · anatomy of the printed page</span>
-    <p style="margin:.5rem 0 0;font-size:1rem">This is the printers’ real invention: the page as a <em>meeting room</em>, where authors born centuries and countries apart argue in adjacent columns. Two reconstructions — tap any block to see whose voice it is. Colors follow this site’s regional code.</p>
+    <span class="label">Interactive · a real page of Talmud</span>
+    <p style="margin:.5rem 0 0;font-size:1rem">This is the printers’ real invention: the page as a <em>meeting room</em>, where authors born centuries and countries apart argue in adjacent columns. Below is an actual scan of Bava Kamma, folio 2a — the opening of the tractate on damages, and the same passage the Mishneh Torah and Shulchan Arukh pages elsewhere on this site are built from. Tap any block to see whose voice it is.</p>
     <div id="pressPGX"></div>
-    <p class="mapcap">Stylized reconstructions of the traditional printed layouts (block positions simplified), not photographs — the shapes and inhabitants of the page are the real ones.</p>
+    <p class="mapcap">A real printed page, with clickable regions mapped over it — not a stylized reconstruction.</p>
   </div>
 
   <div class="note"><span class="label">The cautionary tale: the Meiri</span>
@@ -657,10 +697,11 @@ ul.next li{margin-bottom:.6em}
   <div class="pillars-ui">
     <span class="label">Interactive · Karo’s Beit Din of Three — and of Five</span>
     <p style="margin:.5rem 0 1rem;font-size:1rem">Karo appointed a standing <span class="g" data-def="Beit Din (bayt DEEN): “house of judgment” — a rabbinic court, classically of three judges. Karo turned the idea into a method: a virtual court of the greatest departed codifiers, voting through their books.">Beit Din</span> — a court — of the three greatest earlier codifiers: <b style="color:var(--c-sefarad)">the Rif</b>, <b style="color:var(--c-sefarad)">the Rambam</b>, and <b style="color:var(--c-germany)">the Rosh</b> (two Sephardic pillars, one Ashkenazi). His pledge: follow any <strong>two against one</strong>. And for deadlocks, a reserve bench of <strong>five</strong>. Try both:</p>
-    <div class="pill-tabs" role="tablist" aria-label="Rule of three examples">
+    <div class="pill-tabs" role="tablist" aria-label="Beit Din examples" id="beitdinTabs">
       <button role="tab" aria-selected="true" data-case="0">The mechanism</button>
       <button role="tab" aria-selected="false" data-case="1">A real case (simplified)</button>
-      <button role="tab" aria-selected="false" data-case="2">When the court splits</button>
+      <button role="tab" aria-selected="false" data-case="2">When the court of three splits</button>
+      <button role="tab" aria-selected="false" data-case="3">The Beit Din of Five, in action</button>
     </div>
     <div class="pill-q" id="pillQ"></div>
     <div class="pill-row" id="pillRow"></div>
@@ -704,10 +745,10 @@ ul.next li{margin-bottom:.6em}
   <p>The effect was decisive. An Ashkenazi Jew could now use the world’s best law code without abandoning a thousand years of Franco-German tradition — because the dissent was printed <em>inside</em> the code, at exactly the point of disagreement. Karo’s clarity, the Raavad’s method, the Tur’s two-tradition scope, on one page. Within a couple of generations, “the Shulchan Arukh” meant <em>the combined text</em>, and it remains the reference backbone of Jewish law to this day.</p>
 
   <div class="pgx">
-    <span class="label">Interactive · anatomy of the finished page</span>
-    <p style="margin:.5rem 0 0;font-size:1rem">Within a century of Karo’s death, the printed Shulchan Arukh page looked like this: a Spanish table, an Ashkenazi tablecloth, and Polish commentators pulling up chairs. Tap any block.</p>
+    <span class="label">Interactive · a real page of the Shulchan Arukh</span>
+    <p style="margin:.5rem 0 0;font-size:1rem">Here is the actual finished page — the third and final stop of a trilogy running through this site: the same law on damages from the Talmud page and the Mishneh Torah page, now as Karo’s decided ruling with the Rema’s tablecloth woven in, and the next generation’s Polish commentators camped in the margin. Tap any block.</p>
     <div id="saPGX"></div>
-    <p class="mapcap">Stylized reconstruction of the traditional layout (block positions simplified). Notice the colors: five regions of this site’s map, arguing politely on one page.</p>
+    <p class="mapcap">A real printed page (Choshen Mishpat 390), with clickable regions mapped over it.</p>
   </div>
 
   <div class="note"><span class="label">To be clear: nobody clapped politely</span>
@@ -729,7 +770,7 @@ ul.next li{margin-bottom:.6em}
   <div class="bio" style="--bc:var(--c-poland)"><div class="who">
     <h4>Camp 1: Burn the whole idea <span style="font-weight:400">(no codes, period)</span></h4>
     <div class="meta">Chaim ben Bezalel (1520–1588) · the Maharal of Prague (his brother) · heirs of Shalom Shachna</div>
-    <p>The Rema’s own teacher, Shalom Shachna of Lublin, had famously refused to write down his rulings at all — a judge must be free to judge each case fresh. His heirs turned that instinct into arguments that still sting. Chaim ben Bezalel: a code creates the <em>illusion</em> of understanding — laypeople will read the bottom line, think they know the law, and mislead others; worse, freezing one answer betrays a system in which a judge may honestly rule differently as circumstances change, for “these and those are the words of the living God.” His brother the Maharal of Prague put it even more sharply: better to reason your way to a <em>wrong</em> answer through deep study than to be <em>right</em> by looking it up — because a ruling without its reasoning is not Torah, it’s trivia.</p>
+    <p>The Rema’s own teacher, Shalom Shachna of Lublin, had famously refused to write down his rulings at all — a judge must be free to judge each case fresh. His heirs turned that instinct into arguments that still sting. Chaim ben Bezalel: a code creates the <em>illusion</em> of understanding — laypeople will read the bottom line, think they know the law, and mislead others; worse, freezing one answer betrays a system in which a judge may honestly rule differently as circumstances change, for “these and those are the words of the living God.” His brother the <span class="g" data-def="The Maharal of Prague (Judah Loew, c. 1520–1609): Prague’s legendary sage, later attached to the golem legend — a philosopher-rabbi who argued that a code’s bare answer, without its reasoning, isn’t really Torah.">Maharal of Prague</span> put it even more sharply: better to reason your way to a <em>wrong</em> answer through deep study than to be <em>right</em> by looking it up — because a ruling without its reasoning is not Torah, it’s trivia.</p>
   </div></div>
 
   <div class="bio" style="--bc:var(--c-poland)"><div class="who">
@@ -841,23 +882,29 @@ ul.next li{margin-bottom:.6em}
     {q:"And when the three pillars don’t produce a majority?",
      votes:[["The Rif","Silent","no ruling recorded","sefarad"],["The Rambam","View A","","sefarad"],["The Rosh","View B","","germany"]],
      win:[],
-     v:"<strong>Deadlock → call more judges.</strong> Karo’s stated fallback was a second bench of five: the <b>Ramban</b>, the <b>Rashba</b>, the <b>Ran</b>, the <b>Mordechai</b>, and the <b>Semag</b> — every one of whom you meet on this site — following the weight of the majority among them. Notice the composition, though: like the first bench, it leans Sephardic. A rule for every situation, but not a neutral one."}
+     v:"<strong>Deadlock → call more judges.</strong> Karo’s stated fallback was a second bench of five: the <b>Ramban</b>, the <b>Rashba</b>, the <b>Ran</b>, the <b>Mordechai</b>, and the <b>Semag</b> — every one of whom you meet on this site — following the weight of the majority among them. Notice the composition, though: like the first bench, it leans Sephardic. A rule for every situation, but not a neutral one."},
+    {q:"The court of three deadlocks on a question of Shabbat law. Karo empanels the Beit Din of Five:",
+     five:true,
+     votes:[["Ramban","Permitted","",'sefarad'],["Rashba","Permitted","",'sefarad'],["The Ran","Forbidden","",'sefarad'],["Mordechai","Forbidden","",'germany'],["Semag","Permitted","",'france']],
+     win:[0,1,4],
+     v:"<strong>Ruling: permitted, 3–2.</strong> Five votes instead of three, so a single defector no longer decides the case — but look at the bench itself: four of the five are Sephardic or Sephardic-trained (only the Mordechai speaks for Ashkenaz alone). The appeals court widens the sample; it doesn’t rebalance the geography."}
   ];
-  const tabs=document.querySelectorAll('.pill-tabs[role="tablist"]')[0].querySelectorAll('button');
-  const colMap={sefarad:'var(--c-sefarad)',germany:'var(--c-germany)'};
+  const beitTabs=document.getElementById('beitdinTabs').querySelectorAll('button');
+  const colMap={sefarad:'var(--c-sefarad)',germany:'var(--c-germany)',france:'var(--c-france)'};
   function render(i){
     const c=cases[i];
     document.getElementById('pillQ').innerHTML=c.q;
+    document.getElementById('pillRow').className='pill-row'+(c.five?' five':'');
     document.getElementById('pillRow').innerHTML=c.votes.map((v,k)=>
-      `<div class="pcol${c.win.includes(k)?' win':''}" style="border-top:4px solid ${colMap[v[3]]}">
+      `<div class="pcol${c.five?' small':''}${c.win.includes(k)?' win':''}" style="border-top:4px solid ${colMap[v[3]]}">
         <div class="who" style="color:${colMap[v[3]]}">${v[0]}</div>
         <div class="vote">${v[1]}</div>
         <div class="why">${v[2]}</div>
       </div>`).join('');
     document.getElementById('pillV').innerHTML=c.v;
-    tabs.forEach((t,k)=>t.setAttribute('aria-selected',k===i?'true':'false'));
+    beitTabs.forEach((t,k)=>t.setAttribute('aria-selected',k===i?'true':'false'));
   }
-  tabs.forEach((t,k)=>t.addEventListener('click',()=>render(k)));
+  beitTabs.forEach((t,k)=>t.addEventListener('click',()=>render(k)));
   render(0);
 })();
 
@@ -1068,94 +1115,80 @@ ul.next li{margin-bottom:.6em}
   });
 })();
 
-/* ---------- printed-page explorers ---------- */
+/* ---------- printed-page explorers (real scans) ---------- */
 (function(){
   const INK='#262019',SOFT='#57503f',FR='#3d7ea6',GER='#2c4a8a',SEF='#a63024',PRO='#6e7d27',BAB='#a1771c',EAST='#b97613',POL='#6d4293';
 
   const talmudPage={
-    title:'A page of Talmud (Bomberg / Vilna layout)',
-    heb:{t:'מֵאֵימָתַי',x:33,y:11,w:33,s:19},
+    title:'Bava Kamma, folio 2a',
+    img:'assets/pg_talmud.jpg',
     regions:[
-      {id:'hdr',label:'Running head & folio number',txt:'BERAKHOT · FOLIO 2a',x:6,y:2.5,w:88,h:5,c:SOFT,
-       cap:'Daniel Bomberg’s first complete printed Talmud (Venice, 1519–23) fixed this layout and page numbering so firmly that no edition since has changed them. “Berakhot 2a” means the same page in Vilna, Brooklyn, or an app — a universal citation system invented by a printer.'},
-      {id:'ein',label:'Ein Mishpat',vert:1,x:2,y:10,w:5.5,h:84,c:BAB,lw:1.5,gap:8,
-       cap:'“Ein Mishpat — the Well of Judgment” (added in the 1540s): tiny marginal tags sending you from each passage to the exact spot where the Rif, the Rambam, the Semag, and the Tur / Shulchan Arukh decided it. The entire story of this website, printed in the corner of every Talmud page.'},
-      {id:'tos',label:'Tosafot',x:9.5,y:10,w:21.5,h:84,c:FR,lw:1.6,gap:5,
-       cap:'The Tosafot — the Franco-German school of the 1100s–1200s, many of them Rashi’s own descendants — cross-examining the text and frequently overruling grandfather. Printed in the smaller “Rashi script,” arguing on every page, forever.'},
-      {id:'gem',label:'Mishnah & Gemara',x:33,y:10,w:33,h:84,c:INK,lw:2.4,gap:7,
-       cap:'The center of gravity: the Mishnah (c. 200 CE) and the Gemara’s centuries of recorded debate — the argument without verdicts that this whole story sets out to decide. This page opens with the word Me’eimatai, “From when…?” — the tradition’s very first question.'},
-      {id:'rashi',label:'Rashi',x:68,y:10,w:30,h:84,c:FR,lw:1.6,gap:5,
-       cap:'Rashi’s running explanation (Troyes, d. 1105), set beside the text since the earliest printings — the door through which every beginner enters the argument.'}
+      {id:'hdr',label:'Running head',x:4,y:1,w:92,h:5,c:SOFT,
+       cap:'“Arba’ah Avot · Perek Rishon · Bava Kamma” — “Four Fathers, Chapter One, Bava Kamma.” Daniel Bomberg’s first complete printed Talmud (Venice, 1519–23) fixed this page’s layout and folio numbering so firmly that no edition since has changed them. “Bava Kamma 2a” means the same page in Vilna, Brooklyn, or an app.'},
+      {id:'ein',label:'Ein Mishpat',x:1,y:6,w:9,h:14,c:BAB,
+       cap:'“Ein Mishpat — the Well of Judgment” (added in the 1540s): tiny marginal tags sending you from this passage to the exact spot where the Rif, the Rambam, the Semag, and the Tur / Shulchan Arukh decided it. The entire story of this website, printed in the corner of every Talmud page.'},
+      {id:'tos',label:'Tosafot',x:1,y:20,w:23,h:78,c:FR,
+       cap:'The Tosafot — the Franco-German school of the 1100s–1200s, many of them Rashi’s own descendants — cross-examining this very passage. Printed in the outer column, arguing on every page, forever.'},
+      {id:'mishnah',label:'The Mishnah',x:25,y:6,w:37,h:14,c:INK,
+       cap:'The opening line of the entire tractate, and one of the most famous sentences in Jewish law: <em>“There are four primary categories of damage: the Ox, the Pit, the Grazer, and the Fire.”</em> Everything on this page — and much of this website — is commentary on that one sentence.'},
+      {id:'gem',label:'The Gemara',x:25,y:20,w:37,h:78,c:INK,
+       cap:'The Gemara’s discussion of the Mishnah’s opening line: why these four categories, what they have in common, and where the count of “four” actually comes from. The argument without a verdict — the very problem this whole site sets out to solve.'},
+      {id:'frame',label:'Decorative Mishnah frame',x:63,y:6,w:20,h:9,c:SOFT,
+       cap:'A decorative border boxing in the Mishnah’s opening word, “Arba’ah” (“Four”) — a small typographic flourish some early Venice printers used to mark where a new Mishnah begins.'},
+      {id:'chananel',label:'Rabbenu Chananel',x:63,y:16,w:35,h:74,c:SEF,
+       cap:'Here’s a wonderful accident of history: Rashi’s commentary — printed on every other page of the Talmud — is <strong>lost</strong> for the opening of Bava Kamma. So editions print <span class="g" data-def="Rabbenu Chananel (d. c. 1055): scholar of Kairouan, North Africa, and author of one of the first running commentaries on the whole Talmud.">Rabbenu Chananel’s</span> commentary here instead, a rare surviving witness to the pre-Rashi North African tradition, standing in for the door every other page uses to enter the text.'},
+      {id:'masoret',label:'Masoret HaShas',x:88,y:90,w:10,h:9,c:SOFT,
+       cap:'Cross-reference notes linking this passage to parallel discussions elsewhere in the Talmud — a citation index printed directly into the page.'}
     ]};
 
   const mtPage={
-    title:'A page of the Mishneh Torah',
-    heb:{t:'יְסוֹד הַיְסוֹדוֹת',x:25,y:11,w:50,s:15},
+    title:'Mishneh Torah, Laws of Property Damage, ch. 2',
+    img:'assets/pg_mt.jpg',
     regions:[
-      {id:'hdr',label:'Book & chapter heading',txt:'MISHNEH TORAH · FOUNDATIONS',x:6,y:2.5,w:88,h:5,c:SOFT,
-       cap:'Fourteen books, filed by topic — including whole realms no one could practice for a millennium. This is Book One, which opens: “The foundation of foundations and the pillar of wisdom…”'},
-      {id:'kesef',label:'Kesef Mishneh — Yosef Karo',x:3,y:10,w:20,h:84,c:EAST,lw:1.6,gap:5,
-       cap:'A commentary defending the Rambam against the Raavad’s attacks — written in Safed in the 1500s by Yosef Karo himself. The author of the Shulchan Arukh spent years working in the margins of the code that inspired his.'},
-      {id:'rmb',label:'The Rambam’s text',x:25,y:10,w:50,h:24,c:INK,lw:2.4,gap:7,
-       cap:'The Rambam’s text (c. 1180): all of Jewish law, stated flat, in crystalline Hebrew — no sources cited, no dissenting views recorded. The most audacious book of the Jewish Middle Ages.'},
-      {id:'raavad',label:'The Raavad’s gloss',x:27,y:35.5,w:46,h:8,c:PRO,lw:1.6,gap:4.6,
-       cap:'Provence’s objection, printed inside the monument itself: “he has ruled against the Talmud’s conclusion,” “why has he hidden his reasoning?” The argument, forcibly reinstalled — the exact move the Rema will repeat on Karo four centuries later.'},
-      {id:'rmb',label:'',x:25,y:44.5,w:50,h:19,c:INK,lw:2.4,gap:7,
-       cap:''},
-      {id:'hag',label:'Hagahot Maimoniyot',x:25,y:65,w:50,h:29,c:GER,lw:1.6,gap:5,
-       cap:'Glosses by Meir HaKohen of Rothenburg (Germany, late 1200s — a student of the Maharam), stitching Franco-German rulings onto the Sephardic code so Ashkenazi readers could use it too. Cross-tradition annotation, three centuries before the Mappah.'},
-      {id:'maggid',label:'Maggid Mishneh',x:77,y:10,w:20,h:84,c:SEF,lw:1.6,gap:5,
-       cap:'Maggid Mishneh (Vidal of Tolosa, Spain, 1300s): the missing footnotes — a whole commentary devoted to reconstructing which Talmudic sources the Rambam was silently relying on.'}
+      {id:'hdr',label:'Chapter heading',x:4,y:1,w:92,h:4.5,c:SOFT,
+       cap:'“Hilchot Nizkei Mamon” — the Laws of Property Damage — one of the fourteen books of the Mishneh Torah. This page carries the end of chapter one and the start of chapter two, restating in Rambam’s own words the Mishnah’s four categories of damage you just met on the Talmud page.'},
+      {id:'hag',label:'Marginal notes',x:1,y:6,w:20,h:10,c:GER,
+       cap:'Small cross-reference tags pointing to parallel rulings elsewhere in the Mishneh Torah — the printers’ way of letting a reader jump straight to a related law.'},
+      {id:'magid',label:'Magid Mishneh',x:1,y:17,w:20,h:80,c:SEF,
+       cap:'Magid Mishneh, by Vidal of Tolosa (Spain, 1300s): a whole commentary devoted to reconstructing which Talmudic sources the Rambam was silently relying on — the missing footnotes to a book that famously left them out.'},
+      {id:'rmb',label:'The Rambam’s text',x:23,y:6,w:54,h:91,c:INK,
+       cap:'The Rambam’s own words (c. 1180): all of Jewish law, stated flat, in crystalline Hebrew — no sources cited, no dissenting views recorded. The most audacious book of the Jewish Middle Ages, restating the Talmud’s four categories of damage as settled law.'},
+      {id:'ref',label:'Chapter cross-references',x:78,y:6,w:21,h:10,c:EAST,
+       cap:'Chapter-and-law citation numbers in the margin — a reference system that lets later commentators (and Karo himself) point precisely to “Hilchot Nizkei Mamon, chapter 2, law such-and-such.”'},
+      {id:'kesef',label:'Kesef Mishneh — Yosef Karo',x:78,y:17,w:21,h:80,c:EAST,
+       cap:'Kesef Mishneh: Yosef Karo’s own commentary defending the Rambam against the Raavad’s attacks, written in Safed in the 1500s. The author of the Shulchan Arukh spent years working in the margins of the code that inspired his — right here, on the very page you’re looking at.'}
     ]};
 
   const saPage={
-    title:'A page of the Shulchan Arukh',
-    heb:{t:'בָּשָׂר בְּחָלָב',x:26.5,y:11,w:66,s:15},
+    title:'Shulchan Arukh, Choshen Mishpat 390',
+    img:'assets/pg_sa.jpg',
     regions:[
-      {id:'hdr',label:'The address — the Tur’s grid',txt:'YOREH DE’AH · CHAPTER 87',x:6,y:2.5,w:88,h:5,c:SOFT,
-       cap:'The address system is the Tur’s: same four sections, same chapter numbers, carried from the Arba’ah Turim through the Beit Yosef into this book. “Yoreh De’ah 87” has meant meat-and-milk for six centuries.'},
-      {id:'shakh',label:'The Shakh (1646)',x:3,y:10,w:21,h:84,c:POL,lw:1.6,gap:4.6,
-       cap:'Siftei Kohen (“the Shakh”), by Shabbetai HaKohen of Vilna and Poland: the next generation’s deep commentary, re-testing Karo and the Rema against the Talmud. The conversation refusing to end.'},
-      {id:'karo',label:'Karo — the Set Table',x:26.5,y:10,w:66,h:20,c:INK,lw:2.4,gap:7,
-       cap:'Karo’s ruling (1565): short, decided, source-free. The receipts — every opinion from the Talmud onward — live back in his Beit Yosef. Sephardic practice broadly follows this plain text.'},
-      {id:'rema',label:'The Rema — the Tablecloth',x:28.5,y:31,w:62,h:8.5,c:GER,lw:1.7,gap:4.6,
-       cap:'Wherever Ashkenaz differs, the Rema interrupts — mid-paragraph if necessary — in the smaller “Rashi script,” flagged with the word hagah, “gloss.” Ashkenazi practice follows these interruptions; the two traditions share one page without erasing each other.'},
-      {id:'karo',label:'',x:26.5,y:40.5,w:66,h:13,c:INK,lw:2.4,gap:7,cap:''},
-      {id:'rema',label:'',x:28.5,y:54.5,w:62,h:5.5,c:GER,lw:1.7,gap:4.6,cap:''},
-      {id:'karo',label:'',x:26.5,y:61,w:66,h:9.5,c:INK,lw:2.4,gap:7,cap:''},
-      {id:'taz',label:'The Taz (1646)',x:26.5,y:72,w:66,h:22,c:POL,lw:1.6,gap:5,
-       cap:'Turei Zahav (“the Taz”), by David HaLevi of Poland — the Shakh’s lifelong rival, printed on the very same page. The two argue with Karo, with the Rema, and above all with each other.'},
-      {id:'beer',label:'Be’er HaGolah',vert:1,x:94.5,y:10,w:4,h:84,c:SOFT,lw:1.5,gap:8,
-       cap:'Marginal source-tags (Moses Rivkes, 1660s) quietly restoring the citations Karo left out — the Beit Yosef’s receipts, compressed to footnote size.'}
+      {id:'hdr',label:'The address — the Tur’s grid',x:3,y:1,w:94,h:5,c:SOFT,
+       cap:'“Choshen Mishpat, siman 390” — still on the Mishnah’s four categories of damage, now as Karo’s final ruling. The address system is the Tur’s: the same four sections, the same numbering, carried from the Arba’ah Turim through the Beit Yosef into this book.'},
+      {id:'sma',label:'The Sma',x:1,y:6,w:22,h:91,c:POL,
+       cap:'Sefer Meirat Einayim (“the Sma”), by Joshua Falk — the commentary whose whole method was putting sources and reasoning back in the margin beside Karo’s bare rulings. This is the move that won the war over the Set Table.'},
+      {id:'sa',label:'Karo’s ruling — with the Rema’s tablecloth woven in',x:24,y:6,w:52,h:91,c:INK,
+       cap:'The main text: Karo’s decided ruling on damages, with the Rema’s Ashkenazi glosses interleaved directly into the paragraph wherever practice differs — exactly the Set Table and Tablecloth this site has been telling you about, in the actual size and density they’re printed at.'},
+      {id:'shakh',label:'The Shakh & the Taz',x:77,y:6,w:22,h:91,c:POL,
+       cap:'Siftei Kohen (“the Shakh”) and Turei Zahav (“the Taz”) — the two great Polish commentaries on the Shulchan Arukh, lifelong rivals sharing one outer margin, arguing with Karo, with the Rema, and above all with each other.'}
     ]};
 
-  function mountPGX(mountId,pages){
+  function mountPGX(mountId,page){
     const mount=document.getElementById(mountId);
     if(!mount) return;
-    let cur=0;
-    function capFor(pg,id){return pg.regions.find(r=>r.id===id&&r.cap)}
     function render(){
-      const pg=pages[cur];
-      let tabs='';
-      if(pages.length>1){
-        tabs='<div class="pill-tabs" role="tablist" style="margin:.9rem 0 0">'+pages.map((p,i)=>
-          `<button role="tab" aria-selected="${i===cur}" data-t="${i}">${p.tab}</button>`).join('')+'</div>';
-      }
+      const pg=page;
       const regs=pg.regions.map(r=>{
-        const style=`left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%;--ln:${r.c};--lw:${r.lw||2}px;--gap:${r.gap||6}px;`;
-        const cls='pgr'+(r.txt?' txt':'')+(r.vert?' vert':'');
-        const lab=r.txt||r.label;
-        return `<div class="${cls}" role="button" tabindex="0" data-id="${r.id}" style="${style}" aria-label="${(r.label||r.id)}">${lab?`<b style="color:${r.c}">${lab}</b>`:''}</div>`;
+        const style=`left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%;`;
+        return `<div class="pgr photo" role="button" tabindex="0" data-id="${r.id}" style="${style}" aria-label="${r.label}"></div>`;
       }).join('');
-      const heb=pg.heb?`<div class="pgheb" style="left:${pg.heb.x}%;top:${pg.heb.y}%;width:${pg.heb.w}%;font-size:${pg.heb.s}px">${pg.heb.t}</div>`:'';
-      mount.innerHTML=tabs+`<div class="pgx-body"><div class="pgpage">${regs}${heb}</div>
-        <div class="pgcap" data-cap><h4>${pg.title}</h4><p style="color:var(--ink-soft)">Tap any block on the page to see what it is — and whose voice it carries.</p></div></div>`;
-      if(pages.length>1) mount.querySelectorAll('[data-t]').forEach(b=>b.addEventListener('click',()=>{cur=+b.dataset.t;render();}));
+      mount.innerHTML=`<div class="pgx-body"><div class="pgpage photo" style="background-image:url('${pg.img}')">${regs}</div>
+        <div class="pgcap" data-cap><h4>${pg.title}</h4><p style="color:var(--ink-soft)">Tap any region on the page to see what it is — and whose voice it carries.</p></div></div>`;
       mount.querySelectorAll('.pgr').forEach(el=>{
         const act=()=>{
-          const id=el.dataset.id, r=capFor(pg,id);
+          const id=el.dataset.id, r=pg.regions.find(rr=>rr.id===id);
           mount.querySelectorAll('.pgr').forEach(o=>o.classList.toggle('sel',o.dataset.id===id));
-          if(r) mount.querySelector('[data-cap]').innerHTML=`<h4 style="color:${r.c}">${r.label}</h4><p>${r.cap}</p>`;
+          if(r) mount.querySelector('[data-cap]').innerHTML=`<span class="tag" style="background:${r.c}">${r.label}</span><h4 style="color:${r.c}">${r.label}</h4><p>${r.cap}</p>`;
         };
         el.addEventListener('click',act);
         el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}});
@@ -1163,116 +1196,252 @@ ul.next li{margin-bottom:.6em}
     }
     render();
   }
-  mountPGX('pressPGX',[{tab:'A page of Talmud',...talmudPage},{tab:'A page of Mishneh Torah',...mtPage}]);
-  mountPGX('saPGX',[saPage]);
+  mountPGX('pressPGX',talmudPage);
+  mountPGX('mtPGX',mtPage);
+  mountPGX('saPGX',saPage);
 })();
 
-/* ---------- interactive era map ---------- */
+/* ---------- interactive era map (real medieval-style background) ---------- */
 (function(){
-  const mount=document.getElementById('eraMap');if(!mount)return;
-  const REG={
-    poland:{cx:640,cy:90,rx:130,ry:62,c:'#6d4293',lx:640,ly:60,label:'POLAND'},
-    germany:{cx:440,cy:140,rx:110,ry:58,c:'#2c4a8a',lx:440,ly:112,label:'GERMANY'},
-    france:{cx:300,cy:180,rx:105,ry:55,c:'#3d7ea6',lx:283,ly:150,label:'N. FRANCE'},
-    provence:{cx:330,cy:280,rx:85,ry:40,c:'#6e7d27',lx:352,ly:268,label:'PROVENCE'},
-    spain:{cx:150,cy:330,rx:115,ry:62,c:'#a63024',lx:130,ly:296,label:'SPAIN (SEFARAD)'},
-    nafrica:{cx:255,cy:415,rx:140,ry:38,c:'#a63024',lx:255,ly:452,label:'NORTH AFRICA'},
-    italy:{cx:462,cy:262,rx:58,ry:44,c:'#7d6a4f',lx:462,ly:236,label:'ITALY'},
-    babylon:{cx:790,cy:380,rx:115,ry:70,c:'#a1771c',lx:800,ly:425,label:'BABYLONIA'},
-    israel:{cx:655,cy:330,rx:55,ry:35,c:'#b97613',lx:655,ly:300,label:'LAND OF ISRAEL'}
-  };
+  const mapMount=document.getElementById('eraMap');if(!mapMount)return;
+  const W=1600,H=1066;
+  const SEF='#a63024',FR='#3d7ea6',GER='#2c4a8a',POL='#6d4293',PRO='#6e7d27',BAB='#a1771c',EAST='#b97613',IT='#7d6a4f';
+
+  // section anchors for a handful of figures, so map popups can jump into the story
+  const SECTION={'The Rif':'taming','Rashi':'taming','Rambam':'rambam','The Raavad':'rambam','The Rosh':'rosh',
+    'The Tur':'rosh','Yosef Karo':'karo','The Rema':'rema','Ramban':'rambam','Rashba':'rambam','The Meiri':'rambam',
+    'Maharshal':'fight','Joshua Falk':'fight','The Shakh':'fight','The Taz':'fight'};
+
   const eras=[
-   {tab:'600–1038 · One address',active:['babylon','israel','italy','nafrica'],
-    cap:'For four centuries every hard question travels to the academies of Baghdad, and answers travel back along the roads of the Abbasid Caliphate. Meanwhile, quietly, Italian Jewish settlers carrying old Land-of-Israel customs are founding the communities of the Rhineland — the seed of Ashkenaz, and of its reverence for custom.',
+   {title:'600–1038 · One address',
+    cap:'For four centuries every hard question travels to the academies of Baghdad, and answers travel back along the roads of the Abbasid Caliphate. Meanwhile, quietly, Italian Jewish settlers carrying old Land-of-Israel customs are founding the communities of the Rhineland — the seed of Ashkenaz.',
     cities:[
-      {n:'Sura & Pumbedita',w:'The Geonim — supreme court of the Jewish world',x:815,y:380,c:'#a1771c',a:'start'},
-      {n:'Tiberias',w:'the smaller, rival Geonate of the Land of Israel',x:648,y:322,c:'#b97613',a:'start'},
-      {n:'Kairouan',w:'wealthy North African hub; later home of Rabbenu Chananel',x:332,y:418,c:'#a63024',a:'start'},
-      {n:'Córdoba',w:'a rival caliphate (929) — and rising scholars of its own',x:140,y:345,c:'#a63024',a:'start'},
-      {n:'Rome & the south',w:'Italy: conduit of Land-of-Israel customs toward the Rhineland',x:462,y:268,c:'#7d6a4f',a:'start'}],
+      {n:'Sura & Pumbedita',edge:1,x:1585,y:660,c:BAB,head:'The capital of the Jewish world',figures:['The Geonim','Saadia Gaon','Hai Gaon'],blurb:'For four hundred years, every hard legal question in the Jewish world was sent here by caravan — and the answer came back as a responsum.'},
+      {n:'Tiberias',x:1015,y:760,c:EAST,head:'The smaller, rival center',figures:[],blurb:'The Land-of-Israel academy — smaller and less influential than Babylonia, but the source of the older customs Ashkenaz would later inherit.'},
+      {n:'Kairouan',x:420,y:900,c:SEF,head:'North Africa’s rising hub',figures:['Rabbenu Chananel'],blurb:'A wealthy North African community that stopped waiting for Baghdad’s answers — soon home to one of the first full Talmud commentators.'},
+      {n:'Córdoba',x:250,y:650,c:SEF,head:'A rival caliphate declares itself',figures:[],blurb:'In 929 Córdoba declared its own caliphate, rivaling Baghdad — and its Jewish community began cultivating scholars of its own.'},
+      {n:'Rome & the south',x:580,y:640,c:IT,head:'The quiet conduit',figures:['Rabbenu Gershom'],blurb:'Italian Jewish merchants carried old Land-of-Israel customs north into the Rhineland — the seed of everything Ashkenaz becomes.'}
+    ],
     arrows:[
-      {d:'M760,372 C620,400 460,420 360,418',c:'#a1771c',dash:1},
-      {d:'M745,368 C520,370 300,360 175,345',c:'#a1771c',dash:1},
-      {d:'M462,246 C455,205 448,180 442,158',c:'#7d6a4f',dash:1}]},
-   {tab:'950–1100 · The scattering',active:['spain','nafrica','germany','france','babylon'],
-    cap:'Baghdad falls silent, and communities take the Talmud into their own hands: the first full commentaries appear almost simultaneously in Kairouan and Mainz. The Rif distills the Talmud in Fez (fleeing to Spain in 1088); Rashi, trained in the Rhineland, explains it in Troyes. The two temperaments of the next five centuries are born.',
+      {d:'M1560,655 C1200,700 700,760 440,895',c:BAB,dash:1},
+      {d:'M1000,755 C750,760 550,820 430,895',c:EAST,dash:1},
+      {d:'M580,625 C570,540 560,470 555,435',c:IT,dash:1}
+    ]},
+   {title:'950–1100 · The scattering',
+    cap:'Baghdad falls silent, and communities take the Talmud into their own hands: the first full commentaries appear almost simultaneously in Kairouan and Mainz. The Rif distills the Talmud in Fez (fleeing to Spain in 1088); Rashi, trained in the Rhineland, explains it in Troyes.',
     cities:[
-      {n:'Kairouan',w:'Rabbenu Chananel — among the first full Talmud commentaries',x:332,y:418,c:'#a63024',a:'start'},
-      {n:'Fez',w:'the Rif — until his flight in 1088',x:215,y:422,c:'#a63024',a:'start'},
-      {n:'Lucena',w:'the Rif’s academy: his circle taught the teacher of Rambam’s father',x:158,y:342,c:'#a63024',a:'start'},
-      {n:'Mainz & Worms',w:'Rabbenu Gershom’s academies — the cradle of Ashkenaz',x:430,y:150,c:'#2c4a8a',a:'start'},
-      {n:'Troyes',w:'Rashi',x:290,y:172,c:'#3d7ea6',a:'start'}],
+      {n:'Kairouan',x:420,y:900,c:SEF,head:'A first full commentary',figures:['Rabbenu Chananel'],blurb:'Among the first running commentaries on the whole Talmud — a bridge from the Geonim to the new regional world.'},
+      {n:'Fez',x:150,y:880,c:SEF,head:'Home of the “little Talmud”',figures:['The Rif'],blurb:'The Rif distills the Talmud to its binding conclusions here — until his flight to Spain in 1088.'},
+      {n:'Lucena',x:270,y:660,c:SEF,head:'The Rif’s academy',figures:['The Rif'],blurb:'His circle here taught the teacher of Rambam’s father — a direct line of masters to the next great codifier.'},
+      {n:'Mainz & Worms',x:560,y:430,c:GER,head:'The cradle of Ashkenaz',figures:['Rabbenu Gershom'],blurb:'Rabbenu Gershom’s academies here trained the teachers of Rashi himself.'},
+      {n:'Troyes',x:460,y:440,c:FR,head:'Rashi explains everything',figures:['Rashi'],blurb:'Rashi writes his running commentary on nearly the whole Talmud — the door every beginner still uses to enter the text.'}
+    ],
     arrows:[
-      {d:'M218,415 C235,392 210,368 172,350',c:'#a63024'},
-      {d:'M300,166 C340,150 385,146 418,148',c:'#3d7ea6',dash:1}]},
-   {tab:'1100–1306 · Codes & fires',active:['france','germany','provence','spain'],
+      {d:'M155,865 C200,790 240,720 265,675',c:SEF},
+      {d:'M455,435 C500,435 530,432 555,431',c:FR,dash:1}
+    ]},
+   {title:'1100–1306 · Codes & fires',
     cap:'The high middle ages: Tosafist France argues, Provence critiques, Rambam codifies from Egyptian exile after fleeing the Almohads — while Christian Europe turns: crusade massacres in the Rhineland, the Talmud burned in Paris (1242), and in 1306 the expulsion that ends Jewish France.',
     cities:[
-      {n:'Ramerupt',w:'Rabbenu Tam & the Tosafists',x:308,y:152,c:'#3d7ea6',a:'start'},
-      {n:'Paris',w:'the Talmud tried (1240) and burned (1242); the Semag written in its shadow',x:262,y:180,c:'#3d7ea6',a:'end'},
-      {n:'Rothenburg',w:'the Maharam — seized 1286, died imprisoned 1293',x:455,y:158,c:'#2c4a8a',a:'start'},
-      {n:'Posquières',w:'the Raavad, the great annotator',x:332,y:286,c:'#6e7d27',a:'start'},
-      {n:'Perpignan',w:'the Meiri — the masterpiece that missed the press',x:290,y:308,c:'#6e7d27',a:'end'},
-      {n:'Barcelona & Girona',w:'R. Jonah → Ramban → Rashba: the bridge school',x:222,y:306,c:'#a63024',a:'start'},
-      {n:'Córdoba',w:'Rambam’s birthplace — his family fled the Almohads, 1148',x:140,y:345,c:'#a63024',a:'start'},
-      {n:'Cairo',w:'Rambam’s refuge; the Mishneh Torah, c. 1178',x:620,y:398,c:'#a1771c',a:'start'}],
+      {n:'Ramerupt',x:470,y:450,c:FR,head:'The Tosafists’ heart',figures:['Rabbenu Tam'],blurb:'Rashi’s grandson leads the school that argues with the whole Talmud at once — and often overrules grandfather.'},
+      {n:'Paris',end:1,x:420,y:410,c:FR,head:'The Talmud on trial',figures:[],blurb:'Tried in 1240, burned by the wagonload in 1242. The Semag is written in the shadow of the fire.'},
+      {n:'Rothenburg',x:590,y:465,c:GER,head:'Germany’s last giant',figures:[],blurb:'The Maharam of Rothenburg — seized in 1286, died imprisoned in 1293.'},
+      {n:'Posquières',x:460,y:545,c:PRO,head:'The great annotator',figures:['The Raavad'],blurb:'The Raavad writes his stinging critical glosses on the Rif and the Mishneh Torah here.'},
+      {n:'Perpignan',end:1,x:440,y:565,c:PRO,head:'The masterpiece that missed the press',figures:['The Meiri'],blurb:'The Meiri’s serene digest of the whole Talmud — unread for six centuries because it never reached print.'},
+      {n:'Barcelona & Girona',x:430,y:560,c:SEF,head:'The bridge school',figures:['Ramban','Rashba'],blurb:'R. Jonah, then Ramban, then the Rashba — three generations making Spain fluent in French dialectic.'},
+      {n:'Córdoba',x:250,y:650,c:SEF,head:'Rambam’s birthplace',figures:['Rambam'],blurb:'His family flees the fundamentalist Almohads in 1148, beginning years of wandering.'},
+      {n:'Cairo',x:890,y:930,c:BAB,head:'The monument is written',figures:['Rambam'],blurb:'Rambam’s refuge under Saladin’s protection — and the birthplace of the Mishneh Torah, c. 1178.'}
+    ],
     arrows:[
-      {d:'M148,352 C260,430 460,430 605,400',c:'#a63024'},
-      {d:'M300,162 C270,220 240,260 226,298',c:'#3d7ea6',dash:1}]},
-   {tab:'1300–1492 · Flight & merger',active:['germany','spain','poland','provence'],
-    cap:'Two migrations write this act. The Rosh carries the Tosafist tradition from Worms into the heart of Sefarad (1303), where his son the Tur files both worlds into four columns. And Ashkenaz itself drains eastward into Poland after the Black Death massacres. In Spain the ground is already shaking: riots in 1391, the Inquisition from 1478.',
+      {d:'M255,645 C420,720 700,820 875,915',c:SEF},
+      {d:'M415,405 C430,460 445,500 455,540',c:FR,dash:1}
+    ]},
+   {title:'1300–1492 · Flight & merger',
+    cap:'Two migrations write this act. The Rosh carries the Tosafist tradition from Worms into the heart of Sefarad (1303), where his son the Tur files both worlds into four columns. Ashkenaz itself drains eastward into Poland after the Black Death massacres. In Spain the ground is already shaking: riots in 1391, the Inquisition from 1478.',
     cities:[
-      {n:'Worms',w:'the Rosh’s home — abandoned 1303',x:428,y:152,c:'#2c4a8a',a:'start'},
-      {n:'Toledo',w:'the Rosh & the Tur: the first merger of the traditions',x:165,y:316,c:'#a63024',a:'start'},
-      {n:'Barcelona',w:'the Ran — last giant of the bridge school',x:222,y:306,c:'#a63024',a:'start'},
-      {n:'Kraków',w:'Ashkenaz’s new capital, growing',x:650,y:95,c:'#6d4293',a:'start'}],
+      {n:'Worms',x:555,y:435,c:GER,head:'Abandoned, 1303',figures:['The Rosh'],blurb:'The Rosh flees Germany for Toledo, carrying the whole Tosafist tradition south with him.'},
+      {n:'Toledo',x:310,y:600,c:SEF,head:'The first true merger',figures:['The Rosh','The Tur'],blurb:'The Rosh and his son the Tur file both traditions into one book, one filing system, one conversation.'},
+      {n:'Barcelona',x:430,y:560,c:SEF,head:'The bridge school’s last giant',figures:['Rashba'],blurb:'The Ran carries the Barcelona tradition into the century of the expulsion.'},
+      {n:'Kraków',x:820,y:315,c:POL,head:'Ashkenaz’s new capital, growing',figures:[],blurb:'As German Jewry is decimated, the center of Ashkenazi life shifts east into Poland–Lithuania.'}
+    ],
     arrows:[
-      {d:'M425,162 C330,220 240,262 178,308',c:'#2c4a8a'},
-      {d:'M458,132 C520,105 580,95 635,93',c:'#2c4a8a',dash:1}]},
-   {tab:'1492–1600 · Print & the Table',active:['israel','babylon','poland','italy','spain'],
-    cap:'Spain’s exiles carry both Torah and printing presses east — Constantinople gets the Ottoman Empire’s first press within about a year of the expulsion. Venice standardizes the Talmud’s very page (1519–23) and prints the Shulchan Arukh (1565); Safed writes it; Kraków answers with the Mappah. The century closes with one book — Sephardic table, Ashkenazi tablecloth — on every table from Amsterdam to Aleppo.',
+      {d:'M550,440 C460,490 380,540 320,590',c:GER},
+      {d:'M580,410 C650,370 730,340 810,318',c:GER,dash:1}
+    ]},
+   {title:'1492–1600 · Print & the Set Table',
+    cap:'Spain’s exiles carry both Torah and printing presses east — Constantinople gets the Ottoman Empire’s first press within about a year of the expulsion. Venice standardizes the Talmud’s very page (1519–23) and prints the Shulchan Arukh (1565); Safed writes it; Kraków answers with the Mappah.',
     cities:[
-      {n:'Toledo',w:'expulsion, 1492 — eight centuries of Iberian Jewry scattered',x:165,y:316,c:'#a63024',a:'start'},
-      {n:'Venice',w:'Bomberg’s printed Talmud (1519–23); the Shulchan Arukh printed 1565',x:465,y:252,c:'#7d6a4f',a:'start'},
-      {n:'Constantinople',w:'exiles found the Ottoman Empire’s first printing press, c. 1493',x:702,y:295,c:'#b97613',a:'start'},
-      {n:'Salonika',w:'refugee metropolis and printing center',x:612,y:282,c:'#b97613',a:'end'},
-      {n:'Safed',w:'Yosef Karo: the Beit Yosef and the Shulchan Arukh',x:655,y:332,c:'#b97613',a:'start'},
-      {n:'Kraków',w:'the Rema — and the presses that printed his Mappah',x:650,y:95,c:'#6d4293',a:'start'}],
+      {n:'Toledo',x:310,y:600,c:SEF,head:'Expulsion, 1492',figures:[],blurb:'Eight centuries of Iberian Jewish civilization scattered across the Mediterranean within weeks.'},
+      {n:'Venice',x:600,y:545,c:IT,head:'The page is standardized',figures:[],blurb:'Daniel Bomberg’s printed Talmud (1519–23) and, later, the Shulchan Arukh itself (1565) — both born here.'},
+      {n:'Constantinople',x:1080,y:555,c:EAST,head:'The presses move east',figures:[],blurb:'Exiles found the Ottoman Empire’s first printing press within about a year of the expulsion.'},
+      {n:'Salonika',end:1,x:960,y:575,c:EAST,head:'Refugee metropolis',figures:[],blurb:'A new center of printing and learning, filled with Spain’s exiled scholars.'},
+      {n:'Safed',x:1020,y:775,c:EAST,head:'The Set Table is written',figures:['Yosef Karo'],blurb:'Yosef Karo writes the Beit Yosef and the Shulchan Arukh in this small Galilean hill town.'},
+      {n:'Kraków',x:820,y:315,c:POL,head:'The tablecloth is woven',figures:['The Rema'],blurb:'The Rema’s Mappah is printed here, weaving Ashkenazi law into Karo’s Sephardic code.'}
+    ],
     arrows:[
-      {d:'M175,310 C380,240 560,225 648,320',c:'#a63024'},
-      {d:'M180,306 C400,215 580,235 692,288',c:'#a63024',dash:1},
-      {d:'M472,244 C540,190 600,140 640,105',c:'#7d6a4f',dash:1},
-      {d:'M475,258 C540,290 600,315 642,328',c:'#7d6a4f',dash:1}]}
+      {d:'M315,595 C550,680 850,760 1010,780',c:SEF},
+      {d:'M320,590 C600,650 900,610 1065,565',c:SEF,dash:1},
+      {d:'M605,530 C700,450 780,380 810,325',c:IT,dash:1},
+      {d:'M610,540 C750,600 900,650 1010,770',c:IT,dash:1}
+    ]}
   ];
-  const tabs=document.getElementById('eraTabs'),cap=document.getElementById('eraCap');
-  let cur=0;
-  tabs.innerHTML=eras.map((e,i)=>`<button role="tab" aria-selected="${i===cur}" data-e="${i}">${e.tab}</button>`).join('');
-  tabs.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{cur=+b.dataset.e;render();}));
+
+  const slider=document.getElementById('eraSlider'),prev=document.getElementById('eraPrev'),
+        next=document.getElementById('eraNext'),titleEl=document.getElementById('eraTitle'),
+        capEl=document.getElementById('eraCap');
+  let cur=0,popEl=null;
+
+  function edgeOrDot(c){
+    if(c.edge) return `<div class="edgemarker" style="left:${c.x/W*100}%;top:${c.y/H*100}%" data-city="${c.n}">${c.n} →</div>`;
+    const label=`<div class="citylabel" data-city="${c.n}" style="left:${c.x/W*100}%;top:${c.y/H*100}%;--lx:${c.end?'-108%':'12px'}">${c.n}</div>`;
+    const dot=`<div class="citydot" data-city="${c.n}" style="left:${c.x/W*100}%;top:${c.y/H*100}%;background:${c.c}"></div>`;
+    return dot+label;
+  }
+
   function render(){
     const e=eras[cur];
-    tabs.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-selected',i===cur?'true':'false'));
-    let s=`<svg viewBox="0 0 920 470" role="img" aria-label="Map of the Jewish world, ${e.tab}">`;
-    s+=`<defs><marker id="arrE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>`;
-    for(const k in REG){const r=REG[k],on=e.active.includes(k);
-      s+=`<ellipse cx="${r.cx}" cy="${r.cy}" rx="${r.rx}" ry="${r.ry}" fill="${r.c}" opacity="${on?0.18:0.05}"/>`;
-      s+=`<text class="bandlab" x="${r.lx}" y="${r.ly}" fill="${r.c}" opacity="${on?1:0.3}" text-anchor="middle">${r.label}</text>`;}
-    e.arrows.forEach(a=>{s+=`<path d="${a.d}" fill="none" stroke="${a.c}" stroke-width="${a.dash?2.2:2.8}" ${a.dash?'stroke-dasharray="6 5"':''} opacity=".85" marker-end="url(#arrE)"/>`});
-    e.cities.forEach(c=>{
-      const end=c.a==='end';
-      s+=`<g><title>${c.n} — ${c.w}</title>
-        <circle cx="${c.x}" cy="${c.y}" r="5" fill="${c.c}" stroke="#f9f3e1" stroke-width="1.5"/>
-        <text x="${c.x+(end?-9:9)}" y="${c.y+4}" text-anchor="${end?'end':'start'}" font-family="Archivo,sans-serif" font-size="11.5" font-weight="600" fill="#262019">${c.n}</text>
-        <text x="${c.x+(end?-9:9)}" y="${c.y+16}" text-anchor="${end?'end':'start'}" font-family="Archivo,sans-serif" font-size="9" font-weight="500" fill="#57503f">${c.w.length>46?c.w.slice(0,44)+'…':c.w}</text></g>`;});
-    s+=`</svg>`;
-    mount.innerHTML=s;
-    cap.textContent=e.cap;
+    titleEl.textContent=e.title;
+    capEl.textContent=e.cap;
+    slider.value=cur;
+    prev.disabled=cur===0; next.disabled=cur===eras.length-1;
+
+    let svg=`<svg class="overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
+      <defs><marker id="arrE${cur}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>`;
+    e.arrows.forEach(a=>{
+      svg+=`<path class="mig" d="${a.d}" fill="none" stroke="${a.c}" stroke-width="${a.dash?5:7}" ${a.dash?'stroke-dasharray="14 12"':''} opacity=".8" marker-end="url(#arrE${cur})"/>`;
+    });
+    svg+=`</svg>`;
+
+    const dots=e.cities.map(edgeOrDot).join('');
+    mapMount.innerHTML=`<img class="mapimg" src="assets/map.jpg" alt="Stylized medieval-style map of Europe, North Africa, and the Near East">
+      <div class="eralayer on">${svg}${dots}</div>
+      <div class="mapPop" id="mapPop"></div>`;
+
+    mapMount.querySelectorAll('.citydot,.edgemarker').forEach(el=>{
+      el.addEventListener('click',ev=>{ev.stopPropagation();showCityPopup(e,el.dataset.city,el);});
+    });
   }
+
+  function findFigureText(name){
+    // pulls from the shared reference-desk dataset if available
+    if(window.__lookupFind){
+      const f=window.__lookupFind(name);
+      if(f) return f.x;
+    }
+    return '';
+  }
+
+  function showCityPopup(era,cityName,anchorEl){
+    const city=era.cities.find(c=>c.n===cityName);
+    if(!city) return;
+    const pop=mapMount.querySelector('#mapPop');
+    pop.style.setProperty('--lc',city.c);
+    pop.style.borderColor=city.c;
+    renderCityView(pop,era,city);
+    // position near the marker, staying inside bounds
+    const mr=mapMount.getBoundingClientRect();
+    const ar=anchorEl.getBoundingClientRect();
+    let left=ar.left-mr.left+16, top=ar.top-mr.top+16;
+    if(left+286>mr.width) left=Math.max(6,ar.left-mr.left-286);
+    if(top+220>mr.height) top=Math.max(6,mr.height-226);
+    pop.style.left=left+'px'; pop.style.top=top+'px';
+    pop.classList.add('show');
+    mapMount.querySelectorAll('.citydot').forEach(d=>d.classList.toggle('sel',d.dataset.city===cityName));
+  }
+  function renderCityView(pop,era,city){
+    const figs=(city.figures||[]).map(f=>`<button data-fig="${f}">${f}</button>`).join('');
+    pop.innerHTML=`<button class="x" aria-label="Close">×</button>
+      <div class="meta">${era.title.split(' · ')[0]}</div>
+      <h4 style="color:${city.c}">${city.n}${city.head?' — '+city.head:''}</h4>
+      <p>${city.blurb||''}</p>
+      ${figs?`<div class="row">${figs}</div>`:''}`;
+    pop.querySelector('.x').addEventListener('click',()=>pop.classList.remove('show'));
+    pop.querySelectorAll('[data-fig]').forEach(b=>b.addEventListener('click',()=>renderFigureView(pop,era,city,b.dataset.fig)));
+  }
+  function renderFigureView(pop,era,city,figName){
+    const text=findFigureText(figName)||'More on this figure is in the reference desk.';
+    const sec=SECTION[figName];
+    pop.innerHTML=`<button class="x" aria-label="Close">×</button>
+      <button class="back">‹ back to ${city.n}</button>
+      <h4 style="color:${city.c}">${figName}</h4>
+      <p>${text}</p>
+      <div class="row">
+        ${sec?`<button data-jump="${sec}">Read this chapter</button>`:''}
+        <button data-lookup="${figName}">Open in reference desk</button>
+      </div>`;
+    pop.querySelector('.x').addEventListener('click',()=>pop.classList.remove('show'));
+    pop.querySelector('.back').addEventListener('click',()=>renderCityView(pop,era,city));
+    const jumpBtn=pop.querySelector('[data-jump]');
+    if(jumpBtn) jumpBtn.addEventListener('click',()=>{pop.classList.remove('show');document.getElementById(sec).scrollIntoView({behavior:'smooth'});});
+    pop.querySelector('[data-lookup]').addEventListener('click',()=>{
+      pop.classList.remove('show');
+      if(window.__openLookupModal){window.__openLookupModal();setTimeout(()=>{if(window.__lookupShow)window.__lookupShow(figName);},120);}
+    });
+  }
+
+  document.addEventListener('click',ev=>{
+    if(!mapMount.contains(ev.target)){
+      const p=mapMount.querySelector('#mapPop'); if(p) p.classList.remove('show');
+    }
+  });
+  slider.addEventListener('input',()=>{cur=+slider.value;render();});
+  prev.addEventListener('click',()=>{if(cur>0){cur--;render();}});
+  next.addEventListener('click',()=>{if(cur<eras.length-1){cur++;render();}});
   render();
+
+  /* ---------- floating minimap synced to scroll ---------- */
+  const mm=document.getElementById('minimap');
+  const mmMount=document.getElementById('minimapMount');
+  if(mm&&mmMount){
+    mmMount.innerHTML=`<img src="assets/map.jpg" alt=""><div class="mmdot" id="mmDot"></div><div class="mmlabel" id="mmLabel"></div>`;
+    const mmDot=document.getElementById('mmDot'),mmLabel=document.getElementById('mmLabel');
+    // section id -> approximate map position (percent) + label
+    const REGION_POS={
+      problem:[50,50,'The argument'], geonim:[99,62,'Babylonia'], worlds:[50,45,'The three worlds'],
+      taming:[29,41,'France & Sefarad'], rambam:[16,61,'Córdoba → Cairo'], rosh:[35,41,'Germany → Toledo'],
+      press:[38,51,'Venice'], karo:[64,73,'Toledo → Safed'], rema:[51,30,'Kraków'],
+      fight:[51,30,'Poland'], chain:[50,45,'The whole map'], end:[50,45,'']
+    };
+    let curSec=null,animTimer=null;
+    function setDot(xPct,yPct,label){
+      mmDot.style.left=xPct+'%'; mmDot.style.top=yPct+'%'; mmLabel.textContent=label;
+    }
+    function animateKaro(){
+      // Toledo -> Safed sweep, matching "Catastrophe, then the Set Table"
+      const toledo=[310/W*100,600/H*100], safed=[1020/W*100,775/H*100];
+      let t=0; clearInterval(animTimer);
+      setDot(toledo[0],toledo[1],'Toledo, 1492');
+      animTimer=setInterval(()=>{
+        t+=0.05;
+        if(t>=1){clearInterval(animTimer);setDot(safed[0],safed[1],'Safed');return;}
+        const x=toledo[0]+(safed[0]-toledo[0])*t, y=toledo[1]+(safed[1]-toledo[1])*t;
+        setDot(x,y,t<0.5?'Toledo → Safed…':'…Toledo → Safed');
+      },90);
+    }
+    const secIds=Object.keys(REGION_POS);
+    const secTargets=secIds.map(id=>document.getElementById(id)).filter(Boolean);
+    const mmIo=new IntersectionObserver(entries=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          const id=en.target.id;
+          if(id===curSec) return;
+          curSec=id;
+          if(id==='karo'){ animateKaro(); }
+          else { clearInterval(animTimer); const [x,y,label]=REGION_POS[id]; setDot(x,y,label); }
+        }
+      });
+    },{rootMargin:'-35% 0px -55% 0px',threshold:0});
+    secTargets.forEach(t=>mmIo.observe(t));
+    const heroEl=document.getElementById('top');
+    const showIo=new IntersectionObserver(entries=>{
+      entries.forEach(en=>mm.classList.toggle('show',!en.isIntersecting));
+    },{rootMargin:'0px'});
+    if(heroEl) showIo.observe(heroEl);
+  }
 })();
 
-/* ---------- reference desk search ---------- */
+/* ---------- reference desk search (shared engine, two mounts) ---------- */
 (function(){
-  const input=document.getElementById('lkInput');if(!input)return;
   const C={bab:'#a1771c',sef:'#a63024',prov:'#6e7d27',fr:'#3d7ea6',ger:'#2c4a8a',pol:'#6d4293',east:'#b97613',it:'#7d6a4f',x:'#57503f'};
   const RN={bab:'Babylonia',sef:'Sefarad',prov:'Provence',fr:'France (Ashkenaz)',ger:'Germany (Ashkenaz)',pol:'Poland',east:'The Ottoman East',it:'Italy',x:''};
   const D=[
@@ -1342,39 +1511,186 @@ ul.next li{margin-bottom:.6em}
   {n:'Rishonim and Acharonim',a:['Rishonim','Acharonim'],t:'term',r:'x',d:'',x:'“The early ones / the later ones”: the medieval authorities up to roughly the Shulchan Arukh, and everyone after. Karo is often treated as the boundary line itself — a measure of what his book became.',rel:['Shulchan Arukh']},
   {n:'Kabbalah',t:'term',r:'east',d:'',x:'Jewish mysticism. Safed in Karo’s day was its world capital, and the kabbalists’ swift embrace of the Shulchan Arukh helped speed its acceptance in the east.',rel:['Yosef Karo','Maggid Mesharim']}
   ];
-  const chipsEl=document.getElementById('lkChips'),card=document.getElementById('lkCard');
-  const norm=s=>s.toLowerCase().replace(/[’'".,\-]/g,'').replace(/^the /,'').trim();
+  const norm=s=>s.toLowerCase().replace(/[\u2019'".,\-]/g,'').replace(/^the /,'').trim();
   const find=name=>D.find(e=>norm(e.n)===norm(name)||(e.a||[]).some(a=>norm(a)===norm(name)));
   function matches(q){
     q=norm(q);if(!q)return[];
     return D.filter(e=>norm(e.n).includes(q)||(e.a||[]).some(a=>norm(a).includes(q))).slice(0,8);
   }
-  function chips(list,label){
-    chipsEl.innerHTML=list.map(e=>`<button data-n="${e.n}">${e.n}</button>`).join('');
-    chipsEl.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.n)));
-  }
-  function show(name){
-    const e=find(name);if(!e)return;
-    card.style.display='block';
-    card.style.setProperty('--lc',C[e.r]||C.x);
-    const region=RN[e.r]?` · ${RN[e.r]}`:'';
-    const rel=(e.rel||[]).filter(find).map(r=>`<button class="relbtn" data-n="${r}">${r}</button>`).join(', ');
-    card.innerHTML=`<h3>${e.n} <span class="lk-type">${e.t.toUpperCase()}</span></h3>
-      <div class="meta">${e.d?e.d:''}${region}</div>
-      <p>${e.x}</p>${rel?`<p style="font-size:.92rem"><b style="font-family:Archivo,sans-serif;font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft)">SEE ALSO:</b> ${rel}</p>`:''}`;
-    card.querySelectorAll('.relbtn').forEach(b=>b.addEventListener('click',()=>show(b.dataset.n)));
-  }
   const defaults=['Rambam','Rashi','Yosef Karo','The Rema','Tosafot','Shulchan Arukh','Responsa','The Shakh'].map(find).filter(Boolean);
-  chips(defaults);
-  input.addEventListener('input',()=>{
-    const m=matches(input.value);
-    if(input.value.trim()==='' ){chips(defaults);card.style.display='none';return;}
-    chips(m);
-    if(m.length===1)show(m[0].n);
+
+  function initLookup(inputId,chipsId,cardId){
+    const input=document.getElementById(inputId);
+    const chipsEl=document.getElementById(chipsId);
+    const card=document.getElementById(cardId);
+    if(!input||!chipsEl||!card) return null;
+    function chips(list){
+      chipsEl.innerHTML=list.map(e=>`<button data-n="${e.n}">${e.n}</button>`).join('');
+      chipsEl.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>show(b.dataset.n)));
+    }
+    function show(name){
+      const e=find(name);if(!e)return;
+      card.style.display='block';
+      card.style.setProperty('--lc',C[e.r]||C.x);
+      const region=RN[e.r]?` · ${RN[e.r]}`:'';
+      const rel=(e.rel||[]).filter(find).map(r=>`<button class="relbtn" data-n="${r}">${r}</button>`).join(', ');
+      card.innerHTML=`<h3>${e.n} <span class="lk-type">${e.t.toUpperCase()}</span></h3>
+        <div class="meta">${e.d?e.d:''}${region}</div>
+        <p>${e.x}</p>${rel?`<p style="font-size:.92rem"><b style="font-family:Archivo,sans-serif;font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft)">SEE ALSO:</b> ${rel}</p>`:''}`;
+      card.querySelectorAll('.relbtn').forEach(b=>b.addEventListener('click',()=>show(b.dataset.n)));
+    }
+    chips(defaults);
+    input.addEventListener('input',()=>{
+      const m=matches(input.value);
+      if(input.value.trim()===''){chips(defaults);card.style.display='none';return;}
+      chips(m);
+      if(m.length===1)show(m[0].n);
+    });
+    input.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){const m=matches(input.value);if(m.length)show(m[0].n);}
+    });
+    return {show,focus:()=>input.focus()};
+  }
+
+  const inlineLookup=initLookup('lkInput','lkChips','lkCard');
+  const modalLookup=initLookup('lkInput2','lkChips2','lkCard2');
+  window.__lookupFind = find;
+  window.__lookupShow = name=>{ if(modalLookup) modalLookup.show(name); };
+
+  const modal=document.getElementById('lkModal');
+  if(modal){
+    function openModal(){
+      modal.classList.add('open');
+      document.body.style.overflow='hidden';
+      setTimeout(()=>modalLookup&&modalLookup.focus(),50);
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      document.body.style.overflow='';
+    }
+    window.__openLookupModal = openModal;
+    modal.querySelector('.x').addEventListener('click',closeModal);
+    modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal();});
+  }
+})();
+
+/* ---------- portrait medallions ---------- */
+(function(){
+  function medallion(hat,beard,col){
+    const ink="#2a2119", paper="#f0e4c4"; const p=[];
+    p.push(`<circle cx="40" cy="40" r="37" fill="${paper}" stroke="${col}" stroke-width="3"/>`);
+    p.push(`<circle cx="40" cy="40" r="32.5" fill="none" stroke="${ink}" stroke-width="0.8" opacity="0.5"/>`);
+    p.push(`<path d="M14,74 C16,58 26,50 40,50 C54,50 64,58 66,74 Z" fill="${col}"/>`);
+    p.push(`<path d="M40,52 L40,72 M30,55 L27,72 M50,55 L53,72" stroke="${ink}" stroke-width="1" opacity="0.45" fill="none"/>`);
+    p.push(`<path d="M33,52 L40,60 L47,52" fill="none" stroke="${paper}" stroke-width="1.4"/>`);
+    p.push(`<ellipse cx="40" cy="36" rx="12.5" ry="14" fill="${paper}" stroke="${ink}" stroke-width="1.4"/>`);
+    p.push(`<path d="M33.5,33 q2.5,-2 5,0 M41.5,33 q2.5,-2 5,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
+    p.push(`<circle cx="35.8" cy="34.6" r="1.1" fill="${ink}"/><circle cx="44.2" cy="34.6" r="1.1" fill="${ink}"/>`);
+    p.push(`<path d="M40,35 q-1.6,4.5 0,6.5 q1,0.8 2,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
+    if(beard==="long"){
+      p.push(`<path d="M29,40 C29,52 33,62 40,66 C47,62 51,52 51,40 C48,46 44,48 40,48 C36,48 32,46 29,40 Z" fill="${paper}" stroke="${ink}" stroke-width="1.3"/>`);
+      p.push(`<path d="M34,48 C35,54 37,59 40,62 M46,48 C45,54 43,59 40,62 M40,50 L40,61" stroke="${ink}" stroke-width="0.8" fill="none" opacity="0.7"/>`);
+      p.push(`<path d="M35,43.5 q5,3.5 10,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
+    }else{
+      p.push(`<path d="M28.5,38 C28,50 33,58 40,59.5 C47,58 52,50 51.5,38 C49,45 45,47.5 40,47.5 C35,47.5 31,45 28.5,38 Z" fill="${paper}" stroke="${ink}" stroke-width="1.3"/>`);
+      p.push(`<path d="M33,48 C34,52 36,55 40,56.5 M47,48 C46,52 44,55 40,56.5" stroke="${ink}" stroke-width="0.8" fill="none" opacity="0.7"/>`);
+      p.push(`<path d="M35.5,43.5 q4.5,3 9,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
+    }
+    if(hat==="turban"){
+      p.push(`<path d="M25,29 C25,17 32,11 40,11 C48,11 55,17 55,29 C50,25.5 45,24 40,24 C35,24 30,25.5 25,29 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
+      p.push(`<path d="M27,24 Q40,17 53,24 M29,20 Q40,13.5 51,20" stroke="${ink}" stroke-width="0.9" fill="none" opacity="0.6"/>`);
+      p.push(`<path d="M25,29 Q40,22 55,29" stroke="${ink}" stroke-width="1.2" fill="none"/>`);
+    }else if(hat==="pointed"){
+      p.push(`<path d="M40,4 C43,10 46,16 47.5,24 Q40,20.5 32.5,24 C34,16 37,10 40,4 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
+      p.push(`<circle cx="40" cy="4.5" r="2.2" fill="${col}" stroke="${ink}" stroke-width="1.1"/>`);
+      p.push(`<path d="M28,26 Q40,20 52,26 Q40,23 28,26 Z" fill="${col}" stroke="${ink}" stroke-width="1.2"/>`);
+    }else if(hat==="hood"){
+      p.push(`<path d="M26,44 C23,28 29,13 40,13 C51,13 57,28 54,44 C54,32 49,25.5 40,25.5 C31,25.5 26,32 26,44 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
+      p.push(`<path d="M28,36 C28,28 33,23 40,23 M52,36 C52,28 47,23 40,23" stroke="${ink}" stroke-width="0.8" fill="none" opacity="0.55"/>`);
+    }else if(hat==="cap"){
+      p.push(`<path d="M26,25 C26,15 33,10.5 40,10.5 C47,10.5 54,15 54,25 Q40,19 26,25 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
+      p.push(`<ellipse cx="40" cy="24.5" rx="14.5" ry="3.4" fill="${col}" stroke="${ink}" stroke-width="1.1"/>`);
+    }else if(hat==="fur"){
+      p.push(`<path d="M28,24 C28,14 33,9 40,9 C47,9 52,14 52,24 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
+      for(let x=28;x<54;x+=5) p.push(`<circle cx="${x}" cy="24" r="3.1" fill="${col}" stroke="${ink}" stroke-width="0.9"/>`);
+    }
+    return `<svg viewBox="0 0 80 80" role="img" aria-hidden="true">${p.join('')}</svg>`;
+  }
+  document.querySelectorAll('.pmed[data-port]').forEach(el=>{
+    const [hat,beard,col]=el.dataset.port.split(',');
+    el.innerHTML=medallion(hat,beard,col);
+    el.setAttribute('title',el.dataset.alt||'');
+    el.setAttribute('aria-label',(el.dataset.alt||'portrait')+' — a stylized illustration, not a historical likeness');
   });
-  input.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){const m=matches(input.value);if(m.length)show(m[0].n);}
+})();
+
+/* ---------- progress bar, icon rail, header icons, section tracking ---------- */
+(function(){
+  const ICONS={
+    top:'<path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5C4.7 20 4 19.3 4 18.5z"/><path d="M20 5.5C20 4.7 19.3 4 18.5 4H12v16h6.5c.8 0 1.5-.7 1.5-1.5z"/><path d="M12 4v16"/>',
+    lookup:'<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/>',
+    problem:'<circle cx="12" cy="12" r="8.5"/><path d="M9.3 9.5a2.7 2.7 0 0 1 5.2.9c0 1.8-2.5 2-2.5 4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/>',
+    geonim:'<path d="M4 20h16M5 20V10l7-5 7 5v10M8 20v-6h8v6M8 10h8M9 7h6"/>',
+    worlds:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c3 3 3 14 0 17-3-3-3-14 0-17z"/>',
+    taming:'<path d="M5 4.5h9a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M8 8.5h6M8 12h6M17 7.5h2.5M17 11h2.5"/>',
+    rambam:'<rect x="4.5" y="3.5" width="9.5" height="17" rx="1"/><path d="M7 7.5h4.5M7 11h4.5M7 14.5h3"/><path d="M15 8l4.2 1.3-3.2 10.2L11.8 18z"/>',
+    rosh:'<circle cx="7" cy="16.5" r="3"/><circle cx="17" cy="16.5" r="3"/><path d="M9.3 15 12 5l2.7 10"/><path d="M9 9.5h6"/>',
+    press:'<rect x="5" y="9" width="14" height="7" rx="1"/><path d="M8 9V5h8v4M8 20h8v-4H8z"/><circle cx="16" cy="12.3" r=".7" fill="currentColor" stroke="none"/>',
+    karo:'<ellipse cx="12" cy="12" rx="8.5" ry="5.2"/><ellipse cx="12" cy="9.3" rx="8.5" ry="5.2"/><path d="M3.5 9.3V12M20.5 9.3V12"/>',
+    rema:'<path d="M4 8.5c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 4 0"/><path d="M4 12.5c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 4 0"/><path d="M4 16.5c2-1.6 4-1.6 6 0s4 1.6 6 0 4-1.6 4 0"/>',
+    fight:'<path d="M5 13l3-3 2.5 2.5L14 9l3 3"/><path d="M4 16.5l4-4M20 16.5l-4-4"/><circle cx="6.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/>',
+    chain:'<circle cx="6" cy="7" r="2.3"/><circle cx="18" cy="7" r="2.3"/><circle cx="6" cy="17" r="2.3"/><circle cx="18" cy="17" r="2.3"/><circle cx="12" cy="12" r="2.3"/><path d="M7.7 8.6 10.3 10.5M16.3 8.6 13.7 10.5M7.7 15.4 10.3 13.5M16.3 15.4 13.7 13.5"/>',
+    end:'<path d="M6 20V4"/><path d="M6 5h11l-3 3.5L17 12H6"/>'
+  };
+  const sections=[
+    ['top','Start'],['lookup','Look it up'],['problem','The problem'],['geonim','Babylonia'],
+    ['worlds','Three worlds'],['taming','Taming the Talmud'],['rambam','The code war'],
+    ['rosh','The merger'],['press','Printing'],['karo','The Set Table'],['rema','The tablecloth'],
+    ['fight','The fight'],['chain','The whole chain'],['end','What now']
+  ];
+  function svgFor(id,size){
+    return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[id]||''}</svg>`;
+  }
+  // inject icons into top nav links
+  document.querySelectorAll('nav .wrap a[href^="#"]').forEach(a=>{
+    const id=a.getAttribute('href').slice(1);
+    if(ICONS[id]) a.innerHTML=svgFor(id,13)+a.innerHTML;
   });
+  // build left rail
+  const rail=document.getElementById('rail');
+  rail.innerHTML=sections.map(([id,label])=>
+    `<a href="#${id}" data-id="${id}" data-tip="${label}" aria-label="${label}">${svgFor(id,17)}</a>`).join('');
+  const railLookup=rail.querySelector('a[data-id="lookup"]');
+  if(railLookup){
+    railLookup.addEventListener('click',e=>{
+      e.preventDefault();
+      if(window.__openLookupModal) window.__openLookupModal();
+    });
+  }
+  // active-state tracking
+  const railLinks=[...rail.querySelectorAll('a')];
+  const targets=sections.map(([id])=>document.getElementById(id)).filter(Boolean);
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const id=en.target.id;
+        railLinks.forEach(l=>l.classList.toggle('on',l.dataset.id===id));
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px',threshold:0});
+  targets.forEach(t=>io.observe(t));
+  // progress bar
+  const bar=document.getElementById('pgbar');
+  function updateBar(){
+    const h=document.documentElement;
+    const scrolled=h.scrollTop;
+    const max=h.scrollHeight-h.clientHeight;
+    bar.style.width=max>0?(scrolled/max*100)+'%':'0%';
+  }
+  window.addEventListener('scroll',updateBar,{passive:true});
+  window.addEventListener('resize',updateBar);
+  updateBar();
 })();
 </script>
 </body>
