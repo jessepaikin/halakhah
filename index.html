@@ -1121,7 +1121,7 @@ ul.next li{margin-bottom:.6em}
 
   const talmudPage={
     title:'Bava Kamma, folio 2a',
-    img:'pg_talmud.jpg',
+    img:'pg talmud.jpeg',
     regions:[
       {id:'hdr',label:'Running head',x:4,y:1,w:92,h:5,c:SOFT,
        cap:'“Arba’ah Avot · Perek Rishon · Bava Kamma” — “Four Fathers, Chapter One, Bava Kamma.” Daniel Bomberg’s first complete printed Talmud (Venice, 1519–23) fixed this page’s layout and folio numbering so firmly that no edition since has changed them. “Bava Kamma 2a” means the same page in Vilna, Brooklyn, or an app.'},
@@ -1143,7 +1143,7 @@ ul.next li{margin-bottom:.6em}
 
   const mtPage={
     title:'Mishneh Torah, Laws of Property Damage, ch. 2',
-    img:'pg_mt.jpg',
+    img:'pg mt.jpeg',
     regions:[
       {id:'hdr',label:'Chapter heading',x:4,y:1,w:92,h:4.5,c:SOFT,
        cap:'“Hilchot Nizkei Mamon” — the Laws of Property Damage — one of the fourteen books of the Mishneh Torah. This page carries the end of chapter one and the start of chapter two, restating in Rambam’s own words the Mishnah’s four categories of damage you just met on the Talmud page.'},
@@ -1161,7 +1161,7 @@ ul.next li{margin-bottom:.6em}
 
   const saPage={
     title:'Shulchan Arukh, Choshen Mishpat 390',
-    img:'pg_sa.jpg',
+    img:'pg sa.jpeg',
     regions:[
       {id:'hdr',label:'The address — the Tur’s grid',x:3,y:1,w:94,h:5,c:SOFT,
        cap:'“Choshen Mishpat, siman 390” — still on the Mishnah’s four categories of damage, now as Karo’s final ruling. The address system is the Tur’s: the same four sections, the same numbering, carried from the Arba’ah Turim through the Beit Yosef into this book.'},
@@ -1313,7 +1313,7 @@ ul.next li{margin-bottom:.6em}
     svg+=`</svg>`;
 
     const dots=e.cities.map(edgeOrDot).join('');
-    mapMount.innerHTML=`<img class="mapimg" src="map.jpg" alt="Stylized medieval-style map of Europe, North Africa, and the Near East">
+    mapMount.innerHTML=`<img class="mapimg" src="map.jpeg" alt="Stylized medieval-style map of Europe, North Africa, and the Near East">
       <div class="eralayer on">${svg}${dots}</div>
       <div class="mapPop" id="mapPop"></div>`;
 
@@ -1393,7 +1393,7 @@ ul.next li{margin-bottom:.6em}
   const mm=document.getElementById('minimap');
   const mmMount=document.getElementById('minimapMount');
   if(mm&&mmMount){
-    mmMount.innerHTML=`<img src="map.jpg" alt=""><div class="mmdot" id="mmDot"></div><div class="mmlabel" id="mmLabel"></div>`;
+    mmMount.innerHTML=`<img src="map.jpeg" alt=""><div class="mmdot" id="mmDot"></div><div class="mmlabel" id="mmLabel"></div>`;
     const mmDot=document.getElementById('mmDot'),mmLabel=document.getElementById('mmLabel');
     // section id -> approximate map position (percent) + label
     const REGION_POS={
