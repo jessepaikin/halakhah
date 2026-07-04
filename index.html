@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Set Table — how Jewish law got decided, for absolute beginners</title>
+<title>Setting the Table: The Long Argument of Halakhah</title>
 <meta name="description" content="An interactive, plain-English history of halakhah — from the Talmud's open arguments to the Shulchan Arukh and the Rema's glosses. No Hebrew required, no background assumed.">
 <meta name="theme-color" content="#f2ecdd">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -242,6 +242,81 @@ section h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-
 .pgcap p{margin:0}
 .pgx .mapcap{margin-top:.7rem}
 
+
+/* progress bar */
+#pgbar{position:fixed;top:0;left:0;height:3.5px;width:0%;background:linear-gradient(90deg,var(--c-babylon),var(--c-sefarad),var(--c-poland));z-index:70;transition:width .1s linear}
+
+/* left icon rail */
+#rail{position:fixed;left:10px;top:50%;transform:translateY(-50%);z-index:55;display:none;flex-direction:column;gap:4px;background:rgba(250,245,233,.92);border:1px solid var(--rule);border-radius:999px;padding:8px 5px;backdrop-filter:blur(4px)}
+@media(min-width:1150px){#rail{display:flex}}
+#rail a{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;color:var(--ink-soft);position:relative}
+#rail a svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#rail a:hover,#rail a.on{background:var(--ink);color:var(--paper)}
+#rail a::after{content:attr(data-tip);position:absolute;left:42px;top:50%;transform:translateY(-50%);background:var(--ink);color:var(--paper);font-family:"Archivo",sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.04em;padding:.3em .7em;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+#rail a:hover::after{opacity:1}
+nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px}
+
+/* tinted callouts */
+.note.tint-rose{background:#f4e0d6;border-color:#cf9d85;border-left:6px solid var(--c-sefarad)}
+.note.tint-gold{background:#f4e5b8;border-color:#cdab58;border-left:6px solid var(--c-babylon)}
+.note.tint-blue{background:#e0e7f2;border-color:#9db1cf;border-left:6px solid var(--c-germany)}
+.note.tint-olive{background:#e9ecd0;border-color:#b3ba7f;border-left:6px solid var(--c-provence)}
+
+/* medieval map */
+.medmap{position:relative}
+.medmap svg{display:block;min-width:760px;width:100%;height:auto}
+.medmap svg text{font-family:Georgia,serif}
+.eralayer{opacity:0;transition:opacity .55s ease;pointer-events:none}
+.eralayer.on{opacity:1;pointer-events:auto}
+.eralayer .mig{stroke-dasharray:100;stroke-dashoffset:100}
+.eralayer.on .mig{animation:migdraw 1.4s ease .25s forwards}
+@keyframes migdraw{to{stroke-dashoffset:0}}
+.citydot{cursor:pointer}
+.citydot:hover .cring{stroke-width:2.4}
+.timebar{display:flex;align-items:center;gap:.8rem;margin-top:.9rem}
+.timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:1rem;border:1.5px solid var(--ink);background:var(--paper-card);color:var(--ink);border-radius:50%;width:36px;height:36px;cursor:pointer;flex:none}
+.timebar button:hover{background:var(--ink);color:var(--paper)}
+.timebar button:disabled{opacity:.3;cursor:default}
+.timebar input[type=range]{flex:1;accent-color:var(--c-sefarad);height:5px;cursor:pointer}
+.timelabels{display:flex;justify-content:space-between;font-family:"Archivo",sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);margin:.2rem 46px 0}
+.eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:.9rem .2rem .2rem}
+.mapPop{position:absolute;z-index:20;max-width:280px;background:var(--paper-card);border:1.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 26px rgba(38,32,25,.3);display:none}
+.mapPop h4{font-size:1.1rem;margin:0 0 .1em}
+.mapPop .meta{font-family:"Archivo",sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.4rem}
+.mapPop p{font-size:.92rem;margin:0 0 .6em}
+.mapPop .row{display:flex;gap:.5rem;flex-wrap:wrap}
+.mapPop .row button,.mapPop .row a{font-family:"Archivo",sans-serif;font-weight:600;font-size:.72rem;border:1.5px solid var(--rule);background:var(--paper);border-radius:999px;padding:.3rem .8rem;cursor:pointer;text-decoration:none;color:var(--ink)}
+.mapPop .row button:hover,.mapPop .row a:hover{border-color:var(--ink)}
+.mapPop .x{position:absolute;top:6px;right:10px;border:none;background:none;font-size:1.1rem;cursor:pointer;color:var(--ink-soft)}
+
+/* floating minimap */
+#minimap{position:fixed;right:14px;bottom:14px;width:190px;z-index:54;background:rgba(250,245,233,.95);border:1px solid var(--rule);border-radius:10px;padding:6px;display:none;box-shadow:0 4px 18px rgba(38,32,25,.18)}
+@media(min-width:1200px){#minimap.show{display:block}}
+#minimap .cap{font-family:"Archivo",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-align:center;padding:2px 0 1px}
+#minimap svg{display:block;width:100%;height:auto;min-width:0}
+
+/* portrait medallions */
+.bio .pmed{flex:none;width:72px}
+.bio .pmed svg{width:72px;height:72px;display:block}
+.vs .pmed{float:right;width:58px;margin:-4px 0 6px 10px}
+.vs .pmed svg{width:58px;height:58px}
+.stratpic{display:block;margin:.2rem auto .8rem;max-width:200px}
+
+/* four columns: one line */
+@media(min-width:860px){.fourcol{grid-template-columns:repeat(4,1fr)}}
+.fourcol summary .en{display:block;font-weight:400;font-size:.86em;color:var(--ink-soft);font-style:italic}
+.fourcol summary .desc{display:block;font-family:"Newsreader",serif;font-weight:400;font-size:.84rem;color:var(--ink-soft);margin-top:.35rem;line-height:1.4}
+
+/* chain edges: hidden until selected */
+.edge{opacity:0;stroke-dasharray:100;stroke-dashoffset:100}
+.edge.hot{opacity:.95;stroke-width:2.6;animation:migdraw .8s ease forwards}
+
+/* lookup modal */
+#lkModal{position:fixed;inset:0;z-index:90;display:none;align-items:flex-start;justify-content:center;padding:9vh 1rem 1rem;background:rgba(38,32,25,.45);backdrop-filter:blur(3px)}
+#lkModal.open{display:flex}
+#lkModal .box{width:100%;max-width:34rem;background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:1.2rem 1.3rem;max-height:80vh;overflow-y:auto;position:relative}
+#lkModal .x{position:absolute;top:10px;right:14px;border:none;background:none;font-size:1.4rem;cursor:pointer;color:var(--ink-soft)}
+
 /* end / glossary */
 .gloss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.9rem;margin-top:1.2rem}
 .gitem{background:var(--paper-card);border:1px solid var(--rule);border-radius:8px;padding:.75rem .95rem;font-size:.95rem}
@@ -274,7 +349,8 @@ ul.next li{margin-bottom:.6em}
   <div class="hero-heb" aria-hidden="true">שֻׁלְחָן עָרוּךְ</div>
   <div class="wrap" style="position:relative">
     <span class="label">An interactive guide for absolute beginners</span>
-    <h1>The Set Table</h1>
+    <h1>Setting the Table</h1>
+    <div style="font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.1rem,2.6vw,1.5rem);letter-spacing:.04em;color:var(--ink-soft);margin:-.4rem 0 1.2rem">The Long Argument of Halakhah</div>
     <p class="sub">Jewish law began as a <strong>2,700-page argument with no verdicts</strong>. This is the story of the thousand-year relay race — through Baghdad, Fez, Troyes, Toledo, and Kraków — that turned that argument into a rulebook the whole Jewish world could open. And of the two men, a Spanish exile and a Polish prodigy, who finished it together without ever meeting.</p>
     <p class="sub">No Hebrew required. No background assumed.</p>
     <a class="btn" href="#problem">Begin ↓</a>
@@ -310,7 +386,7 @@ ul.next li{margin-bottom:.6em}
   <p class="lead"><span class="g" data-def="Halakhah (hah-lah-KHAH): Jewish law — the system governing everything from prayer and food to contracts and marriage. From a Hebrew root meaning “to walk”: it’s the way you walk through life.">Halakhah</span> is Jewish law — the rules for how to live a Jewish life, covering everything from what you can eat to how you run a business to what you say when you wake up. And its foundational document has a famous personality problem: <strong>it refuses to give verdicts.</strong></p>
   <p>The <span class="g" data-def="The Talmud: the central text of rabbinic Judaism — the Mishnah (a terse law code from c. 200 CE) plus the Gemara (three centuries of recorded debate about it), edited in Babylonia around 500 CE. About 2,700 pages long.">Talmud</span>, completed in Babylonia around the year 500, is not a code of law. It is a <em>record of argument</em> — centuries of rabbis questioning, objecting, proving, and telling stories, with the disagreements lovingly preserved. Ask the Talmud a simple question — <em>can I eat this? is this contract valid?</em> — and it will often hand you three opinions, a counter-argument, a digression about a rabbi’s dream, and no ruling.</p>
   <p>That’s a beautiful way to preserve a tradition of thinking. It’s a terrible way to run a community. A butcher in the year 900 with a questionable cow standing in front of him cannot wait for the debate to resolve itself. Somebody has to <em>decide</em>.</p>
-  <div class="note"><span class="label">The engine of this whole story</span>
+  <div class="note tint-rose"><span class="label">The engine of this whole story</span>
   Every generation after the Talmud faced the same tension: <strong>fidelity to the argument</strong> versus <strong>the need for an answer</strong>. Lean too far toward answers and you flatten a living tradition into a pamphlet. Lean too far toward argument and nobody knows what to do on Friday afternoon. Everyone you’re about to meet is taking a position on this dilemma — and their positions sort, remarkably neatly, by <em>geography</em>.</div>
   <p>One reading tip before we start: rabbis in this story are usually known by <strong>acronyms of their names</strong>, the way Americans say “JFK” or “RBG.” <em>Rambam</em> = <b>R</b>abbi <b>M</b>oshe <b>b</b>en <b>M</b>aimon. <em>Rashi</em> = <b>Ra</b>bbi <b>Sh</b>lomo <b>Y</b>itzchaki. We’ll decode each one as it arrives.</p>
 </div></section>
@@ -319,52 +395,57 @@ ul.next li{margin-bottom:.6em}
 <section id="geonim"><div class="wrap">
   <div class="kicker"><span class="num">II</span><span class="label">600–1038 · Babylonia</span></div>
   <h2>The first deciders: the Geonim</h2>
-  <p class="lead">For its first five centuries, halakhah had a capital city — really two: the great academies of <strong>Sura</strong> and <strong>Pumbedita</strong> in Babylonia (modern Iraq), the same institutions that had produced the Talmud itself.</p>
-  <p>Each academy was led by a <span class="g" data-def="Gaon (gah-OWN), plural Geonim: “Excellency” — the title of the heads of the Babylonian academies from roughly 600 to 1038. For centuries they were the supreme legal authorities of the Jewish world.">Gaon</span> — “Excellency” — and for four hundred years the Geonim were, in effect, the supreme court of the Jewish world. Communities from Spain to Egypt sent them questions by caravan and ship; the answers came back as <span class="g" data-def="Responsa (Hebrew: she’elot u-teshuvot, “questions and answers”): written legal rulings sent in reply to questions from distant communities. Still a living genre today — the case law of halakhah.">responsa</span> — question-and-answer legal rulings, thousands of which survive. The Geonim also produced the first attempts to distill the Talmud into something usable: early digests like the <em>She’iltot</em> (8th century) and the <em>Halakhot Gedolot</em> (9th century), and, from the towering Saadia Gaon (882–942), the first works organizing law by topic.</p>
+  <p class="lead">For its first five centuries, halakhah had a capital city — really two: the great academies of <span class="g" data-def="Sura (SOO-rah): academy town on the Euphrates in southern Babylonia, founded in the early 200s CE. Home academy of Saadia Gaon."><strong>Sura</strong></span> and <span class="g" data-def="Pumbedita (poom-beh-DEE-tah): Babylonian academy town founded by refugees from Nehardea in 259 CE; later relocated to Baghdad itself. Home of the last great Geonim, Sherira and Hai."><strong>Pumbedita</strong></span> in <span class="g" data-def="Babylonia: the Jewish name for Mesopotamia (modern Iraq), home to a vast Jewish community from the exile of 586 BCE onward — and, for centuries, the intellectual capital of the Jewish world.">Babylonia</span> (modern Iraq), the same institutions that had produced the Talmud itself. (There had once been a third great center, <span class="g" data-def="Nehardea (neh-har-DEH-ah): the oldest of the Babylonian academy towns, a center of Jewish learning since antiquity. Destroyed in war in 259 CE; its scholars relocated and founded the academy of Pumbedita.">Nehardea</span> — the most ancient of them all — destroyed in war back in 259 CE; its refugee scholars had founded Pumbedita.)</p>
+  <h3 style="margin-top:2.2rem;font-size:1.45rem">Two academies and their Excellencies</h3>
+  <p>Each academy was led by a <span class="g" data-def="Gaon (gah-OWN), plural Geonim: “Excellency” — the title of the heads of the Babylonian academies from roughly 600 to 1038. For centuries they were the supreme legal authorities of the Jewish world.">Gaon</span> — “Excellency” — and for four hundred years the Geonim were, in effect, the supreme court of the Jewish world. Communities from Spain to Egypt sent them questions by caravan and ship; the answers came back as <span class="g" data-def="Responsa (Hebrew: she’elot u-teshuvot, “questions and answers”): written legal rulings sent in reply to questions from distant communities. Still a living genre today — the case law of halakhah.">responsa</span> — question-and-answer legal rulings, thousands of which survive. The Geonim also produced the first attempts to distill the Talmud into something usable: early digests like the <span class="g" data-def="She’iltot (sheh-eel-TOTE), “Questions”: 180 sermon-essays by Rav Achai (8th century) weaving law into the weekly Torah readings — one of the first post-Talmudic law books."><em>She’iltot</em></span> (8th century) and the <span class="g" data-def="Halakhot Gedolot (“Great Laws”): a comprehensive 9th-century digest of Talmudic law attributed to Shimon Kayyara — an early attempt to organize the count of 613 commandments, much beloved later in Ashkenaz."><em>Halakhot Gedolot</em></span> (9th century), and, from the towering <span class="g" data-def="Saadia Gaon (882–942): Egyptian-born head of the Sura academy — philosopher, grammarian, translator of the Bible into Arabic, and pioneer of organizing Jewish law topic by topic.">Saadia Gaon</span> (882–942), the first works organizing law by topic.</p>
+  <h3 style="margin-top:2.2rem;font-size:1.45rem">Life inside the academies</h3>
   <p>A few glimpses inside those academies, because they’re wonderfully strange to modern eyes. The Talmud there was studied — and largely known — <strong>by heart</strong>: an elite oral literature, recited in rows ranked by ability, never meant for wide circulation. The Geonim saw themselves not as some interpreters among many but as <em>the</em> interpreters, heirs in an unbroken chain to the rabbis of the Talmud itself. And because that inherited text is, as one might say, a beast if what you want from it is a ruling, they invented the first <strong>rules for taming it</strong> — formal principles for deciding whose opinion wins when the Talmud leaves an argument open. Every code in this story stands on those rules.</p>
+  <h3 style="margin-top:2.2rem;font-size:1.45rem">Answers that became institutions</h3>
   <p>Their answers could become institutions. When a community in Spain sent the deceptively simple question “What is the order of the prayers?”, the Gaon Amram wrote back a complete annotated liturgy — and that responsum, copied and recopied, became the ancestor of the <strong>prayer book</strong>. Another Gaon, Sherira, answered a question about where the Mishnah came from with a fifteen-thousand-word history of the whole tradition that scholars leaned on for the next nine hundred years.</p>
+  <h3 style="margin-top:2.2rem;font-size:1.45rem">Meanwhile, in the caliph’s court</h3>
   <p>One more piece of context worth knowing: the Geonim weren’t working in a vacuum. In the very same city and centuries, <strong>Islamic law was going through its own formative struggles</strong> — with striking parallels in methods, genres, even the same anxieties. (When a Persian courtier proposed to the caliph in the 750s that the sprawling, contradictory legal tradition be simplified into one clear code, he was executed for it. The tension between the living argument and the tidy code was in the Baghdad air itself.)</p>
-  <p>It’s no accident that this arrangement flourished when it did. The academies sat at the center of the <strong>Abbasid Caliphate</strong> — an Islamic empire stretching from Spain to India, with Baghdad as the hub of its trade routes, its coinage, and its intellectual life. The Geonim’s worldwide reach rode on the caliphate’s roads and ships. And when the caliphate began to fragment in the 900s — rival dynasties in Egypt, an outright rival caliphate declared in Córdoba in 929 — the Jewish world fragmented right along with it. Wealthy new communities in Muslim Spain and North Africa began cultivating scholars of their own, and stopped waiting for answers from Baghdad.</p>
+  <p>It’s no accident that this arrangement flourished when it did. The academies sat at the center of the <span class="g" data-def="Abbasid Caliphate (750–1258): the Islamic empire ruled from Baghdad, at its height stretching from North Africa to Central Asia — the superpower of the early medieval world, and the political frame of the Geonic age."><strong>Abbasid Caliphate</strong></span> — an Islamic empire stretching from Spain to India, with Baghdad as the hub of its trade routes, its coinage, and its intellectual life. The Geonim’s worldwide reach rode on the caliphate’s roads and ships. And when the caliphate began to fragment in the 900s — rival dynasties in Egypt, an outright rival caliphate declared in Córdoba in 929 — the Jewish world fragmented right along with it. Wealthy new communities in Muslim Spain and North Africa began cultivating scholars of their own, and stopped waiting for answers from Baghdad.</p>
   <p>Notice what made the system work: <strong>everyone agreed on who was in charge.</strong> One center, one address for hard questions. It could not last. Baghdad’s political decline dragged the academies down with it, and when the brilliant Hai Gaon died in 1038 with no successor of his stature, the era ended. The money and the questions had already been flowing elsewhere — to new communities along the Mediterranean and up into Europe.</p>
-  <div class="note"><span class="label">The hinge moment</span>
+  <div class="note tint-gold"><span class="label">The hinge moment</span>
   After 1038, Judaism never again had a single legal capital. Authority scattered into regional centers that developed their own texts, teachers, customs — and temperaments. The rest of this story is about what those regions built, and how, five hundred years later, two of the traditions were stitched back together on a single page.</div>
-  <p>You can watch the handover happen in the books. Almost the moment Baghdad falls silent, the first <strong>systematic commentaries on the whole Talmud</strong> appear — nearly simultaneously, at opposite ends of the Mediterranean: Rabbenu Chananel in Kairouan (North Africa) and the school of Rabbenu Gershom in Mainz (Germany). The meaning is unmistakable: communities that can no longer write to the Gaon are taking the Talmud into their own hands — and they need guides. That is the world into which our next two heroes are born.</p>
+  <h3 style="margin-top:2.2rem;font-size:1.45rem">The handover</h3>
+  <p>You can watch the handover happen in the books. Almost the moment Baghdad falls silent, the first <strong>systematic commentaries on the whole Talmud</strong> appear — nearly simultaneously, at opposite ends of the Mediterranean: <span class="g" data-def="Rabbenu Chananel (d. c. 1055): scholar of Kairouan, North Africa, and author of one of the first running commentaries on the whole Talmud — a bridge between the Geonim and the new regional world.">Rabbenu Chananel</span> in Kairouan (North Africa) and the school of <span class="g" data-def="Rabbenu Gershom (c. 960–1028): “Light of the Exile,” founding teacher of Ashkenaz in Mainz — famous for decrees banning polygamy and protecting privacy, and for academies that trained Rashi’s teachers.">Rabbenu Gershom</span> in Mainz (Germany). The meaning is unmistakable: communities that can no longer write to the Gaon are taking the Talmud into their own hands — and they need guides. That is the world into which our next two heroes are born.</p>
 </div></section>
 
 <!-- ============ III ============ -->
 <section id="worlds"><div class="wrap">
   <div class="kicker"><span class="num">III</span><span class="label">The map</span></div>
   <h2>Three worlds, three temperaments</h2>
-  <p class="lead">Medieval Jewry sorted into cultural zones, each with its own personality — and each gets a color that will follow it through the rest of this site.</p>
+  <p class="lead">Medieval Jewry sorted into <strong>three great cultural worlds</strong> — but two of them come in regional flavors, so you’ll meet six colors on our map. Each zone gets a color that follows it through the rest of this site.</p>
 
-  <div class="regions">
-    <div class="rcard" style="--rc:var(--c-sefarad)">
+  <h3 style="margin-top:1.8rem;font-size:1.35rem">World one · Sefarad</h3>
+  <div class="regions"><div class="rcard" style="--rc:var(--c-sefarad)">
       <h3><span class="chip" style="background:var(--c-sefarad)"></span>Sefarad</h3>
       <p><span class="motto">“Give me the bottom line.”</span>Spain and North Africa, under Islamic rule for centuries. Cosmopolitan, philosophical, at home with Arabic science and systematic thinking. <span class="g" data-def="Sefarad (seh-fah-RAHD): the Hebrew name for Spain; “Sephardic” Jews are those of Iberian and (broadly) Mediterranean tradition.">Sephardic</span> scholars loved <strong>codes</strong>: organize the law, cut the debate, state the ruling.</p>
-    </div>
-    <div class="rcard" style="--rc:var(--c-germany)">
+    </div></div>
+  <h3 style="margin-top:1.8rem;font-size:1.35rem">World two · Ashkenaz — one culture, three homes</h3>
+  <p style="font-size:1rem;color:var(--ink-soft);margin:-.2rem 0 .8rem">Germany and northern France were sibling communities of a single culture; Poland is where that culture moved when Germany became unlivable. Three colors, one family.</p>
+  <div class="regions"><div class="rcard" style="--rc:var(--c-germany)">
       <h3><span class="chip" style="background:var(--c-germany)"></span>Ashkenaz — Germany</h3>
       <p><span class="motto">“Our custom is itself the law.”</span>The Rhineland towns — Mainz, Worms, Speyer. Small, pious, tightly knit communities in Christian Europe, repeatedly battered by Crusader massacres. <span class="g" data-def="Ashkenaz (ahsh-keh-NAHZ): the Hebrew name for Germany, extended to the Franco-German (and later Polish) Jewish cultural world. “Ashkenazi” Jews descend from this tradition.">Ashkenaz</span> treated inherited <span class="g" data-def="Minhag (min-HAHG): custom — a community’s inherited practice. In Ashkenaz especially, entrenched custom could carry nearly the force of law.">custom</span> as sacred: what our martyred ancestors did <em>is</em> the tradition.</p>
-    </div>
-    <div class="rcard" style="--rc:var(--c-france)">
+    </div><div class="rcard" style="--rc:var(--c-france)">
       <h3><span class="chip" style="background:var(--c-france)"></span>Ashkenaz — France</h3>
       <p><span class="motto">“Show me the argument.”</span>Germany’s sibling culture, centered in Champagne and northern France. Its genius was <strong>commentary and dialectic</strong> — explaining the Talmud line by line, then arguing with the explanation. Answers mattered less than understanding <em>why</em>.</p>
-    </div>
-    <div class="rcard" style="--rc:var(--c-provence)">
-      <h3><span class="chip" style="background:var(--c-provence)"></span>Provence</h3>
-      <p><span class="motto">“We read everyone — and grade them.”</span>Southern France: geographically and intellectually <em>between</em> the worlds. Provençal scholars translated Sephardic philosophy for Europe, absorbed both traditions, and produced the era’s sharpest <strong>critics</strong>.</p>
-    </div>
-    <div class="rcard" style="--rc:var(--c-poland)">
+    </div><div class="rcard" style="--rc:var(--c-poland)">
       <h3><span class="chip" style="background:var(--c-poland)"></span>Poland</h3>
       <p><span class="motto">“Ashkenaz, act two.”</span>As German Jewry was decimated by the massacres around the Black Death (1348–49), the center of Ashkenazi life moved east into Poland–Lithuania, which by the 1500s hosted Europe’s largest Jewish community and its most electric academies.</p>
-    </div>
-    <div class="rcard" style="--rc:var(--c-babylon)">
+    </div></div>
+  <h3 style="margin-top:1.8rem;font-size:1.35rem">World three · The connectors</h3>
+  <p style="font-size:1rem;color:var(--ink-soft);margin:-.2rem 0 .8rem">Two zones that belonged fully to neither camp — and kept the whole conversation connected.</p>
+  <div class="regions"><div class="rcard" style="--rc:var(--c-provence)">
+      <h3><span class="chip" style="background:var(--c-provence)"></span>Provence</h3>
+      <p><span class="motto">“We read everyone — and grade them.”</span>Southern France: geographically and intellectually <em>between</em> the worlds. Provençal scholars translated Sephardic philosophy for Europe, absorbed both traditions, and produced the era’s sharpest <strong>critics</strong>.</p>
+    </div><div class="rcard" style="--rc:var(--c-babylon)">
       <h3><span class="chip" style="background:var(--c-babylon)"></span>Babylonia &amp; the East</h3>
       <p><span class="motto">“The source.”</span>Where it all started — and, after 1492, where much of it ended up: the Ottoman Empire, and above all the little Galilean hill town of <strong>Safed</strong>, welcomed the Spanish exiles.</p>
-    </div>
-  </div>
+    </div></div>
 
-  <p>One origin story is worth pausing on, because it explains so much of what follows. The founding families of Ashkenaz came up from <strong>Italy</strong> — invited north as merchants by Charlemagne’s successors — and they carried with them ancient customs rooted in the old <em>Land-of-Israel</em> tradition, which often differed from the Babylonian Talmud’s rulings. When the Babylonian Talmud swept Europe and became the standard, those cherished older practices weren’t abandoned; they were promoted to the newly sacred status of <em>minhag</em> — binding local custom. Ashkenaz’s famous reverence for custom, in other words, isn’t stubbornness. It’s the community’s oldest inheritance, protected from its own new rulebook — and, after the Crusader massacres you’ll meet shortly, sanctified by martyrdom too.</p>
+  <p>One origin story is worth pausing on, because it explains so much of what follows. The founding families of Ashkenaz came up from <strong>Italy</strong> — invited north as merchants by <span class="g" data-def="Charlemagne (742–814): king of the Franks and first Holy Roman Emperor, whose dynasty encouraged Jewish merchants to settle in the Rhineland — the founding population of Ashkenaz.">Charlemagne</span>’s successors — and they carried with them ancient customs rooted in the old <em>Land-of-Israel</em> tradition, which often differed from the Babylonian Talmud’s rulings. When the Babylonian Talmud swept Europe and became the standard, those cherished older practices weren’t abandoned; they were promoted to the newly sacred status of <em>minhag</em> — binding local custom. Ashkenaz’s famous reverence for custom, in other words, isn’t stubbornness. It’s the community’s oldest inheritance, protected from its own new rulebook — and, after the Crusader massacres you’ll meet shortly, sanctified by martyrdom too.</p>
 
   <p>Here’s the map — built to be played with. The story of halakhah <strong>moves when people are forced to move</strong>, and its greatest syntheses were written by refugees; step through the five eras and watch the center of gravity travel from Baghdad to Kraków and Safed.</p>
 
@@ -384,35 +465,43 @@ ul.next li{margin-bottom:.6em}
 
   <div class="vs">
     <div class="col" style="border-top:5px solid var(--c-sefarad)">
+      <div class="pmed" data-port="turban,long,#a63024" data-alt="The Rif"></div>
       <h4><span class="chip" style="background:var(--c-sefarad)"></span>Strategy 1: Shrink it</h4>
+      <svg class="stratpic" viewBox="0 0 200 74" aria-hidden="true"><g stroke="#a63024" fill="none" stroke-width="2"><rect x="12" y="8" width="52" height="58" rx="3" fill="#f6efe0"/><path d="M20,18h36M20,26h36M20,34h36M20,42h36M20,50h36M20,58h36" opacity=".55"/><path d="M84,30 h24 m-7,-7 7,7 -7,7 M84,44 h24 m-7,-7 7,7 -7,7" stroke-width="2.4"/><rect x="128" y="20" width="30" height="34" rx="3" fill="#f6efe0"/><path d="M134,29h18M134,37h18M134,45h18" opacity=".8"/><path d="M168,52 q10,-4 14,-14" stroke-width="1.4" opacity=".6"/></g><text x="38" y="80" font-size="0"></text></svg>
       <p><strong>The Rif</strong> (Rabbi Isaac Alfasi, 1013–1103) of Fez, Morocco — later a refugee in Spain — went through the entire Talmud and <em>deleted</em> everything that wasn’t practically binding: the rejected opinions, the digressions, the laws that only applied when the Temple stood. What remained, about a third of the original, reads like the Talmud with the verdicts left in and the noise taken out.</p>
       <p>It was nicknamed the “little Talmud,” and it made Sefarad the world capital of legal <em>decision</em>. Every code in this story is built on the Rif’s foundation — and so were the people: he spent his last years heading the academy of Lucena in Spain, where his circle trained the teacher of Rambam’s father. A direct line of masters runs from the Rif straight to the giant of the next chapter.</p>
     </div>
     <div class="col" style="border-top:5px solid var(--c-france)">
+      <div class="pmed" data-port="cap,full,#3d7ea6" data-alt="Rashi"></div>
       <h4><span class="chip" style="background:var(--c-france)"></span>Strategy 2: Explain it</h4>
+      <svg class="stratpic" viewBox="0 0 200 74" aria-hidden="true"><g stroke="#3d7ea6" fill="none" stroke-width="2"><rect x="60" y="6" width="80" height="62" rx="3" fill="#f6efe0"/><path d="M86,16h30M86,24h30M86,32h30M86,40h30M86,48h30M86,56h30" stroke="#57503f" opacity=".6"/><path d="M66,18h13M66,25h13M66,32h13M66,39h13M66,46h13M66,53h13" stroke-width="1.3"/><path d="M122,18h13M122,25h13M122,32h13M122,39h13M122,46h13M122,53h13" stroke-width="1.3"/><path d="M80,21 q-8,0 -10,6 M120,35 q9,0 11,7" stroke-width="1.2" opacity=".7"/></g></svg>
       <p><strong>Rashi</strong> (Rabbi Shlomo Yitzchaki, 1040–1105) of Troyes, France — trained in the German academies of Mainz and Worms — did the opposite. He deleted nothing. Instead he wrote a running explanation of nearly every line of the Talmud, so lucid that a motivated beginner could now enter the argument unassisted.</p>
       <p>Rashi issued rulings too, but his monument is the commentary — still printed beside the Talmud’s text on every page today. He didn’t shrink the argument. He <em>opened the door to it</em>.</p>
     </div>
   </div>
 
-  <p>Rashi’s world did not stay peaceful. In 1096, mobs of the <strong>First Crusade</strong>, marching toward Jerusalem, massacred the Jewish communities of the Rhineland — Speyer, Worms, Mainz, the very academies that had trained him — with thousands killed, many dying as martyrs rather than accept baptism. Rashi’s last decade was shadowed by the catastrophe, and it seared something into Ashkenazi culture: the practices of the martyred communities became sacred relics. <em>“The custom of our ancestors is Torah”</em> — that Ashkenazi instinct we met earlier isn’t abstract piety; it’s grief, institutionalized. (The violence kept coming: Rashi’s own grandson, whom you’re about to meet, was attacked and nearly killed by Second-Crusade mobs in 1146.)</p>
-  <p>Then Rashi’s own descendants escalated. His grandsons and their students — above all the fiery <strong>Rabbenu Tam</strong> (c. 1100–1171) — founded the school of the <span class="g" data-def="Tosafot (toh-sah-FOTE), “additions”: the school of French and German Talmud analysts (12th–13th c.), many of them Rashi’s descendants and students, whose critical notes are printed opposite Rashi on every Talmud page.">Tosafot</span>: critical notes that compare every passage of the Talmud with every other, hunt down contradictions, and resolve them with razor-fine distinctions — frequently concluding that grandfather Rashi had gotten a line wrong. In Ashkenaz, arguing with your teacher <em>was</em> a form of honoring him.</p>
-
-  <div class="note"><span class="label">The fork in the road</span>
-  By 1200 the split is visible. <b style="color:var(--c-sefarad)">Sefarad</b>: distill the Talmud toward a ruling. <b style="color:var(--c-france)">Ashkenaz</b>: dive deeper into the argument, and let practice rest on argument plus inherited custom. Keep this fork in mind — the endgame of this story is the page that finally holds both.</div>
+  <p>Rashi’s world did not stay peaceful. In 1096, mobs of the <span class="g" data-def="The First Crusade (1096–99): the armed pilgrimage that captured Jerusalem — and whose passing armies and mobs massacred the Jewish communities of the Rhineland in the spring of 1096, a trauma that shaped Ashkenaz forever."><strong>First Crusade</strong></span>, marching toward Jerusalem, massacred the Jewish communities of the Rhineland — Speyer, Worms, Mainz, the very academies that had trained him — with thousands killed, many dying as martyrs rather than accept baptism. Rashi’s last decade was shadowed by the catastrophe, and it seared something into Ashkenazi culture: the practices of the martyred communities became sacred relics. <em>“The custom of our ancestors is Torah”</em> — that Ashkenazi instinct we met earlier isn’t abstract piety; it’s grief, institutionalized. (The violence kept coming: Rashi’s own grandson, whom you’re about to meet, was attacked and nearly killed by Second-Crusade mobs in 1146.)</p>
+  <h3 style="margin-top:2.4rem;font-size:1.5rem">The grandchildren strike back: the Tosafot</h3>
+  <p>Then Rashi’s own descendants escalated. His grandsons and their students — above all the fiery <span class="g" data-def="Rabbenu Tam (c. 1100–1171): Jacob ben Meir of Ramerupt, Rashi’s grandson and the dominant figure of the Tosafist school — brilliant, combative, and unafraid to overrule anyone, including his grandfather."><strong>Rabbenu Tam</strong></span> (c. 1100–1171) of Ramerupt and his nephew <strong>Ri the Elder</strong> of Dampierre — founded the school of the <span class="g" data-def="Tosafot (toh-sah-FOTE), “additions”: the school of French and German Talmud analysts (12th–13th c.), many of them Rashi’s descendants and students, whose critical notes are printed opposite Rashi on every Talmud page.">Tosafot</span>: “additions,” the most consequential set of footnotes ever written.</p>
+  <p>Here’s the method, and it’s worth savoring because it becomes the engine of everything after. Rashi explains each passage <em>where it sits</em>. The Tosafists read the Talmud <strong>as a single vast system</strong>: when a passage on page 40 of one tractate seems to contradict a passage in another tractate entirely, they refuse to shrug. Instead they hunt the contradiction down and resolve it with a fine distinction — <em>here the Talmud speaks of one kind of case; there, of a subtly different one</em> — and suddenly both passages stand, and the law has grown a new joint. Multiply that move by thousands, over four generations of scholars in dozens of towns, and you get a legal tradition of extraordinary precision, built collaboratively, argument by argument, like a coral reef.</p>
+  <div class="note"><span class="label">A taste of the method</span>
+  A famous small example: the Talmud in one place assumes the mezuzah-style scroll passages inside tefillin are arranged in one order; elsewhere it seems to assume another. Rashi read it one way. Rabbenu Tam — his own grandson — argued the opposite arrangement. Neither side ever fully won: to this day, especially pious Jews own <em>two pairs</em> of tefillin, “Rashi’s” and “Rabbenu Tam’s,” and wear both. That’s the Tosafist world in miniature: total loyalty to the tradition, expressed as unflinching argument inside it — and disagreements preserved in practice, not erased.</div>
+  <p>Three more things to know about them. First, the culture: in Ashkenaz, <strong>arguing with your teacher was a form of honoring him</strong> — the Tosafot routinely conclude that grandfather Rashi got a line wrong, and no one considered this impiety. Second, the format: their notes were literally installed on the Talmud’s printed page — Rashi on one side, Tosafot facing him on the other — so that every Jew who ever opens a Talmud steps into the middle of a family argument that has been running for nine hundred years. Third, the reach: the Tosafist method did not stay French. It conquered Germany, and — carried by scholars you’ll meet shortly — it eventually transformed how Spain itself studied, which is precisely how the two worlds began to merge.</p>
+  <div class="note tint-blue"><span class="label">The fork in the road</span>
+  By 1200 two centers of gravity are visible. In <b style="color:var(--c-sefarad)">Sefarad</b>, the prestige project is the ruling: get the reader to a clear bottom line (though Spain would soon produce dazzling commentary of its own). In <b style="color:var(--c-france)">Ashkenaz</b>, the prestige project is the argument itself — with practice resting on analysis plus inherited custom. Neither world lacked the other’s skill; they differed in what they treasured most. Keep this fork in mind — the endgame of this story is the page that finally holds both.</div>
 
   <h3 style="margin-top:2.4rem;font-size:1.5rem">France’s last century — and its pocket codes</h3>
   <p>Christian Europe was turning. In 1240 the Talmud itself was <strong>put on trial in Paris</strong> — a converted Jew named Nicholas Donin brought charges of blasphemy before the court of King Louis IX, and leading rabbis were summoned to defend the book. They lost. In 1242, some twenty-four <strong>wagonloads of confiscated Talmud manuscripts were burned</strong> in a Paris square. Pause on what that means in a manuscript age, when every copy represented months of a scribe’s labor: much of France’s entire stock of the text went up in one fire.</p>
   <p>French scholarship answered the way it could — by making the law <em>portable</em>. Two remarkable books came out of that shadow:</p>
 
-  <div class="bio" style="--bc:var(--c-france)"><div class="who">
-    <h4>The Semag <span style="font-weight:400">(“Great Book of Commandments”)</span></h4>
+  <div class="bio" style="--bc:var(--c-france)"><div class="pmed" data-port="hood,full,#3d7ea6" data-alt="Moses of Coucy"></div><div class="who">
+    <h4>Sefer Mitzvot Gadol <span style="font-weight:400">· סֵפֶר מִצְווֹת גָּדוֹל · “the Semag”</span></h4>
     <div class="meta">Moses of Coucy · France · completed c. 1247 · preaching tour of Spain, 1236</div>
     <p>All practical law, filed under the traditional count of <strong>613 commandments</strong> — and, strikingly, built by pouring Tosafist analysis into a frame openly modeled on the Rambam, whom the author quotes on nearly every page. A French Ashkenazi fusing the two worlds a full lifetime before anyone in this story reaches Toledo. Remember the Semag: it will resurface at a key moment in the print shops.</p>
   </div></div>
 
-  <div class="bio" style="--bc:var(--c-france)"><div class="who">
-    <h4>The Semak <span style="font-weight:400">(“Small Book of Commandments”)</span></h4>
+  <div class="bio" style="--bc:var(--c-france)"><div class="pmed" data-port="cap,full,#3d7ea6" data-alt="Isaac of Corbeil"></div><div class="who">
+    <h4>Sefer Mitzvot Katan <span style="font-weight:400">· סֵפֶר מִצְווֹת קָטָן · “the Semak”</span></h4>
     <div class="meta">Isaac of Corbeil · France · c. 1277</div>
     <p>The Semag, pocket-sized — trimmed to daily essentials and famously divided into <strong>seven portions, one for each day of the week</strong>, so an ordinary householder could review the whole of practical law weekly. A lay bestseller, copied into countless prayer books across Ashkenaz. Law was escaping the scholars’ shelf.</p>
   </div></div>
@@ -425,29 +514,54 @@ ul.next li{margin-bottom:.6em}
   <div class="kicker"><span class="num">V</span><span class="label">c. 1180 · Egypt &amp; Provence</span></div>
   <h2>The perfect code — and the war in the margins</h2>
   <p class="lead">Around 1180, the Sephardic strategy reached its logical extreme, in the hands of the most formidable mind of the Jewish Middle Ages.</p>
-  <p>He was a child of a collapsing golden age. Under the Umayyad caliphs, Córdoba had made Muslim Spain the true heir of Babylonia — courtier-rabbis, poetry, philosophy, and law flourishing together. But the caliphate shattered in 1031 into squabbling statelets, and two waves of fundamentalist Berber dynasties crossed over from North Africa to “rescue” them: first the Almoravids, then, in the 1140s, the far harsher <strong>Almohads</strong>, who offered the Jews of the cities they conquered a choice of conversion, exile, or death. When Almohad forces took Córdoba in 1148, a ten-year-old prodigy fled with his family — through years of wandering, a spell in Fez living under the persecution, and finally to the safety of Egypt.</p>
+  <h3 style="margin-top:2.4rem;font-size:1.5rem">The monument</h3>
+  <p>He was a child of a collapsing golden age. Under the Umayyad caliphs, Córdoba had made Muslim Spain the true heir of Babylonia — courtier-rabbis, poetry, philosophy, and law flourishing together. But the caliphate shattered in 1031 into squabbling statelets, and two waves of fundamentalist Berber dynasties crossed over from North Africa to “rescue” them: first the Almoravids, then, in the 1140s, the far harsher <span class="g" data-def="The Almohads: a fundamentalist Berber dynasty that conquered Islamic Spain and North Africa in the mid-1100s, offering Jews (and Christians) conversion, exile, or death — ending the open world of Andalusian Jewry."><strong>Almohads</strong></span>, who offered the Jews of the cities they conquered a choice of conversion, exile, or death. When Almohad forces took Córdoba in 1148, a ten-year-old prodigy fled with his family — through years of wandering, a spell in Fez living under the persecution, and finally to the safety of Egypt.</p>
 
-  <div class="bio" style="--bc:var(--c-sefarad)"><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="turban,long,#a63024" data-alt="Rambam"></div><div class="who">
     <h4>Rambam <span style="font-weight:400">(Maimonides)</span></h4>
     <div class="meta">Rabbi Moshe ben Maimon · 1138–1204 · Córdoba → Fez → Cairo</div>
-    <p>Philosopher, physician to Saladin’s court, refugee from religious persecution in Spain — and author of the <strong>Mishneh Torah</strong>, a fourteen-volume restatement of <em>all</em> of Jewish law: every field, including laws with no practical application for a thousand years. Perfectly organized, written in crystalline Hebrew, and — this was the scandal — with <strong>no sources cited and no dissenting opinions recorded</strong>. Just the law, stated flat.</p>
+    <p>Philosopher, physician to <span class="g" data-def="Saladin (1137–1193): sultan of Egypt and Syria, famed for recapturing Jerusalem from the Crusaders in 1187. Rambam served his court in Cairo as physician.">Saladin</span>’s court, refugee from religious persecution in Spain — and author of the <strong>Mishneh Torah</strong>, a fourteen-volume restatement of <em>all</em> of Jewish law: every field, including laws with no practical application for a thousand years. Perfectly organized, written in crystalline Hebrew, and — this was the scandal — with <strong>no sources cited and no dissenting opinions recorded</strong>. Just the law, stated flat.</p>
   </div></div>
 
-  <p>Rambam said the quiet part out loud: he wrote that a person could now read Scripture, then his code, and <em>need nothing in between</em>. The Talmud’s ocean of argument, compressed into a finished monument. And what a strange, magnificent monument it is. Written across a decade (c. 1168–1178), its fourteen books open with the nature of God and the created universe and close with a vision of the messianic age — a law code framed from Creation to Redemption, with <em>knowledge of God</em> as the thread running through every statute. It bears the fingerprints of its world, too: like the great legal compendia of Islamic civilization around him, it opens with a book on sacred knowledge itself, and its confident systematizing belongs to the same intellectual climate that produced them. For admirers it was the greatest legal achievement since the Talmud itself — Yemenite and many eastern communities essentially adopted it as their constitution. For critics, it was an attempt to end the conversation.</p>
+  <p>Rambam said the quiet part out loud: he wrote that a person could now read Scripture, then his code, and <em>need nothing in between</em>. The Talmud’s ocean of argument, compressed into a finished monument. And what a strange, magnificent monument it is. Written across a decade (c. 1168–1178), its fourteen books open with the nature of God and the created universe and close with a vision of the messianic age — a law code framed from Creation to Redemption, with <em>knowledge of God</em> as the thread running through every statute. It bears the fingerprints of its world, too: like the great legal compendia of Islamic civilization around him, it opens with a book on sacred knowledge itself, and its confident systematizing belongs to the same intellectual climate that produced them. For admirers it was the greatest legal achievement since the Talmud itself — <span class="g" data-def="Yemen: home to one of the most ancient Jewish communities, which corresponded with Rambam in his lifetime and adopted the Mishneh Torah as its lasting legal constitution — many Yemenite Jews follow it to this day.">Yemenite</span> and many eastern communities essentially adopted it as their constitution. For critics, it was an attempt to end the conversation.</p>
+  <h3 style="margin-top:2.4rem;font-size:1.5rem">Provence answers: the war in the margins</h3>
   <p>The sharpest counter-attack came from Provence — the border country that read everyone and deferred to no one.</p>
 
-  <div class="bio" style="--bc:var(--c-provence)"><div class="who">
+  <div class="bio" style="--bc:var(--c-provence)"><div class="pmed" data-port="hood,long,#6e7d27" data-alt="The Raavad"></div><div class="who">
     <h4>The Raavad</h4>
     <div class="meta">Rabbi Abraham ben David · c. 1125–1198 · Posquières, Provence</div>
     <p>The great critic of the age. He wrote <span class="g" data-def="Gloss: a short note attached to another author’s text — explaining, qualifying, or attacking it. The Hebrew term for the Raavad’s critical glosses is hassagot, “animadversions.”">glosses</span> — pointed marginal notes — on the Rif and, most famously, on the Mishneh Torah itself, objecting line by line: <em>here he ruled against the Talmud’s conclusion; here he follows the wrong opinion; and why has he hidden his reasoning, so no one can check his work?</em> His tone could be brutal. His method was the point: <strong>don’t burn the code — annotate it.</strong> (He wasn’t only a demolisher, by the way: his own book on marriage and holiness, <em>Baalei HaNefesh</em> — “Masters of the Soul” — pioneered the idea that a law book should shape its reader’s <em>character</em>, not just their conduct. His neighbors called this fierce critic “the pious” and “the holy.”)</p>
   </div></div>
 
   <p>Something remarkable then happened in the print shops of later centuries: the Raavad’s attacks were published <em>inside</em> the Mishneh Torah, wrapped around Rambam’s paragraphs. The monument absorbed its critic and became, itself, a page of argument. Remember this move — <strong>the critical gloss, printed into the text it disputes</strong> — because in the final act, it’s exactly how Ashkenaz will get its voice into the Sephardic code that conquered the world.</p>
-  <p>Spain’s next generations pulled the traditions closer anyway — under growing Christian pressure, for by now the <em>Reconquista</em> had carried most of Iberia’s Jews from Muslim rule into Christian kingdoms. The bridge-builders came in a chain. <strong>R. Jonah of Gerona</strong> ran a new kind of academy fusing French Tosafist analysis with German-style piety; his kinsman <strong>Ramban</strong> (Nachmanides, 1194–1270) of Girona defended the Rif from his critics while making that French dialectic native to Spanish study halls — though he repurposed it: where the Tosafists argued partly for the joy of it, the Spaniards deployed dialectic strictly in service of the bottom line. In 1263 the crown forced Ramban into the <strong>Barcelona Disputation</strong>, a staged public debate against a Jewish convert to Christianity before King James I of Aragon; Ramban spoke so freely that, despite the king’s grudging admiration (and a cash prize), Church pressure afterward made Spain unsafe for him, and he ended his days in the Land of Israel. His student the <strong>Rashba</strong> of Barcelona (1235–1310) became the address of the age — roughly three thousand of his responsa survive — and quietly invented something Karo would later borrow: he issued his home-and-kitchen law book <em>Torat HaBayit</em> in <strong>two versions, a long one with the full argument and a short one with just the rulings</strong>. Hold that publishing trick in mind for the finale. A later heir of the school, the <strong>Ran</strong> (Rabbenu Nissim of Girona, c. 1320–1376), wrote what became the standard commentary printed around the Rif. The wall between the worlds was already leaking — and file these Barcelona names away, because they’ll be recalled to the bench as tie-breaking judges in the final act.</p>
 
-  <p>Provence, meanwhile, had one more gift — and one great cautionary tale.</p>
+  <div class="pgx">
+    <span class="label">Interactive · anatomy of a Mishneh Torah page</span>
+    <p style="margin:.5rem 0 0;font-size:1rem">See it for yourself. Here is the monument as later printers built it — the critic inside the walls, and commentators from four countries camped around it. Tap any block; colors follow this site’s regional code.</p>
+    <div id="mtPGX"></div>
+    <p class="mapcap">Stylized reconstruction of the traditional printed layout — real page scans coming soon.</p>
+  </div>
+  <h3 style="margin-top:2.4rem;font-size:1.5rem">Barcelona builds a bridge</h3>
+  <p>Spain’s next generations pulled the traditions closer anyway — under growing Christian pressure, for by now the <span class="g" data-def="The Reconquista: the centuries-long Christian reconquest of Iberia from Muslim rule, completed with the fall of Granada in January 1492 — after which the expulsion of the Jews followed within weeks.">Reconquista</span> had carried most of Iberia’s Jews from Muslim rule into Christian kingdoms. The bridge-builders came in a chain, beginning with <strong>R. Jonah of Gerona</strong>, who ran a new kind of Spanish academy fusing French Tosafist analysis with German-style piety. Then came his great kinsman:</p>
 
-  <div class="bio" style="--bc:var(--c-provence)"><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="turban,long,#a63024" data-alt="Ramban"></div><div class="who">
+    <h4>Ramban <span style="font-weight:400">(Nachmanides)</span></h4>
+    <div class="meta">Rabbi Moshe ben Nachman · 1194–1270 · Girona, Catalonia → the Land of Israel</div>
+    <p>Physician, kabbalist, Bible commentator — and the man who made the Tosafists’ French dialectic native to Spanish study halls, while defending the Rif from his Provençal critics. He repurposed the method, though: where the Tosafists argued partly for the joy of it, Ramban deployed dialectic strictly in service of the bottom line. In 1263 the crown forced him into the <span class="g" data-def="Disputation: a staged public trial of Judaism or its texts before Christian authorities — Paris 1240, Barcelona 1263, Tortosa 1413–14 — usually with the outcome fixed in advance.">Barcelona Disputation</span>, a staged debate against a Jewish convert before King James I of Aragon; he spoke so freely that, despite the king’s grudging admiration (and a cash prize), Church pressure made Spain unsafe for him, and he ended his days in the Land of Israel. First judge on Karo’s reserve bench.</p>
+  </div></div>
+
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="turban,full,#a63024" data-alt="Rashba"></div><div class="who">
+    <h4>The Rashba</h4>
+    <div class="meta">Rabbi Shlomo ben Aderet · 1235–1310 · Barcelona</div>
+    <p>Ramban’s student, and the legal address of the age: roughly three thousand of his responsa survive, consulted on both sides of the Pyrenees. He also quietly invented something Karo would later borrow — he issued his home-and-kitchen law book <em>Torat HaBayit</em> in <strong>two versions: a long one with the full arguments, and a short one with just the rulings</strong>. Hold that publishing trick in mind for the finale. Second judge on Karo’s reserve bench.</p>
+  </div></div>
+
+  <p>A later heir of the school, the <strong>Ran</strong> (Rabbenu Nissim of Girona, c. 1320–1376), wrote what became the standard commentary printed around the Rif. The wall between the worlds was already leaking — and file these Barcelona names away, because they’ll be recalled to the bench in the final act.</p>
+
+  <h3 style="margin-top:2.4rem;font-size:1.5rem">The masterpiece nobody read</h3>
+  <p>Provence had one more gift — and one great cautionary tale.</p>
+
+  <div class="bio" style="--bc:var(--c-provence)"><div class="pmed" data-port="hood,full,#6e7d27" data-alt="The Meiri"></div><div class="who">
     <h4>The Meiri</h4>
     <div class="meta">Menachem Meiri · 1249–1315 · Perpignan, on the Provence–Catalonia border</div>
     <p>Author of the <strong>Beit HaBechirah</strong>, perhaps the era’s most serenely systematic digest of the entire Talmud: every opinion sorted by author, every conclusion stated in limpid Hebrew — the Talmud commentary the Rambam might have written, from the heart of Provence’s Maimonidean circle. He’s also beloved today for a strikingly generous legal argument: that the Talmud’s harsh rules about “idolaters” simply don’t apply to Christians and Muslims, whom he classed as “nations bounded by the ways of religion.” And this remarkable book influenced almost no one for six hundred years. Why not? Hold that question — the answer is a machine, and it arrives two chapters from now.</p>
@@ -461,7 +575,7 @@ ul.next li{margin-bottom:.6em}
   <p class="lead">In 1286, the leading rabbi of Germany, the <strong>Maharam of Rothenburg</strong>, was seized by King Rudolf I while trying to leave the country and imprisoned for ransom. By most accounts he forbade his community to pay the enormous sum — it would only teach kings to kidnap rabbis — and he died in his cell in 1293. He had seen the writing on the wall for half a century: as a young student in Paris he had watched the wagonloads of Talmud manuscripts burn in 1242, and written the lament over them that Ashkenazi communities still recite each year. His Germany was becoming unlivable.</p>
   <p>His greatest student read the signs.</p>
 
-  <div class="bio" style="--bc:var(--c-germany)"><div class="who">
+  <div class="bio" style="--bc:var(--c-germany)"><div class="pmed" data-port="pointed,long,#2c4a8a" data-alt="The Rosh"></div><div class="who">
     <h4>The Rosh</h4>
     <div class="meta">Rabbenu Asher ben Yehiel · c. 1250–1327 · Worms → Toledo (fled 1303)</div>
     <p>Heir to the whole Tosafist tradition, the Rosh fled Germany in 1303 and — extraordinarily — was welcomed as chief rabbi of <strong>Toledo</strong>, the heart of Sefarad (legend says at the invitation of the Rashba himself). There he wrote a Rif-style digest of the Talmud, but with a difference: where the Rif had recorded the old conclusions, the Rosh ran the French and German analysis <em>through</em> them, updating the verdicts with three centuries of Tosafist argument. Ashkenazi method, Sephardic format, one book.</p>
@@ -471,7 +585,7 @@ ul.next li{margin-bottom:.6em}
 
   <p>And then his son finished the thought.</p>
 
-  <div class="bio" style="--bc:var(--c-sefarad)"><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="cap,long,#a63024" data-alt="The Tur"></div><div class="who">
     <h4>The Tur <span style="font-weight:400">(Rabbi Yaakov ben Asher)</span></h4>
     <div class="meta">c. 1269–1343 · born in Germany, wrote in Toledo · the <em>Arba’ah Turim</em>, “Four Columns”</div>
     <p>A German-born son of the German master, raised in Spain, he wrote the first code that treated the two traditions as <strong>one conversation</strong>. Where his father’s digest had to be read beside an open Talmud, the Tur made a deliberate, very Spanish trade: no Talmudic citations, a use-oriented structure — a book that stands on its own. For each topic he lays out the major opinions by name — the Rif and Rambam from Sefarad, Rashi, the Tosafists and, usually last and usually decisive, “my father the Rosh” — criticizing and praising Spanish custom by turns but never demanding anyone abandon it. He was even, as far as we know, the first writer to use <strong>“Ashkenazim” and “Sephardim”</strong> as names for the two cultures: only someone straddling both would need the words. He also invented the filing system that stuck — and that deserves its own moment.</p>
@@ -483,19 +597,19 @@ ul.next li{margin-bottom:.6em}
   <p>The Tur’s answer was ruthlessly practical: include <strong>only law that can be lived right now</strong>, and arrange it in the shape of a lived life. Four columns — the very name <em>Arba’ah Turim</em> comes from the four rows of gemstones on the High Priest’s breastplate — each headed with a poetic biblical phrase, and each, tellingly, written with its own reader in mind: the first for every literate householder, the second for the working community rabbi, the last two for scholars and judges. Tap each to see what it holds:</p>
 
   <div class="fourcol">
-    <details><summary><span class="tr">Column 1 · Time</span>Orach Chayim<br><span style="font-weight:400;font-size:.85em;color:var(--ink-soft)">“The Path of Life”</span></summary>
-    <p>Your day and your year: waking, prayer, blessings, meals — then Shabbat, festivals, and fasts. If it happens on a schedule, it’s filed here. The most-thumbed column ever since.</p></details>
-    <details><summary><span class="tr">Column 2 · The holy &amp; forbidden</span>Yoreh De’ah<br><span style="font-weight:400;font-size:.85em;color:var(--ink-soft)">“It Teaches Knowledge”</span></summary>
-    <p>The ritual rulebook: kosher food and wine, vows and oaths, charity, Torah study, conversion, mourning. Traditionally the material a rabbi is examined on before ordination.</p></details>
-    <details><summary><span class="tr">Column 3 · Family</span>Even HaEzer<br><span style="font-weight:400;font-size:.85em;color:var(--ink-soft)">“The Stone of Help”</span></summary>
-    <p>Marriage and divorce, and everything between spouses — betrothal, the marriage contract, and the laws of ending a marriage. The name is a wordplay: “helper” is the Bible’s word for a spouse.</p></details>
-    <details><summary><span class="tr">Column 4 · Money</span>Choshen Mishpat<br><span style="font-weight:400;font-size:.85em;color:var(--ink-soft)">“The Breastplate of Judgment”</span></summary>
-    <p>Jewish civil law: contracts, sales, loans, damages, employment, inheritance, courts and testimony. Named for the gemstone breastplate of the High Priest, worn when judgment was rendered.</p></details>
+    <details><summary>Orach Chayim<span class="en">“The Path of Life”</span><span class="desc">Sacred time: your day and your year, from waking prayer to Shabbat and festivals.</span></summary>
+    <p>Waking, blessings, prayer services, meals — then the weekly and yearly cycle: Shabbat, festivals, fasts. If it happens on a schedule, it’s filed here. The most-thumbed column ever since, and the one written for every literate householder.</p></details>
+    <details><summary>Yoreh De’ah<span class="en">“It Teaches Knowledge”</span><span class="desc">The holy and the forbidden: kosher food, vows, charity, conversion, mourning.</span></summary>
+    <p>The ritual rulebook — traditionally the material a rabbi is examined on before ordination, and the column aimed at the working community rabbi.</p></details>
+    <details><summary>Even HaEzer<span class="en">“The Stone of Help”</span><span class="desc">Family: marriage, divorce, and everything between two spouses.</span></summary>
+    <p>Betrothal, the marriage contract, and the laws of ending a marriage. The name is a wordplay: “helper” is the Bible’s word for a spouse. Written for scholars and judges.</p></details>
+    <details><summary>Choshen Mishpat<span class="en">“The Breastplate of Judgment”</span><span class="desc">Money: contracts, damages, employment, courts — Jewish civil law.</span></summary>
+    <p>Named for the gemstone breastplate the High Priest wore when judgment was rendered. The scholars’ and judges’ column — and the one whose arrangement may echo Castile’s own great law code.</p></details>
   </div>
 
   <p><strong>Why this version won.</strong> Scope: nothing you look up is theoretical, so the book earns a place in every household, not just every academy. Findability: guess which column your question lives in, and you’re usually right. Timing: Castile was itself in a codifying mood — King Alfonso X’s great Spanish law code, the <em>Siete Partidas</em> (“Seven Parts”), was compiled in the same land a generation earlier, and scholars have noticed echoes of its arrangement in the Tur’s civil-law column; the Tur is, among other things, a Jewish entry in a broader medieval moment of writing everything down. And, decisively, <em>lock-in</em>: two centuries later, Yosef Karo will choose to write his great work as a commentary <em>on the Tur</em> — keeping its four sections and even its chapter numbering in the Shulchan Arukh — and after that, essentially every major work of practical halakhah organizes itself the same way, down to the present. When Jews today cite a law as “Orach Chayim 271” or “Yoreh De’ah 87,” they are using the Tur’s filing cabinet. His four columns are halakhah’s street grid: the buildings have been rebuilt many times, but nobody has ever moved the streets.</p>
 
-  <div class="note"><span class="label">Why the Tur matters so much</span>
+  <div class="note tint-olive"><span class="label">Why the Tur matters so much</span>
   Before the Tur, a Spanish reader and a German reader were consulting different bookshelves. After the Tur, they were at least reading the same table of contents — with each other’s authorities cited on every page. The merger wasn’t complete: the Tur reports the debate more often than he ends it. Ending it would take a catastrophe, and two more centuries.</div>
 
   <p>Meanwhile the Ashkenazi heartland kept bleeding. Another of the Maharam’s students, <strong>Mordechai ben Hillel</strong>, compiled a huge digest of Franco-German rulings — the <em>Mordechai</em> — and was then murdered with his family in the Rintfleisch massacres of 1298. After the Black Death pogroms of 1348–49, the center of Ashkenazi gravity drifted decisively east, toward <span style="color:var(--c-poland);font-weight:600">Poland</span>. Hold that thought.</p>
@@ -527,16 +641,22 @@ ul.next li{margin-bottom:.6em}
   <div class="kicker"><span class="num">VIII</span><span class="label">1492–1565 · Toledo → Safed</span></div>
   <h2>Catastrophe, then the Set Table</h2>
   <p class="lead">In 1492 Spain expelled its Jews. Among the refugees was a four-year-old boy from Toledo named <strong>Yosef Karo</strong> (1488–1575). His family fled to Portugal, then into the Ottoman Empire; he ended his wanderings in Safed, a hill town in the Galilee that had become the gathering point of the Sephardic exile — and, briefly, the most intellectually charged Jewish town on earth.</p>
+
+  <div class="bio" style="--bc:var(--c-east)"><div class="pmed" data-port="turban,long,#b97613" data-alt="Yosef Karo"></div><div class="who">
+    <h4>Yosef Karo</h4>
+    <div class="meta">1488–1575 · Toledo → Portugal → Ottoman Adrianople → Safed</div>
+    <p>The exile child who gave a scattered people one law book again: author of the encyclopedic <em>Beit Yosef</em> and of the <em>Shulchan Arukh</em> distilled from it — and, as you’re about to see, a mystic who kept a diary of angelic visitations while writing the driest, most systematic legal prose of his century.</p>
+  </div></div>
   <p>The expulsion was a century in the making. In 1391, waves of riots swept Castile and Aragon; thousands of Jews were killed and tens of thousands forcibly converted, creating a huge population of <em>conversos</em> living between two worlds. A staged disputation at Tortosa (1413–14) pressured thousands more to convert. In 1478 the Spanish Inquisition was founded to hunt “judaizing” among the converts. And in January 1492 Granada — the last Muslim state in Iberia — fell to Ferdinand and Isabella, completing the <em>Reconquista</em>; the expulsion edict against the Jews followed within weeks, with Portugal’s forced mass conversion in 1497 close behind. Eight centuries of Iberian Jewish civilization — the world of the Rif, the Rambam, the Ramban, the Rosh, and the Tur — was scattered across the Mediterranean, largely into the welcoming <strong>Ottoman Empire</strong>, whose sultans were glad to absorb the talent Spain had thrown away.</p>
   <p>The exile scrambled everything. Spanish, North African, Greek, and Ashkenazi Jews were suddenly neighbors in the same Ottoman cities, each insisting on their own inherited practice. The old answer — “follow your local tradition” — collapses when every street holds four traditions. Karo concluded that the Jewish world needed what it hadn’t had since the Geonim: <strong>one address for the law.</strong></p>
   <div class="note"><span class="label">The mystic behind the lawyer</span>
   The most methodical legal mind of the century was also, by his own account, a visited man. Karo kept a diary — later published as <em>Maggid Mesharim</em> — recording decades of nighttime visitations from a heavenly mentor he understood as the personified spirit of the Mishnah, urging him on in his work and his piety. Safed itself was electric with this energy: it was the town of the great kabbalists, and Karo moved in their circle. He was also the star participant in the era’s most audacious legal experiment — a 1538 attempt by R. Jacob Berab to revive the ancient chain of <em>full rabbinic ordination</em>, dormant for a millennium, as a first step toward reconstituting the supreme court of antiquity (and, behind that hope, hastening the messianic restoration; the scheme collapsed in short order over — what else — a dispute about who was ordained). Keep this in view: the drive to give the scattered Jewish people “one Torah and one law” wasn’t bureaucratic tidiness. For Karo it was a piece of cosmic repair after the catastrophe.</div>
 
-  <p>He began the great work in 1522, in Ottoman Adrianople, and spent roughly twenty years on the <em>Beit Yosef</em> — a colossal commentary that traces every single law from the Talmud through every major authority since: what the source is, who agreed, who disputed, and why. He deliberately built it on the <strong>Tur</strong> rather than on the Mishneh Torah — precisely because the Tur <em>records the disagreements of both traditions</em>, and Rambam’s smooth single voice would have hidden the very diversity Karo needed to adjudicate. And then, facing the thousand disputes he had so honestly documented, he needed a way to <em>end</em> them that didn’t depend on his own charisma. In his own telling, sitting in judgment over the giants — weighing Rashi against Rambam on the merits — would be both presumptuous and endless. His solution was almost mechanical — and that was its genius.</p>
+  <p>He began the great work in 1522, in Ottoman Adrianople, and spent roughly twenty years on the <em>Beit Yosef</em> — a colossal commentary that traces every single law from the Talmud through every major authority since: what the source is, who agreed, who disputed, and why. He deliberately built it on the <strong>Tur</strong> rather than on the Mishneh Torah — precisely because the Tur <em>records the disagreements of both traditions</em>, and Rambam’s smooth single voice would have hidden the very diversity Karo needed to adjudicate. And then, facing the thousand disputes he had so honestly documented, he needed a way to <em>end</em> them that didn’t depend on his own charisma. In his own telling, sitting in judgment over the giants — weighing Rashi against Rambam on the merits — would be both presumptuous and endless. His solution was almost mechanical — and that was its genius. He even planned for its failure mode: when his court of three produces <em>no majority</em> — one rules yes, one rules no, and one never addressed the question — Karo’s stated fallback was to empanel a second, larger court: <strong>five more giants</strong> — the Ramban, the Rashba, the Ran, the Mordechai, and the Semag, every one of whom you’ve already met — and follow the weight of opinion among them. A court for every case; an appeals bench for every deadlock.</p>
 
   <div class="pillars-ui">
-    <span class="label">Interactive · Karo’s rule of three</span>
-    <p style="margin:.5rem 0 1rem;font-size:1rem">Karo appointed a standing supreme court of the three greatest earlier codifiers — <b style="color:var(--c-sefarad)">the Rif</b>, <b style="color:var(--c-sefarad)">the Rambam</b>, and <b style="color:var(--c-germany)">the Rosh</b> (two Sephardic pillars, one Ashkenazi) — and pledged, as his default, to follow any <strong>two against one</strong>. Try the mechanism:</p>
+    <span class="label">Interactive · Karo’s Beit Din of Three — and of Five</span>
+    <p style="margin:.5rem 0 1rem;font-size:1rem">Karo appointed a standing <span class="g" data-def="Beit Din (bayt DEEN): “house of judgment” — a rabbinic court, classically of three judges. Karo turned the idea into a method: a virtual court of the greatest departed codifiers, voting through their books.">Beit Din</span> — a court — of the three greatest earlier codifiers: <b style="color:var(--c-sefarad)">the Rif</b>, <b style="color:var(--c-sefarad)">the Rambam</b>, and <b style="color:var(--c-germany)">the Rosh</b> (two Sephardic pillars, one Ashkenazi). His pledge: follow any <strong>two against one</strong>. And for deadlocks, a reserve bench of <strong>five</strong>. Try both:</p>
     <div class="pill-tabs" role="tablist" aria-label="Rule of three examples">
       <button role="tab" aria-selected="true" data-case="0">The mechanism</button>
       <button role="tab" aria-selected="false" data-case="1">A real case (simplified)</button>
@@ -558,7 +678,7 @@ ul.next li{margin-bottom:.6em}
   <h2>The tablecloth</h2>
   <p class="lead">Fifteen hundred miles north, in Kraków — the new capital of Ashkenaz — a wealthy young prodigy was writing the very same book.</p>
 
-  <div class="bio" style="--bc:var(--c-poland)"><div class="who">
+  <div class="bio" style="--bc:var(--c-poland)"><div class="pmed" data-port="fur,full,#6d4293" data-alt="The Rema"></div><div class="who">
     <h4>The Rema</h4>
     <div class="meta">Rabbi Moshe Isserles · c. 1530–1572 · Kraków, Poland</div>
     <p>Head of a great Kraków academy while still in his twenties, the Rema was independently working through the Tur to fix Ashkenazi law — when Karo’s <em>Beit Yosef</em> arrived from the south and beat him to it, magnificently. His response defined him: instead of competing, he re-cut his own research as a supplement (<em>Darkhei Moshe</em>), recording where the traditions of Ashkenaz — its later authorities, and above all its binding customs — diverged from Karo’s three-pillar verdicts.</p>
@@ -615,7 +735,7 @@ ul.next li{margin-bottom:.6em}
   <div class="bio" style="--bc:var(--c-poland)"><div class="who">
     <h4>Camp 2: Fine, a code — but not <em>this</em> code</h4>
     <div class="meta">The Maharshal (Solomon Luria, c. 1510–1573) · Mordecai Jaffe, “the Levush” (1530–1612) · Yom Tov Lipmann Heller (1579–1654)</div>
-    <p>The Rema’s Kraków-born cousin and lifelong sparring partner, the <strong>Maharshal</strong>, accepted that the age needed a summary — and then indicted Karo’s on three counts: the rule of three is an <em>arbitrary head-count</em>, not a search for truth; it steamrolls the practice of Polish Jewry; and — a delicious irony of the print age — Karo had built on <em>corrupted printed editions</em>, so parts of the structure stood on typos. His alternative, <em>Yam Shel Shlomo</em>, re-derived everything from the Talmud itself; magnificent, enormous, and barely printed — it never had a chance. The <strong>Levush</strong> tried the middle road (rulings <em>with</em> their reasons, in one readable book) after being scooped out of two earlier projects — once by Karo, once by his own teacher the Rema. And <strong>Heller</strong>, last of the line, argued that the ideal code had already been written centuries before: the Rosh’s — because it keeps the receipts. After him, nobody again tried to <em>replace</em> the Shulchan Arukh. That silence was the sound of the argument ending.</p>
+    <p>The Rema’s Kraków-born cousin and lifelong sparring partner, the <strong>Maharshal</strong>, accepted that the age needed a summary — and then indicted Karo’s on three counts: the Beit Din of Three is an <em>arbitrary head-count</em>, not a search for truth; it steamrolls the practice of Polish Jewry; and — a delicious irony of the print age — Karo had built on <em>corrupted printed editions</em>, so parts of the structure stood on typos. His alternative, <em>Yam Shel Shlomo</em>, re-derived everything from the Talmud itself; magnificent, enormous, and barely printed — it never had a chance. The <strong>Levush</strong> tried the middle road (rulings <em>with</em> their reasons, in one readable book) after being scooped out of two earlier projects — once by Karo, once by his own teacher the Rema. And <strong>Heller</strong>, last of the line, argued that the ideal code had already been written centuries before: the Rosh’s — because it keeps the receipts. After him, nobody again tried to <em>replace</em> the Shulchan Arukh. That silence was the sound of the argument ending.</p>
   </div></div>
 
   <div class="bio" style="--bc:var(--c-poland)"><div class="who">
@@ -707,7 +827,7 @@ ul.next li{margin-bottom:.6em}
   window.addEventListener('scroll',hide,{passive:true});
 })();
 
-/* ---------- rule of three ---------- */
+/* ---------- Beit Din of Three ---------- */
 (function(){
   const cases=[
     {q:"Suppose a food’s status is disputed: may you eat it?",
@@ -785,7 +905,7 @@ ul.next li{margin-bottom:.6em}
     {id:'rif', n:'The Rif', d:'1013–1103', yr:1063, band:'sefarad', lab:'above',
      full:'Rabbi Isaac Alfasi (the Rif)', place:'Fez, Morocco → Lucena, Spain (fled 1088)',
      wrote:'Sefer HaHalakhot — the “little Talmud”: the Talmud stripped down to its practically binding conclusions.',
-     why:'Invented the Sephardic strategy: shrink the argument to reach the ruling. First pillar of Karo’s rule of three.'},
+     why:'Invented the Sephardic strategy: shrink the argument to reach the ruling. First pillar of Karo’s Beit Din of Three.'},
     {id:'rashi', n:'Rashi', d:'1040–1105', yr:1075, band:'france', lab:'above',
      full:'Rabbi Shlomo Yitzchaki (Rashi)', place:'Troyes, France (trained in Mainz & Worms)',
      wrote:'The running commentary on virtually the entire Talmud (and the Bible) — printed beside the text ever since.',
@@ -1167,7 +1287,7 @@ ul.next li{margin-bottom:.6em}
   {n:'Seder Rav Amram',t:'book',r:'bab',d:'9th century',x:'The ancestor of the prayer book: the Gaon Amram’s written answer to a community that asked, simply, “What is the order of the prayers?”',rel:['The Geonim','Responsa']},
   {n:'Rabbenu Chananel',t:'person',r:'sef',d:'d. c. 1055',x:'Of Kairouan, North Africa: author of one of the first running commentaries on the whole Talmud, written just as Baghdad’s authority faded — a bridge from the Geonim to the new regional world, and to Italy and Europe.',rel:['The Geonim','The Rif']},
   {n:'Rabbenu Gershom',a:['Light of the Exile','Meor HaGolah'],t:'person',r:'ger',d:'c. 960–1028',x:'Founding teacher of Ashkenaz, in Mainz. Famous for communal decrees — banning polygamy and forced divorce, protecting privacy of letters — and for the academies that trained Rashi’s teachers.',rel:['Rashi']},
-  {n:'The Rif',a:['Alfasi','Isaac Alfasi','Sefer HaHalakhot','Halakhot Rabbati'],t:'person',r:'sef',d:'1013–1103',x:'Rabbi Isaac Alfasi of Fez (fled to Spain, 1088): author of the “little Talmud” — the Talmud stripped to its binding conclusions. Head of the Lucena academy whose circle taught the teacher of Rambam’s father. First pillar of Karo’s rule of three.',rel:['Rambam','Yosef Karo','The Ran']},
+  {n:'The Rif',a:['Alfasi','Isaac Alfasi','Sefer HaHalakhot','Halakhot Rabbati'],t:'person',r:'sef',d:'1013–1103',x:'Rabbi Isaac Alfasi of Fez (fled to Spain, 1088): author of the “little Talmud” — the Talmud stripped to its binding conclusions. Head of the Lucena academy whose circle taught the teacher of Rambam’s father. First pillar of Karo’s Beit Din of Three.',rel:['Rambam','Yosef Karo','The Ran']},
   {n:'Rashi',t:'person',r:'fr',d:'1040–1105',x:'Rabbi Shlomo Yitzchaki of Troyes: wrote the running explanation of virtually the entire Talmud (and Bible), printed beside the text ever since. The door through which every beginner enters.',rel:['Rabbenu Tam','Tosafot','Rabbenu Gershom']},
   {n:'Rabbenu Tam',t:'person',r:'fr',d:'c. 1100–1171',x:'Rashi’s grandson and greatest critic; leader of the Tosafists. Survived a Second-Crusade mob attack in 1146. Made creative disagreement the engine of Ashkenazi law.',rel:['Rashi','Tosafot']},
   {n:'Tosafot',a:['Tosafists'],t:'term',r:'fr',d:'1100s–1200s',x:'“Additions”: the Franco-German school of critical Talmud analysis, many of them Rashi’s descendants — cross-examining every passage, printed opposite Rashi on every Talmud page to this day.',rel:['Rabbenu Tam','Maharam of Rothenburg','The Rosh']},
@@ -1257,7 +1377,5 @@ ul.next li{margin-bottom:.6em}
   });
 })();
 </script>
-  
 </body>
 </html>
-
