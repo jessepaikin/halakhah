@@ -267,12 +267,15 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 
 /* medieval map */
 .medmap{position:relative}
-#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae}
+#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae;max-width:min(100%,calc(52vh*1.501));margin:0 auto}
 #eraMap .mapimg{display:block;width:100%;height:auto}
 #eraMap .overlay{position:absolute;inset:0;width:100%;height:100%}
 .eralayer{position:absolute;inset:0;opacity:0;transition:opacity .85s ease;pointer-events:none}
 .eralayer.on{opacity:1;pointer-events:auto}
 .eralayer .mig{stroke-dasharray:1400;stroke-dashoffset:1400}
+.eralayer .tip{offset-distance:0%;opacity:0}
+.eralayer.on .tip{animation:tipmove 3.5s ease-in-out .35s forwards}
+@keyframes tipmove{0%{offset-distance:0%;opacity:0}6%{opacity:1}100%{offset-distance:100%;opacity:1}}
 .eralayer.on .mig{animation:migdraw 3.5s ease-in-out .35s forwards}
 @keyframes migdraw{to{stroke-dashoffset:0}}
 .citydot{position:absolute;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:50%;cursor:pointer;border:2px solid #f9f3e1;box-shadow:0 1px 4px rgba(0,0,0,.4)}
@@ -284,7 +287,18 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .timebar button:hover{background:var(--ink);color:var(--paper)}
 .timebar button:disabled{opacity:.3;cursor:default}
 .timebar input[type=range]{flex:1;accent-color:var(--c-sefarad);height:5px;cursor:pointer}
-.timelabels{display:flex;justify-content:space-between;font-family:"Archivo",sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.04em;color:var(--ink-soft);margin:.2rem 46px 0}
+.sliderwrap{flex:1;position:relative}
+.sliderwrap input{width:100%;display:block}
+.ticks{position:relative;height:3.5rem;margin:2px 8px 0}
+.tick{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-family:"Archivo",sans-serif;font-size:.62rem;line-height:1.2;color:var(--ink-soft);white-space:nowrap;cursor:pointer;background:none;border:none;padding:0}
+.tick b{display:block;font-weight:700}
+.tick i{display:block;font-style:normal;font-weight:500}
+.tick.r1{top:1.9rem}
+.tick::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--ink-soft);opacity:.6}
+.tick.on b,.tick.on i{color:var(--c-sefarad)}
+.tick.on::before{background:var(--c-sefarad);opacity:1}
+@media(max-width:600px){.tick i{display:none}.ticks{height:2.6rem}.tick.r1{top:1.3rem}}
+.evname{font-family:"Archivo",sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.03em;color:var(--c-sefarad);margin:.15rem .2rem 0;text-align:center}
 .eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:0 .2rem .5rem}
 .mapPop{position:absolute;z-index:20;width:min(280px,70vw);background:var(--paper-card);border:1.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 26px rgba(38,32,25,.35);display:none}
 .mapPop.show{display:block}
@@ -299,7 +313,7 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .mapPop .x{position:absolute;top:6px;right:10px;border:none;background:none;font-size:1.1rem;cursor:pointer;color:var(--ink-soft)}
 
 /* floating minimap */
-#minimap{position:fixed;right:14px;bottom:14px;width:190px;z-index:54;background:rgba(250,245,233,.95);border:1px solid var(--rule);border-radius:10px;padding:6px;display:none;box-shadow:0 4px 18px rgba(38,32,25,.18)}
+#minimap{transition:opacity .4s ease;position:fixed;right:14px;bottom:14px;width:190px;z-index:54;background:rgba(250,245,233,.95);border:1px solid var(--rule);border-radius:10px;padding:6px;display:none;box-shadow:0 4px 18px rgba(38,32,25,.18)}
 @media(min-width:1200px){#minimap.show{display:block}}
 #minimap .cap{font-family:"Archivo",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-align:center;padding:2px 0 1px}
 #minimap #minimapMount{position:relative}
@@ -311,18 +325,19 @@ ol.filing{margin:.2rem 0 1rem 1.4rem;padding:0}
 ol.filing li{margin:.45em 0}
 .lkgo{background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer;border-bottom:1.5px dotted var(--ink-soft)}
 .lkgo:hover{border-bottom-style:solid;border-bottom-color:var(--ink)}
-.nkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1rem;margin:1.2rem 0}
-.nkcard{background:var(--paper-card);border:1px solid var(--rule);border-top:5px solid var(--c-poland);border-radius:10px;padding:1rem}
-.nkcard .pmed{width:60px;margin-bottom:.4rem}
-.nkcard h4{margin:.1em 0;font-size:1.15rem}
+.nkgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:1.2rem 0}
+@media(min-width:720px){.nkgrid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.nkcard{background:var(--paper-card);border:1px solid var(--rule);border-top:5px solid var(--c-poland);border-radius:10px;padding:.85rem}
+.nkcard .pmed{width:48px;margin-bottom:.35rem}
+.nkcard h4{margin:.1em 0;font-size:1.05rem}
 .nkcard .meta{font-family:"Archivo",sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.4rem}
-.nkcard p{font-size:.92rem;margin:0}
+.nkcard p{font-size:.85rem;margin:0}
 
 #rail a.on::after{opacity:1}
 .navchev{position:absolute;top:0;bottom:0;width:34px;border:none;cursor:pointer;z-index:6;display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:var(--ink-soft);background:linear-gradient(to left,var(--paper) 60%,transparent);right:0;padding:0}
 .navchev.left{left:0;right:auto;background:linear-gradient(to right,var(--paper) 60%,transparent)}
 .navchev[hidden]{display:none}
-.nkcard .pmed svg{width:60px;height:60px}
+.nkcard .pmed svg{width:48px;height:48px}
 
 #eraBox .tstrip{border:0;background:transparent;overflow-x:auto;margin:0 0 .4rem}
 #eraBox .tstrip-inner{padding:.15rem .1rem;min-width:820px}
@@ -330,6 +345,8 @@ ol.filing li{margin:.45em 0}
 .tcell:hover{background:rgba(38,32,25,.06)}
 .tcell.on{background:rgba(166,48,36,.1)}
 .tcell.on .nm{color:var(--c-sefarad)}
+
+#minimap.dim{opacity:0;pointer-events:none}
 
 /* portrait medallions */
 .bio .pmed{flex:none;width:72px}
@@ -424,7 +441,8 @@ ul.next li{margin-bottom:.6em}
 <section id="problem"><div class="wrap">
   <div class="kicker"><span class="num">I</span><span class="label">The problem</span></div>
   <h2>A library that refuses simple answers</h2>
-  <p class="lead"><span class="g" data-def="Halakhah (hah-lah-KHAH): Jewish law — the system governing everything from prayer and food to contracts and marriage. From a Hebrew root meaning “to walk”: it’s the way you walk through life.">Halakhah</span> is Jewish law — the rules for how to live a Jewish life, covering everything from what you can eat to how you run a business to what you say when you wake up. And its foundational document has a famous personality problem: <strong>it doesn’t like easy verdicts.</strong></p>
+  <p class="lead"><span class="g" data-def="Halakhah (hah-lah-KHAH): Jewish law — the system governing everything from prayer and food to contracts and marriage. From a Hebrew root meaning “to walk”: it’s the way you walk through life.">Halakhah</span> is often translated “Jewish law,” but the word itself means <em>walking</em>. It is less a rulebook than a record of a people deciding, step by step and generation by generation, how a life should be walked: how to eat, rest, grieve, forgive, and begin again. Inside its arguments about ritual and food live older questions: <em>What do we owe each other? What is sacred enough to guard?</em></p>
+  <p class="lead">What looks like a legal library is a civilization’s long meditation on how to live well. But its foundational document has a famous personality problem: <strong>it doesn’t like easy verdicts.</strong></p>
   <p>The <span class="g" data-def="The Talmud: the central text of rabbinic Judaism — the Mishnah (a terse law code from c. 200 CE) plus the Gemara (three centuries of recorded debate about it), edited in Babylonia around 500 CE. About 2,700 pages long.">Talmud</span>, completed in Babylonia around the year 500, is not a code of law. It is a <em>record of argument</em> — centuries of rabbis questioning, objecting, proving, and telling stories, with the disagreements lovingly preserved. Ask the Talmud a simple question — <em>can I eat this? is this contract valid?</em> — and it will often hand you three opinions, a counter-argument, a digression about a rabbi’s dream, and no ruling.</p>
   <p>That’s a beautiful way to preserve a tradition of thinking. It’s a terrible way to run a community. A butcher in the year 900 with a questionable cow standing in front of him cannot wait for the debate to resolve itself. Somebody has to <em>decide</em>.</p>
   <div class="note tint-rose"><span class="label">The engine of this whole story</span>
@@ -468,10 +486,10 @@ ul.next li{margin-bottom:.6em}
   <h3 style="margin-top:1.8rem;font-size:1.35rem">Ashkenaz — a family of communities</h3>
   <p style="font-size:1rem;color:var(--ink-soft);margin:-.2rem 0 .8rem"><strong>Ashkenaz</strong> is the Hebrew name medieval Jews attached to Germany — borrowed from a name in Genesis’s table of nations — and “Ashkenazi” Jews are that family’s descendants. Historically, Germany and northern France were closely intertwined sibling centres — shared founders, constant movement of students — that nonetheless developed distinct customs; “Ashkenaz” narrowly means Germany, and only later stretched to cover the whole family. Living as small communities inside Christian Europe, often under pressure, they prized inherited custom and fearless analysis over tidy codes. Poland is where the family moved when its old homes became unlivable.</p>
   <div class="regions"><div class="rcard" style="--rc:var(--c-germany)">
-      <h3><span class="chip" style="background:var(--c-germany)"></span>Ashkenaz — Germany</h3>
+      <h3><span class="chip" style="background:var(--c-germany)"></span>Germany</h3>
       <p><span class="motto">“Our custom is itself the law.”</span>The Rhineland towns — Mainz, Worms, Speyer. Small, pious, tightly knit communities in Christian Europe, repeatedly battered by Crusader massacres. <span class="g" data-def="Ashkenaz (ahsh-keh-NAHZ): the Hebrew name for Germany, extended to the Franco-German (and later Polish) Jewish cultural world. “Ashkenazi” Jews descend from this tradition.">Ashkenaz</span> treated inherited <span class="g" data-def="Minhag (min-HAHG): custom — a community’s inherited practice. In Ashkenaz especially, entrenched custom could carry nearly the force of law.">custom</span> as sacred: what our martyred ancestors did <em>is</em> the tradition.</p>
     </div><div class="rcard" style="--rc:var(--c-france)">
-      <h3><span class="chip" style="background:var(--c-france)"></span>Ashkenaz — France</h3>
+      <h3><span class="chip" style="background:var(--c-france)"></span>France</h3>
       <p><span class="motto">“Show me the argument.”</span>Germany’s sibling culture, centered in Champagne and northern France. Its genius was <strong>commentary and dialectic</strong> — explaining the Talmud line by line, then arguing with the explanation. Answers mattered less than understanding <em>why</em>.</p>
     </div><div class="rcard" style="--rc:var(--c-poland)">
       <h3><span class="chip" style="background:var(--c-poland)"></span>Poland</h3>
@@ -497,26 +515,18 @@ ul.next li{margin-bottom:.6em}
     <p>The story of halakhah <strong>moves when people are forced to move</strong>, and its greatest syntheses were written by refugees; drag the slider (or tap the arrows) through five eras and watch the centre of gravity travel from Baghdad to Kraków and Tzfat. Tap any city for its story.</p>
 
   <div class="mapbox" id="eraBox">
-    <div class="tstrip" aria-label="Timeline — tap to move the map">
-  <div class="tstrip-inner" style="min-width:920px">
-    <button class="tcell" data-era="0" type="button"><div class="yr">c. 500</div><div class="nm">Talmud sealed</div></button>
-    <button class="tcell" data-era="0" type="button"><div class="yr">600–1038</div><div class="nm">The Geonim</div></button>
-    <button class="tcell" data-era="1" type="button"><div class="yr">c. 1070</div><div class="nm">Rif &amp; Rashi</div></button>
-    <button class="tcell" data-era="2" type="button"><div class="yr">c. 1180</div><div class="nm">Mishneh Torah</div></button>
-    <button class="tcell" data-era="3" type="button"><div class="yr">c. 1340</div><div class="nm">The Tur</div></button>
-    <button class="tcell" data-era="4" type="button"><div class="yr">1519–23</div><div class="nm">Talmud printed</div></button>
-    <button class="tcell" data-era="4" type="button"><div class="yr">1565</div><div class="nm">Shulchan Arukh</div></button>
-    <button class="tcell" data-era="4" type="button"><div class="yr">1570s</div><div class="nm">The Rema’s glosses</div></button>
-  </div>
-  </div>
+    
     <div class="eratitle" id="eraTitle"></div>
     <div id="eraMap"></div>
     <div class="timebar">
-      <button id="eraPrev" aria-label="Previous era">‹</button>
-      <input type="range" id="eraSlider" min="0" max="4" step="1" value="0" aria-label="Era slider">
-      <button id="eraNext" aria-label="Next era">›</button>
+      <button id="eraPrev" aria-label="Previous event">‹</button>
+      <div class="sliderwrap">
+        <input type="range" id="eraSlider" min="500" max="1600" step="1" value="800" aria-label="Timeline — drag and release to snap to key events">
+        <div class="ticks" id="eraTicks"></div>
+      </div>
+      <button id="eraNext" aria-label="Next event">›</button>
     </div>
-    <div class="timelabels"><span>600</span><span>1000</span><span>1300</span><span>1400</span><span>1600</span></div>
+    <div class="evname" id="evName"></div>
     <p class="mapcapdyn" id="eraCap"></p>
   </div>
 </div></section>
@@ -529,14 +539,14 @@ ul.next li{margin-bottom:.6em}
 
   <div class="vs">
     <div class="col" style="border-top:5px solid var(--c-sefarad)">
-      <div class="pmed" data-port="turban,long,#a63024" data-alt="The Rif"></div>
+      <div class="pmed" data-port="rif" data-alt="The Rif"></div>
       <h4><span class="chip" style="background:var(--c-sefarad)"></span>Strategy 1: Shrink it</h4>
       <svg class="stratpic" viewBox="0 0 200 74" aria-hidden="true"><g stroke="#a63024" fill="none" stroke-width="2"><rect x="12" y="8" width="52" height="58" rx="3" fill="#f6efe0"/><path d="M20,18h36M20,26h36M20,34h36M20,42h36M20,50h36M20,58h36" opacity=".55"/><path d="M84,30 h24 m-7,-7 7,7 -7,7 M84,44 h24 m-7,-7 7,7 -7,7" stroke-width="2.4"/><rect x="128" y="20" width="30" height="34" rx="3" fill="#f6efe0"/><path d="M134,29h18M134,37h18M134,45h18" opacity=".8"/></g><text x="38" y="80" font-size="0"></text></svg>
       <p><strong>The Rif</strong> (Rabbi Isaac Alfasi, 1013–1103) of Fez, Morocco — later a refugee in Spain — went through the entire Talmud and <em>deleted</em> everything that wasn’t practically binding: the rejected opinions, the digressions, the laws that only applied when the Temple stood. What remained, about a third of the original, reads like the Talmud with the verdicts left in and the noise taken out.</p>
       <p>It was nicknamed the “little Talmud,” and it made Sefarad the world capital of legal <em>decision</em>. Every code in this story is built on the Rif’s foundation — and so were the people: he spent his last years heading the academy of Lucena in Spain, where his circle trained the teacher of Rambam’s father. A direct line of masters runs from the Rif straight to the giant of the next chapter.</p>
     </div>
     <div class="col" style="border-top:5px solid var(--c-france)">
-      <div class="pmed" data-port="cap,full,#3d7ea6" data-alt="Rashi"></div>
+      <div class="pmed" data-port="rashi" data-alt="Rashi"></div>
       <h4><span class="chip" style="background:var(--c-france)"></span>Strategy 2: Explain it</h4>
       <svg class="stratpic" viewBox="0 0 200 74" aria-hidden="true"><g stroke="#3d7ea6" fill="none" stroke-width="2"><rect x="60" y="6" width="80" height="62" rx="3" fill="#f6efe0"/><path d="M86,16h30M86,24h30M86,32h30M86,40h30M86,48h30M86,56h30" stroke="#57503f" opacity=".6"/><path d="M66,18h13M66,25h13M66,32h13M66,39h13M66,46h13M66,53h13" stroke-width="1.3"/><path d="M122,18h13M122,25h13M122,32h13M122,39h13M122,46h13M122,53h13" stroke-width="1.3"/><path d="M80,21 q-8,0 -10,6 M120,35 q9,0 11,7" stroke-width="1.2" opacity=".7"/></g></svg>
       <p><strong>Rashi</strong> (Rabbi Shlomo Yitzchaki, 1040–1105) of Troyes, France — trained in the German academies of Mainz and Worms — did the opposite. He deleted nothing. Instead he wrote a running explanation of much of the Talmud, so lucid that a motivated beginner could now enter the argument unassisted. (You’ll see a real Rashi column — and can tap it — on the sample page in the <a href="#press">printing chapter</a>.)</p>
@@ -558,15 +568,15 @@ ul.next li{margin-bottom:.6em}
   <p>Christian Europe was turning. In 1240 the Talmud itself was <strong>put on trial in Paris</strong> — a converted Jew named Nicholas Donin brought charges of blasphemy before the court of King Louis IX, and leading rabbis were summoned to defend the book. They lost. In 1242, some twenty-four <strong>wagonloads of confiscated Talmud manuscripts were burned</strong> in a Paris square. Pause on what that means in a manuscript age, when every copy represented months of a scribe’s labor: much of France’s entire stock of the text went up in one fire.</p>
   <p>French scholarship answered the way it could — by making the law <em>portable</em>. Two remarkable books came out of that shadow:</p>
 
-  <div class="bio" style="--bc:var(--c-france)"><div class="pmed" data-port="hood,full,#3d7ea6" data-alt="<span class="g" data-def="Rabbi Moses of Coucy (13th c.): French Tosafist who toured Spain in 1236 preaching repentance, then filed all of practical law under the 613 commandments in his Semag.">Moses of Coucy</span>"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-france)"><div class="pmed" data-port="coucy" data-alt="Moses of Coucy"></div><div class="who">
     <h4>Sefer Mitzvot Gadol <span style="font-weight:400">· “the Semag”</span></h4>
-    <div class="meta">Moses of Coucy · France · completed c. 1247 · preaching tour of Spain, 1236</div>
+    <div class="meta"><span class="g" data-def="Rabbi Moses of Coucy (13th c.): French Tosafist who toured Spain in 1236 preaching repentance, then filed all of practical law under the 613 commandments in his Semag.">Moses of Coucy</span> · France · completed c. 1247 · preaching tour of Spain, 1236</div>
     <p>All practical law, filed under the traditional count of <strong>613 commandments</strong> — and, strikingly, built by pouring Tosafist analysis into a frame openly modelled on the Rambam, whom the author quotes on nearly every page. A French Ashkenazi fusing the two worlds a full lifetime before anyone in this story reaches Toledo. Remember the Semag: it will resurface at a key moment in the print shops.</p>
   </div></div>
 
-  <div class="bio" style="--bc:var(--c-france)"><div class="pmed" data-port="cap,full,#3d7ea6" data-alt="<span class="g" data-def="Rabbi Isaac of Corbeil (d. 1280): French Tosafist whose pocket-sized Semak became a household study text across Ashkenaz.">Isaac of Corbeil</span>"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-france)"><div class="pmed" data-port="corbeil" data-alt="Isaac of Corbeil"></div><div class="who">
     <h4>Sefer Mitzvot Katan <span style="font-weight:400">· “the Semak”</span></h4>
-    <div class="meta">Isaac of Corbeil · France · c. 1277</div>
+    <div class="meta"><span class="g" data-def="Rabbi Isaac of Corbeil (d. 1280): French Tosafist whose pocket-sized Semak became a household study text across Ashkenaz.">Isaac of Corbeil</span> · France · c. 1277</div>
     <p>The Semag, pocket-sized — trimmed to daily essentials and famously divided into <strong>seven portions, one for each day of the week</strong>, so an ordinary householder could review the whole of practical law weekly. A lay bestseller, copied into countless prayer books across Ashkenaz. Law was escaping the scholars’ shelf.</p>
   </div></div>
 
@@ -581,7 +591,7 @@ ul.next li{margin-bottom:.6em}
   <h3 style="margin-top:2.4rem;font-size:1.5rem">The monument</h3>
   <p>He was a child of a collapsing golden age. Under the <span class="g" data-def="The Umayyads: the Muslim dynasty that ruled Spain from Córdoba — declaring a rival caliphate in 929 — under whom Andalusian Jewish culture flowered.">Umayyad</span> caliphs, Córdoba had made Muslim Spain the true heir of Babylonia — courtier-rabbis, poetry, philosophy, and law flourishing together. But the caliphate shattered in 1031 into squabbling statelets, and two waves of fundamentalist Berber dynasties crossed over from North Africa to “rescue” them: first the Almoravids, then, in the 1140s, the far harsher <span class="g" data-def="The Almohads: a fundamentalist Berber dynasty that conquered Islamic Spain and North Africa in the mid-1100s, offering Jews (and Christians) conversion, exile, or death — ending the open world of Andalusian Jewry."><strong>Almohads</strong></span>, who offered the Jews of the cities they conquered a choice of conversion, exile, or death. When Almohad forces took Córdoba in 1148, a ten-year-old prodigy fled with his family — through years of wandering, a spell in Fez living under the persecution, and finally to the safety of Egypt.</p>
 
-  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="turban,long,#a63024" data-alt="Rambam"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="rambam" data-alt="Rambam"></div><div class="who">
     <h4>Rambam <span style="font-weight:400">(Maimonides)</span></h4>
     <div class="meta">Rabbi Moshe ben Maimon · 1138–1204 · Córdoba → Fez → Cairo</div>
     <p>Philosopher, physician to <span class="g" data-def="Saladin (1137–1193): sultan of Egypt and Syria, famed for recapturing Jerusalem from the Crusaders in 1187. Rambam served his court in Cairo as physician.">Saladin</span>’s court, refugee from religious persecution in Spain — and author of the <strong>Mishneh Torah</strong>, a fourteen-volume restatement of <em>all</em> of Jewish law: every field, including laws with no practical application for a thousand years. Perfectly organized, written in crystalline Hebrew, and — this was the scandal — with <strong>no sources cited and no dissenting opinions recorded</strong>. Just the law, stated flat.</p>
@@ -591,7 +601,7 @@ ul.next li{margin-bottom:.6em}
   <h3 style="margin-top:2.4rem;font-size:1.5rem">Provence answers: the war in the margins</h3>
   <p>The sharpest counter-attack came from Provence — the border country that read everyone and deferred to no one.</p>
 
-  <div class="bio" style="--bc:var(--c-provence)"><div class="pmed" data-port="hood,long,#6e7d27" data-alt="The Raavad"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-provence)"><div class="pmed" data-port="raavad" data-alt="The Raavad"></div><div class="who">
     <h4>The Raavad</h4>
     <div class="meta">Rabbi Abraham ben David · c. 1125–1198 · Posquières, Provence</div>
     <p>The great critic of the age. He wrote <span class="g" data-def="Gloss: a short note attached to another author’s text — explaining, qualifying, or attacking it. The Hebrew term for the Raavad’s critical glosses is hassagot — “objections.”">glosses</span> — pointed marginal notes — on the Rif and, most famously, on the Mishneh Torah itself, objecting line by line: <em>here he ruled against the Talmud’s conclusion; here he follows the wrong opinion; and why has he hidden his reasoning, so no one can check his work?</em> His tone could be brutal. His method was the point: <strong>don’t burn the code — annotate it.</strong> (He wasn’t only a demolisher, by the way: his own book on marriage and holiness, <em>Baalei HaNefesh</em> — “Masters of the Soul” — pioneered the idea that a law book should shape its reader’s <em>character</em>, not just their conduct. His neighbours called this fierce critic “the pious” and “the holy.”)</p>
@@ -607,13 +617,13 @@ ul.next li{margin-bottom:.6em}
   <h3 style="margin-top:2.4rem;font-size:1.5rem">Barcelona builds a bridge</h3>
   <p>Spain’s next generations pulled the traditions closer anyway — under growing Christian pressure, for by now the <span class="g" data-def="The Reconquista: the centuries-long Christian reconquest of Iberia from Muslim rule, completed with the fall of Granada in January 1492 — after which the expulsion of the Jews followed within weeks.">Reconquista</span> had carried most of Iberia’s Jews from Muslim rule into Christian kingdoms. The bridge-builders came in a chain, beginning with <span class="g" data-def="Rabbi Jonah of Gerona (d. 1264): Talmudist and moral reformer who fused French dialectic with German-style piety; his Gates of Repentance is still read today."><strong>Rabbi Jonah of Gerona</strong></span>, who ran a new kind of Spanish academy fusing French Tosafist analysis with German-style piety. Then came his great kinsman:</p>
 
-  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="turban,long,#a63024" data-alt="Ramban"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="ramban" data-alt="Ramban"></div><div class="who">
     <h4>Ramban <span style="font-weight:400">(Nachmanides)</span></h4>
     <div class="meta">Rabbi Moshe ben Nachman · 1194–1270 · Girona, Catalonia → the Land of Israel</div>
     <p>Physician, kabbalist, Bible commentator — and the person who made the Tosafists’ French dialectic native to Spanish study halls, while defending the Rif from his Provençal critics. He repurposed the method, though: where the Tosafists argued partly for the joy of it, Ramban deployed dialectic strictly in service of the bottom line. In 1263 the crown forced him into the <span class="g" data-def="Disputation: a staged public trial of Judaism or its texts before Christian authorities — Paris 1240, Barcelona 1263, Tortosa 1413–14 — usually with the outcome fixed in advance.">Barcelona Disputation</span>, a staged debate against a Jewish convert before King James I of Aragon; he spoke so freely that, despite the king’s grudging admiration (and a cash prize), Church pressure made Spain unsafe for him, and he ended his days in the Land of Israel. First judge on Karo’s reserve bench.</p>
   </div></div>
 
-  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="turban,full,#a63024" data-alt="Rashba"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="rashba" data-alt="Rashba"></div><div class="who">
     <h4>The Rashba</h4>
     <div class="meta">Rabbi Shlomo ben Aderet · 1235–1310 · Barcelona</div>
     <p>Ramban’s student, and the legal address of the age: roughly three thousand of his responsa survive, consulted on both sides of the Pyrenees. He also quietly invented something Karo would later borrow — he issued his home-and-kitchen law book <em>Torat HaBayit</em> in <strong>two versions: a long one with the full arguments, and a short one with just the rulings</strong>. Hold that publishing trick in mind for the finale.</p>
@@ -624,7 +634,7 @@ ul.next li{margin-bottom:.6em}
   <h3 style="margin-top:2.4rem;font-size:1.5rem">The masterpiece nobody read</h3>
   <p>Provence had one more gift — and one great cautionary tale.</p>
 
-  <div class="bio" style="--bc:var(--c-provence)"><div class="pmed" data-port="hood,full,#6e7d27" data-alt="The Meiri"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-provence)"><div class="pmed" data-port="meiri" data-alt="The Meiri"></div><div class="who">
     <h4>The Meiri</h4>
     <div class="meta">Menachem Meiri · 1249–1315 · Perpignan, on the Provence–Catalonia border</div>
     <p>Author of the <span class="g" data-def="Beit HaBechirah (“The Chosen House”): the Meiri’s serene topic-by-topic digest of the whole Talmud — every opinion summarized, every conclusion stated plainly."><strong>Beit HaBechirah</strong></span>, perhaps the era’s most serenely systematic digest of the entire Talmud: every opinion sorted by author, every conclusion stated in limpid Hebrew — the Talmud commentary the Rambam might have written, from the heart of Provence’s Maimonidean circle. He’s also beloved today for a strikingly generous legal argument: that the Talmud’s harsh rules about “idolaters” simply don’t apply to Christians and Muslims, whom he classed as “nations bounded by the ways of religion.” And this remarkable book influenced almost no one for six hundred years. Why not? Hold that question — the answer is a machine, and it arrives two chapters from now.</p>
@@ -638,7 +648,7 @@ ul.next li{margin-bottom:.6em}
   <p class="lead">In 1286, the leading rabbi of Germany, the <strong>Maharam of Rothenburg</strong>, was seized by King Rudolf I while trying to leave the country and imprisoned for ransom. By most accounts he forbade his community to pay the enormous sum — it would only teach kings to kidnap rabbis — and he died in his cell in 1293. He had seen the writing on the wall for half a century: as a young student in Paris he had watched the wagonloads of Talmud manuscripts burn in 1242, and written the lament over them that Ashkenazi communities still recite each year. His Germany was becoming unlivable.</p>
   <p>His greatest student read the signs.</p>
 
-  <div class="bio" style="--bc:var(--c-germany)"><div class="pmed" data-port="pointed,long,#2c4a8a" data-alt="The Rosh"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-germany)"><div class="pmed" data-port="rosh" data-alt="The Rosh"></div><div class="who">
     <h4>The Rosh</h4>
     <div class="meta">Rabbenu Asher ben Yehiel · c. 1250–1327 · Worms → Toledo (fled 1303)</div>
     <p>Heir to the whole Tosafist tradition, the Rosh fled Germany in 1303 and — extraordinarily — was welcomed as chief rabbi of <strong>Toledo</strong>, the heart of Sefarad (legend says at the invitation of the Rashba himself). There he wrote a Rif-style digest of the Talmud, but with a difference: where the Rif had recorded the old conclusions, the Rosh ran the French and German analysis <em>through</em> them, updating the verdicts with three centuries of Tosafist argument. Ashkenazi method, Sephardic format, one book.</p>
@@ -649,7 +659,7 @@ ul.next li{margin-bottom:.6em}
 
   <p>And then his son finished the thought.</p>
 
-  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="cap,long,#a63024" data-alt="The Tur"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-sefarad)"><div class="pmed" data-port="tur" data-alt="The Tur"></div><div class="who">
     <h4>The Tur <span style="font-weight:400">(Rabbi Yaakov ben Asher)</span></h4>
     <div class="meta">c. 1269–1343 · born in Germany, wrote in Toledo · the <em>Arba’ah Turim</em>, “Four Columns”</div>
     <p>“The Tur” is simply short for his book, the <em>Arba’ah Turim</em> — a person renamed by his own filing cabinet. A German-born son of the German master, raised in Spain, he wrote the first code that treated the two traditions as <strong>one conversation</strong>. Where his father’s digest had to be read beside an open Talmud, the Tur made a deliberate, very Spanish trade: no Talmudic citations, a use-oriented structure — a book that stands on its own. For each topic he lays out the major opinions by name — the Rif and Rambam from Sefarad, Rashi, the Tosafists and, usually last and usually decisive, “my father the Rosh” — criticizing and praising Spanish custom by turns but never demanding anyone abandon it. He was even, as far as we know, the first writer to use <strong>“Ashkenazim” and “Sephardim”</strong> as names for the two cultures: only someone straddling both would need the words. He also invented the filing system that stuck — and that deserves its own moment.</p>
@@ -679,8 +689,8 @@ ul.next li{margin-bottom:.6em}
 
   <div class="note tint-olive"><span class="label">Why the Tur matters so much</span><strong>Lock-in:</strong> two centuries later, Yosef Karo will choose to write his great work as a commentary <em>on the Tur</em> — keeping its four sections and even its chapter numbering in the Shulchan Arukh — and after that, essentially every major work of practical halakhah organizes itself the same way, down to the present. When Jews today cite a law as “Orach Chayim 271” or “Yoreh De’ah 87,” they are using the Tur’s filing cabinet. His four columns are halakhah’s street grid: the buildings have been rebuilt many times, but nobody has ever moved the streets. Before the Tur, a Spanish reader and a German reader were consulting different bookshelves. After the Tur, they were at least reading the same table of contents — with each other’s authorities cited on every page.</div>
 
-  <p>Meanwhile the Ashkenazi heartland kept bleeding. Another of the Maharam’s students, <strong><span class="g" data-def="Rabbi Mordechai ben Hillel (c. 1250–1298): German codifier whose massive digest, “the Mordechai,” preserved Ashkenazi rulings; he was killed with his family in the Rintfleisch massacres.">Mordechai ben Hillel</span></strong>, compiled a huge digest of Franco-German rulings — the <em>Mordechai</em> — and was then murdered with his family in the Rintfleisch massacres of 1298. After the Black Death pogroms of 1348–49, the centre of Ashkenazi gravity drifted decisively east, toward <span style="color:var(--c-poland);font-weight:600">Poland</span>. Hold that thought.</p>
-</div>  <p><em>The merger wasn’t complete: the Tur reports the debate more often than he ends it. Ending it would take a catastrophe — and two more centuries.</em></p>
+  <p>Meanwhile the Ashkenazi heartland kept bleeding. Another of the Maharam’s students, <strong><span class="g" data-def="Rabbi Mordechai ben Hillel (c. 1250–1298): German codifier whose massive digest, “the Mordechai,” preserved Ashkenazi rulings; he was killed with his family in the Rintfleisch massacres.">Mordechai ben Hillel</span></strong>, compiled a huge digest of Franco-German rulings — the <em>Mordechai</em> — and was then murdered with his family in the <span class="g" data-def="The Rintfleisch massacres (1298): a wave of mob attacks, led by a knight called Rintfleisch, that destroyed some 140 Jewish communities across Franconia and southern Germany.">Rintfleisch massacres</span> of 1298. After the Black Death pogroms of 1348–49, the centre of Ashkenazi gravity drifted decisively east, toward <span style="color:var(--c-poland);font-weight:600">Poland</span>. Hold that thought.</p>
+</div>  <p style="text-align:left;margin:1.8rem auto .4rem;max-width:44rem;font-size:1.08rem;color:var(--ink-soft)"><em>The merger wasn’t complete: the Tur reports the debate more often than he ends it. Ending it would take a catastrophe — and two more centuries.</em></p>
 
 </section>
 
@@ -710,7 +720,7 @@ ul.next li{margin-bottom:.6em}
   <h2>Catastrophe, then the Set Table</h2>
   <p class="lead">In 1492 Spain expelled its Jews. Among the refugees was a four-year-old boy from Toledo named <strong>Yosef Karo</strong> (1488–1575). His family fled to Portugal, then into the Ottoman Empire; he ended his wanderings in Tzfat (often spelled Safed), a hill town in the Galilee that had become the gathering point of the Sephardic exile — and, briefly, the most intellectually charged Jewish town on earth.</p>
 
-  <div class="bio" style="--bc:var(--c-east)"><div class="pmed" data-port="turban,long,#b97613" data-alt="Yosef Karo"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-east)"><div class="pmed" data-port="karo" data-alt="Yosef Karo"></div><div class="who">
     <h4>Yosef Karo</h4>
     <div class="meta">1488–1575 · Toledo → Portugal → Nikopol → Adrianople → Tzfat</div>
     <p>Twice a refugee before the age of ten — expelled from Spain in 1492, then caught in Portugal’s forced conversions of 1497 — he rebuilt his life across the Ottoman world. In Adrianople he began the <em>Beit Yosef</em> (1522), a labour of some twenty years; settling in Tzfat around 1536, he sat on its rabbinic court, was among the first ordained when <span class="g" data-def="Rabbi Jacob Berab (c. 1474–1546): Spanish exile in Tzfat who in 1538 tried to revive classical rabbinic ordination; Karo was among the first he ordained.">Rabbi Jacob Berab</span> revived classical ordination, answered legal questions from communities across the diaspora, and wrote the <em>Kesef Mishneh</em>, his defence of the Rambam. From the Beit Yosef he then distilled the <em>Shulchan Arukh</em> — and died in Tzfat at eighty-seven, the most influential rabbi alive.</p>
@@ -748,7 +758,7 @@ ul.next li{margin-bottom:.6em}
   <h2>The tablecloth</h2>
   <p class="lead">Fifteen hundred miles north, in Kraków — the new capital of Ashkenaz — a wealthy young prodigy was writing the very same book.</p>
 
-  <div class="bio" style="--bc:var(--c-poland)"><div class="pmed" data-port="fur,full,#6d4293" data-alt="The Rema"></div><div class="who">
+  <div class="bio" style="--bc:var(--c-poland)"><div class="pmed" data-port="rema" data-alt="The Rema"></div><div class="who">
     <h4>The Rema</h4>
     <div class="meta">Rabbi Moshe Isserles · c. 1530–1572 · Kraków, Poland</div>
     <p>Head of a great Kraków academy while still in his twenties, the Rema was independently working through the Tur to fix Ashkenazi law — when Karo’s <em>Beit Yosef</em> arrived from the south and beat him to it, magnificently. His response defined him: instead of competing, he re-cut his own research as a supplement (<em>Darkhei Moshe</em>), recording where the traditions of Ashkenaz — its later authorities, and above all its binding customs — diverged from Karo’s three-pillar verdicts.</p>
@@ -774,9 +784,9 @@ ul.next li{margin-bottom:.6em}
   <p>The effect was decisive. An Ashkenazi Jew could now use the world’s best law code without abandoning a thousand years of Franco-German tradition — because the dissent was printed <em>inside</em> the code, at exactly the point of disagreement. Karo’s clarity, the Raavad’s method, the Tur’s two-tradition scope, on one page. Within a couple of generations, “the Shulchan Arukh” meant <em>the combined text</em>, and it remains the reference backbone of Jewish law to this day.</p>
 
   <div class="pgx">
-    <span class="label">Interactive · the original form</span>
-    <p style="margin:.5rem 0 0;font-size:1rem">Here is the Shulchan Arukh as its early readers met it: <strong>nothing on the page but the table and its cloth</strong> — Karo’s rulings with the Rema woven directly in. Hold this clean page in mind; by the end of the next chapter you’ll see what the fight did to it. Tap any block.</p>
-    <div id="saPGX"></div>
+    <span class="label">The original form</span>
+    <p style="margin:.5rem 0 0;font-size:1rem">Here is the Shulchan Arukh as its early readers met it: <strong>nothing on the page but the table and its cloth</strong> — Karo’s rulings with the Rema woven directly in. Hold this clean page in mind; by the end of the next chapter you’ll see what the fight did to it.</p>
+    <div id="saStatic"></div>
   </div>
 
   <div class="note"><span class="label">To be clear: nobody clapped politely</span>
@@ -813,12 +823,12 @@ ul.next li{margin-bottom:.6em}
     <p>The camp that actually won. <span class="g" data-def="Rabbi Joshua Falk (c. 1555–1614): Polish master whose Sema put each law’s sources and reasoning beside the ruling — the move that reconciled the skeptics to the code."><strong>Joshua Falk</strong></span> — a student of both the Maharshal and the Rema — accepted the Set Table but refused to let anyone eat from it blind: his commentary the <span class="g" data-def="Sema — Sefer Meirat Einayim (“The Enlightener of Eyes”): Falk’s commentary on Choshen Mishpat, the first of the great margin companions."><em>Sema</em></span> put each law’s <strong>sources and reasoning in the margin right beside the ruling</strong>, even marking with special signs the places where he dared to disagree with Karo, the Rema, or the Levush. <span class="g" data-def="Rabbi Joel Sirkes, “the Bach” (1561–1640): author of the Bayit Chadash on the Tur — and a lifelong resister of ruling from the Shulchan Arukh alone."><strong>Joel Sirkes</strong></span> did the same service for the Tur. Look at what this move really is: it resolves the thousand-year dilemma this site opened with. The bottom line <em>and</em> the argument, on one page — answers for the butcher, receipts for the scholar.</p>
   </div></div>
 
-  <div class="note tint-gold"><span class="label">The arms-bearers</span>Then history weighed in, terribly. The <span class="g" data-def="The Chmielnicki massacres (1648–49): the Cossack uprising that devastated Polish and Ukrainian Jewry, killing tens of thousands and scattering its scholars westward."><strong>Chmielnicki massacres of 1648–49</strong></span> devastated the Jewish communities of Ukraine and Poland — the worst catastrophe between the expulsion from Spain and the twentieth century — and, as after every catastrophe in this story, the survivors reached for consolidation. The refugee generation wrote the great commentaries that settled the matter: the <span class="g" data-def="The Shakh — Rabbi Shabbetai HaKohen (1621–1662): refugee prodigy whose Siftei Kohen became the standard companion to two of the four columns."><strong>Shakh</strong></span> (who fled Vilna in 1648) and the <span class="g" data-def="The Taz — Rabbi David HaLevi Segal (c. 1586–1667): author of Turei Zahav, the Shakh’s lifelong sparring partner across the printed page."><strong>Taz</strong></span> facing each other across the page, <span class="g" data-def="Rabbi Moses Rivkes (d. c. 1672): Vilna refugee writing in Amsterdam; his Be’er HaGolah stamped a source-reference beside every ruling.">Moses Rivkes</span> (another Vilna refugee, writing in Amsterdam) adding the marginal source-tags of <span class="g" data-def="Be’er HaGolah (“Well of the Exile”): Rivkes’s marginal apparatus tying each clause of the Shulchan Arukh back to its Talmudic source."><em>Be’er HaGolah</em></span> — all of them insisting, as Falk had, that readers were free to disagree. Hebrew has a lovely name for this crowd: the <em>nosei kelim</em>, the <strong>“arms-bearers”</strong> — the armour-carriers who march around the king on every printed page. With them in place, even the skeptics’ demands were met: the code now travelled nowhere without its reasons.</div>
+  <div class="note"><span class="label">The arms-bearers</span>Then history weighed in, terribly. The <span class="g" data-def="The Chmielnicki massacres (1648–49): the Cossack uprising that devastated Polish and Ukrainian Jewry, killing tens of thousands and scattering its scholars westward."><strong>Chmielnicki massacres of 1648–49</strong></span> devastated the Jewish communities of Ukraine and Poland — the worst catastrophe between the expulsion from Spain and the twentieth century — and, as after every catastrophe in this story, the survivors reached for consolidation. The refugee generation wrote the great commentaries that settled the matter: the <span class="g" data-def="The Shakh — Rabbi Shabbetai HaKohen (1621–1662): refugee prodigy whose Siftei Kohen became the standard companion to two of the four columns."><strong>Shakh</strong></span> (who fled Vilna in 1648) and the <span class="g" data-def="The Taz — Rabbi David HaLevi Segal (c. 1586–1667): author of Turei Zahav, the Shakh’s lifelong sparring partner across the printed page."><strong>Taz</strong></span> facing each other across the page, <span class="g" data-def="Rabbi Moses Rivkes (d. c. 1672): Vilna refugee writing in Amsterdam; his Be’er HaGolah stamped a source-reference beside every ruling.">Moses Rivkes</span> (another Vilna refugee, writing in Amsterdam) adding the marginal source-tags of <span class="g" data-def="Be’er HaGolah (“Well of the Exile”): Rivkes’s marginal apparatus tying each clause of the Shulchan Arukh back to its Talmudic source."><em>Be’er HaGolah</em></span> — all of them insisting, as Falk had, that readers were free to disagree. Hebrew has a lovely name for this crowd: the <em>nosei kelim</em>, the <strong>“arms-bearers”</strong> — the armour-carriers who march around the king on every printed page. With them in place, even the skeptics’ demands were met: the code now travelled nowhere without its reasons.</div>
   <div class="nkgrid">
-    <div class="nkcard"><div class="pmed" data-port="fur,full,#6d4293" data-alt="The Shakh"></div><h4>The Shakh</h4><div class="meta">Rabbi Shabbetai HaKohen · 1621–1662</div><p><em>Siftei Kohen.</em> The prodigy of the group — his commentary appeared when he was in his mid-twenties; fled Vilna in the 1648 catastrophe.</p></div>
-    <div class="nkcard"><div class="pmed" data-port="fur,long,#6d4293" data-alt="The Taz"></div><h4>The Taz</h4><div class="meta">Rabbi David HaLevi Segal · c. 1586–1667</div><p><em>Turei Zahav.</em> The Shakh’s lifelong sparring partner — the two argue with Karo, with the Rema, and above all with each other, across the same margins.</p></div>
-    <div class="nkcard"><div class="pmed" data-port="cap,long,#6d4293" data-alt="Moses Rivkes"></div><h4>Be’er HaGolah</h4><div class="meta">Rabbi Moses Rivkes · d. c. 1672</div><p>Another Vilna refugee, writing in Amsterdam: he stamped a source-reference into the margin beside every clause — the code chained back to its Talmud.</p></div>
-    <div class="nkcard"><div class="pmed" data-port="fur,full,#6d4293" data-alt="Magen Avraham"></div><h4>Magen Avraham</h4><div class="meta">Rabbi Avraham Gombiner · c. 1633–1683</div><p>The master commentary on everyday law (Orach Chayim), mediating wherever Karo’s table and the Rema’s cloth pull in different directions.</p></div>
+    <div class="nkcard"><div class="pmed" data-port="shakh" data-alt="The Shakh"></div><h4>The Shakh</h4><div class="meta">Rabbi Shabbetai HaKohen · 1621–1662</div><p><em>Siftei Kohen.</em> The prodigy of the group — his commentary appeared when he was in his mid-twenties; fled Vilna in the 1648 catastrophe.</p></div>
+    <div class="nkcard"><div class="pmed" data-port="taz" data-alt="The Taz"></div><h4>The Taz</h4><div class="meta">Rabbi David HaLevi Segal · c. 1586–1667</div><p><em>Turei Zahav.</em> The Shakh’s lifelong sparring partner — the two argue with Karo, with the Rema, and above all with each other, across the same margins.</p></div>
+    <div class="nkcard"><div class="pmed" data-port="beer" data-alt="Moses Rivkes — Be’er HaGolah"></div><h4>Be’er HaGolah</h4><div class="meta">Rabbi Moses Rivkes · d. c. 1672</div><p>Another Vilna refugee, writing in Amsterdam: he stamped a source-reference into the margin beside every clause — the code chained back to its Talmud.</p></div>
+    <div class="nkcard"><div class="pmed" data-port="mga" data-alt="Magen Avraham"></div><h4>Magen Avraham</h4><div class="meta">Rabbi Avraham Gombiner · c. 1633–1683</div><p>The master commentary on everyday law (Orach Chayim), mediating wherever Karo’s table and the Rema’s cloth pull in different directions.</p></div>
   </div>
   <div class="pgx">
     <span class="label">Interactive · the page, fully armed</span>
@@ -1010,7 +1020,7 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Rabbi Moshe ben Maimon (Maimonides)', place:'Córdoba → Fez → Cairo',
      wrote:'The Mishneh Torah: all of Jewish law, perfectly ordered, no sources, no dissents. Also the era’s greatest philosophy.',
      why:'Codification at its logical extreme — a finished monument meant to make the debate unnecessary. Second pillar of Karo’s three.'},
-    {id:'raavad', n:'The Raavad', d:'c. 1125–1198', yr:1165, band:'provence', lab:'below',
+    {id:'raavad',ldy:-26, n:'The Raavad', d:'c. 1125–1198', yr:1165, band:'provence', lab:'above',
      full:'Rabbi Abraham ben David (the Raavad)', place:'Posquières, Provence',
      wrote:'Hassagot — stinging critical glosses on the Rif and on the Mishneh Torah, later printed inside them.',
      why:'Proved the counter-move to every code: don’t burn it, annotate it. The Rema’s method, four centuries early.'},
@@ -1022,15 +1032,15 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Rabbi Shlomo ben Aderet (the Rashba)', place:'Barcelona',
      wrote:'Roughly 3,000 surviving responsa consulted across both worlds; major Talmud commentaries; Torat HaBayit — issued in a long version (full arguments) and a short one (just rulings), the two-tier trick Karo would later repeat with the Beit Yosef and Shulchan Arukh.',
      why:'Ramban’s student and Spain’s chief legal address for a generation — a key “extra judge” when Karo’s three pillars deadlocked.'},
-    {id:'maharam', n:'Maharam', d:'c. 1215–1293', yr:1252, band:'germany', lab:'above',
+    {id:'maharam',ldx:-28, n:'Maharam', d:'c. 1215–1293', yr:1252, band:'germany', lab:'above',
      full:'The Maharam of Rothenburg (Meir ben Baruch)', place:'Rothenburg → died imprisoned in Ensisheim',
      wrote:'The last great Tosafist corpus: responsa and rulings that fixed Ashkenazi practice for centuries.',
      why:'Germany’s final towering authority. His imprisonment and death signaled that Ashkenaz’s future lay elsewhere — and his students carried it there.'},
-    {id:'mordechai', n:'The Mordechai', d:'c. 1250–1298', yr:1291, band:'germany', lab:'above',
+    {id:'mordechai',ldx:20, n:'The Mordechai', d:'c. 1250–1298', yr:1291, band:'germany', lab:'above',
      full:'Mordechai ben Hillel', place:'Germany (killed in the Rintfleisch massacres, 1298)',
      wrote:'The Mordechai: a vast digest of Franco-German rulings, keyed to the Rif’s framework.',
      why:'A portable archive of Ashkenazi law — and a core source when the Rema later reconstructed the Ashkenazi position.'},
-    {id:'rosh', n:'The Rosh', d:'c. 1250–1327', yr:1310, band:'sefarad', lab:'above',
+    {id:'rosh',ldx:18, n:'The Rosh', d:'c. 1250–1327', yr:1310, band:'sefarad', lab:'above',
      full:'Rabbenu Asher ben Yehiel (the Rosh)', place:'Worms, Germany → Toledo, Spain (fled 1303)',
      wrote:'Piskei HaRosh: a Rif-style digest of the Talmud, updated with three centuries of Tosafist analysis.',
      why:'The living merger — Ashkenazi method installed at the heart of Sefarad. Third pillar of Karo’s three, and the Ashkenazi vote on the bench.'},
@@ -1058,7 +1068,7 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Isaac of Corbeil (the “Semak”)', place:'Corbeil, France',
      wrote:'Sefer Mitzvot Katan: the Semag pocket-sized, cut into seven daily portions so householders could review all of practical law each week.',
      why:'Law for laypeople. After the 1242 Talmud burning, portable digests like this were how French learning survived — a household staple across Ashkenaz for centuries.'},
-    {id:'meiri', n:'The Meiri', d:'1249–1315', yr:1288, band:'provence', lab:'below',
+    {id:'meiri',ldx:-20, n:'The Meiri', d:'1249–1315', yr:1288, band:'provence', lab:'below',
      full:'Menachem Meiri', place:'Perpignan, Provence–Catalonia border',
      wrote:'Beit HaBechirah: a serenely systematic digest of the entire Talmud — every opinion sorted, every conclusion stated in limpid Hebrew.',
      why:'Perhaps the era’s clearest Talmud summary — and it shaped almost nothing: it missed the printing press, slept in a Parma manuscript, and re-entered the conversation only in modern times. Unprinted meant unheard.'},
@@ -1123,8 +1133,9 @@ function assetURL(name){ return ASSET_BASE + name; }
     }else{
       svg+=`<circle cx="${p.x}" cy="${p.y}" r="8.5" fill="${C[n.band]}"/>`;
     }
-    svg+=`<text x="${p.x}" y="${p.y+(above?-16:26)}" text-anchor="middle">${n.n}</text>`;
-    svg+=`<text class="dates" x="${p.x}" y="${p.y+(above?-30:40)}" text-anchor="middle">${n.d}</text>`;
+    const lx=p.x+(n.ldx||0), lyo=(n.ldy||0);
+    svg+=`<text x="${lx}" y="${p.y+(above?-16:26)+lyo}" text-anchor="middle">${n.n}</text>`;
+    svg+=`<text class="dates" x="${lx}" y="${p.y+(above?-30:40)+lyo}" text-anchor="middle">${n.d}</text>`;
     svg+=`</g>`;
   });
   svg+=`</svg>`;
@@ -1185,19 +1196,21 @@ function assetURL(name){ return ASSET_BASE + name; }
       {id:'ein',label:'Ein Mishpat',x:1.5,y:4.3,w:12.9,h:34.5,c:BAB,
        cap:'“Ein Mishpat — the Well of Judgment” (added in the 1540s): tiny tags sending you from each law on this page to the exact spot where the Rambam, the Semag, and the Tur / Shulchan Arukh decided it. The entire story of this website, printed in the corner of every Talmud page.'},
       {id:'chan',label:'Rabbenu Chananel',x:1.5,y:40.2,w:12.9,h:51.4,c:SEF,
-       cap:'A bonus voice the Vilna printers added in the outer margin: the running commentary of Rabbenu Chananel of Kairouan (d. c. 1055) — <em>older than Rashi</em>, and the great surviving witness of the North African schools that inherited the Geonim directly.'},
-      {id:'tos',label:'Tosafot',x:15.7,y:4.3,w:19.1,h:94.5,c:FR,
+       cap:'A bonus voice the Vilna printers added in the outer margin: the running commentary of <span class="g" data-def="Rabbenu Chananel ben Chushiel (d. c. 1055): head of the Kairouan academy and heir to the last Geonim’s circle — his commentary is the great North African witness to how they read the Talmud.">Rabbenu Chananel of Kairouan</span> (d. c. 1055) — <em>older than Rashi</em>, and the great surviving witness of the North African schools that inherited the Geonim directly.'},
+      {id:'tos',label:'Tosafot',x:15.7,y:4.3,w:19.1,h:61.7,c:FR,
        cap:'The Tosafot — the school of Rashi’s own grandsons and their students — cross-examining this very passage: comparing it with far-away pages, hunting contradictions, drawing distinctions. The reef of arguments, printed opposite Rashi forever.'},
-      {id:'gem',label:'The Mishnah & Gemara',x:37.0,y:4.3,w:29.4,h:93.3,c:INK,
+      {id:'gem',label:'The Mishnah & Gemara',x:37.0,y:4.3,w:29.4,h:60.7,c:INK,
        cap:'The heart of the page, in the largest type. It opens with one of the most famous sentences in Jewish law: <em>“There are four primary categories of damage: the Ox, the Pit, the Grazer, and the Fire.”</em> The Mishnah states it in two lines — and then the Gemara spends the rest of the page interrogating it: why these four? what do they share? An argument, not a verdict — the very problem this site is about.'},
       {id:'box',label:'The opening-word frame',x:38.5,y:8.0,w:26.5,h:20.0,c:SOFT,
        cap:'A decorative frame around the tractate’s first word — <em>Arba’ah</em>, “Four.” Printers’ fanfare marking the grand opening of a tractate, a typographic trumpet blast.'},
-      {id:'rashi',label:'Rashi',x:68.6,y:4.3,w:19.3,h:93.5,c:FR,
+      {id:'rashi',label:'Rashi',x:68.6,y:4.3,w:19.3,h:61.7,c:FR,
        cap:'Rashi — the door. His running explanation (Troyes, 1070s–90s) holds the inner column of every page; on an “a” side like this one, that is the right-hand column. Read a line of Gemara, glance into Rashi, and back: that is how every beginner has entered the Talmud for nine centuries.'},
+      {id:'tflow',label:'The commentaries take the page',x:15.7,y:66.5,w:72.2,h:31.1,c:FR,
+       cap:'The day’s Gemara ends partway down — and Rashi and the Tosafot simply take over, widening into the empty measure until their voices run the full breadth of the page. The commentary literally outgrowing the text it serves: a picture of the whole coming story.'},
       {id:'mas',label:'Masoret HaShas',x:89.5,y:4.9,w:9.1,h:18.3,c:SOFT,
        cap:'Cross-references linking this passage to parallel discussions across the Talmud — a citation index printed into the page itself.'},
       {id:'gil',label:'Gilyon HaShas & Musaf Rashi',x:89.5,y:24.4,w:9.1,h:27.9,c:SOFT,
-       cap:'Later layers, still accreting: <em>Gilyon HaShas</em> — the razor-sharp marginal notes of Rabbi Akiva Eger (early 1800s) — and <em>Musaf Rashi</em>, supplementary comments gathered from Rashi’s other works. The meeting room kept adding chairs into the nineteenth century.'}
+       cap:'Later layers, still accreting: <em>Gilyon HaShas</em> — the razor-sharp marginal notes of <span class="g" data-def="Rabbi Akiva Eger (1761–1837): rabbi of Posen, one of the sharpest Talmudic minds of the modern age; his terse marginal notes are studied like puzzles.">Rabbi Akiva Eger</span> (early 1800s) — and <span class="g" data-def="Musaf Rashi (“Rashi Supplement”): additional explanations attributed to Rashi’s school, gathered by printers from his other writings to enrich the page."><em>Musaf Rashi</em></span>, supplementary comments gathered from Rashi’s other works. The meeting room kept adding chairs into the nineteenth century.'}
     ]};
 
   const mtPage={
@@ -1209,29 +1222,13 @@ function assetURL(name){ return ASSET_BASE + name; }
       {id:'rmb',label:'The Rambam’s text',x:30.4,y:2.7,w:40.1,h:77.5,c:SEF,
        cap:'The Rambam’s own words (c. 1178), in the largest type: all of Jewish law, stated flat, in crystalline Hebrew — no sources cited, no dissents recorded. The most audacious book of the Jewish Middle Ages, doing to the Talmud page you just saw exactly what he promised: read the Torah, then read this.'},
       {id:'magid',label:'Magid Mishneh',x:73.7,y:2.7,w:17.3,h:77.5,c:SEF,
-       cap:'<em>Magid Mishneh</em>, by Rabbi Vidal of Tolosa (Spain, 1300s): a whole commentary devoted to reconstructing which Talmudic sources the Rambam was silently relying on — the missing footnotes, supplied posthumously by a devoted reader.'},
+       cap:'<em>Magid Mishneh</em>, by <span class="g" data-def="Rabbi Vidal of Tolosa (14th c.): Catalan scholar and colleague of the Ran; his Magid Mishneh reconstructs the Rambam’s unstated sources across several books of the code.">Rabbi Vidal of Tolosa</span> (Spain, 1300s): a whole commentary devoted to reconstructing which Talmudic sources the Rambam was silently relying on — the missing footnotes, supplied posthumously by a devoted reader.'},
       {id:'migdal',label:'Migdal Oz',x:9.4,y:2.7,w:18.3,h:77.5,c:SEF,
-       cap:'<em>Migdal Oz</em> (“Tower of Strength”), by Rabbi Shem Tov ibn Gaon (Spain, c. 1300): a running <strong>defence</strong> of the Rambam against the Raavad’s stinging glosses, answering the critic point by point. The war in the margins, institutionalized — both armies now printed on the same page they fight over.'},
+       cap:'<em>Migdal Oz</em> (“Tower of Strength”), by <span class="g" data-def="Rabbi Shem Tov ibn Gaon (c. 1283–after 1330): Spanish Talmudist (and kabbalist) who devoted the Migdal Oz to the Rambam’s defence — answering the Raavad’s objections gloss by gloss.">Rabbi Shem Tov ibn Gaon</span> (Spain, c. 1300): a running <strong>defence</strong> of the Rambam against the Raavad’s stinging glosses, answering the critic point by point. The war in the margins, institutionalized — both armies now printed on the same page they fight over.'},
       {id:'tags',label:'Margin tags',x:91.1,y:2.7,w:6.7,h:57.3,c:EAST,
        cap:'Tiny margin tags pointing <em>forward</em> in time — to the Tur and Shulchan Arukh addresses where each of these laws would eventually land. Later printers stitched the whole tradition together in both directions.'},
       {id:'flow',label:'The commentaries continue',x:9.4,y:80.6,w:88.4,h:18.6,c:SOFT,
        cap:'When the margins run out: the two commentaries finish their notes in wide bands beneath the text — the polite overflow of a very crowded conversation.'}
-    ]};
-
-  const saPage={
-    title:'Shulchan Arukh, Choshen Mishpat 389–390 — an early printing, the original form',
-    img:assetURL('pg sa.jpeg'),
-    regions:[
-      {id:'hdr',label:'The address — the Tur’s grid',x:2,y:0.6,w:96,h:3.8,c:SOFT,
-       cap:'“Choshen Mishpat · Hilchot Nizkei Mamon · 389–390” — the same laws of damage you just saw in the Talmud and the Mishneh Torah, now at their final address. The filing system is the Tur’s: same four sections, same numbering, carried through the Beit Yosef into this book — and into every citation since.'},
-      {id:'colR',label:'Karo’s rulings — with the Rema woven in',x:51.9,y:4.8,w:46.1,h:93.6,c:EAST,
-       cap:'Hebrew reads right to left, so this column comes first: Karo’s decided rulings, plain and numbered. Now look closely — some passages sit in a second, denser typeface (so-called “Rashi script”). Those are the Rema’s glosses, stitched <em>directly into the text</em> wherever Ashkenazi practice differs: the Set Table and its Tablecloth, exactly as this site has described them, at actual size.'},
-      {id:'colL',label:'The second column',x:1.6,y:4.8,w:46.1,h:93.6,c:EAST,
-       cap:'The ruling continues — Karo’s prose with the Rema’s interruptions — and partway down, a brand-new siman opens (see the boxed heading). The little letters in the margins (ט״ו, ט״ז…) number each clause: the <em>seifim</em> that every citation of this book uses to this day.'},
-      {id:'siman',label:'A new siman begins',x:2.4,y:69.9,w:44.1,h:3.6,c:POL,
-       cap:'A new street address on the Tur’s grid: <strong>siman 390</strong> — “Damages by the foot, its offshoots, and the laws of pebbles… in twelve clauses.” Number, title, table of contents: the filing cabinet at work.'},
-      {id:'marks',label:'Printer’s marks',x:2,y:98.5,w:56,h:1.5,c:SOFT,
-       cap:'Signature marks — instructions to the binder for assembling the printed sheets in order. A small reminder that this world-changing book was also a physical product of a busy, commercial print shop.'}
     ]};
 
   const sa2Page={
@@ -1259,7 +1256,7 @@ function assetURL(name){ return ASSET_BASE + name; }
       {id:'lev',label:'Levushei Serad',x:1.1,y:2.8,w:12.1,h:8.0,c:POL,
        cap:'<em>Levushei Serad</em> (late 1700s): notes on the Taz and Magen Avraham — another storey on the tower, resolving the arguments of the arguers.'},
       {id:'gra',label:'Bi’ur HaGra',x:1.1,y:11.4,w:12.1,h:11.7,c:POL,
-       cap:'<em>Bi’ur HaGra</em> — the <strong>Vilna Gaon</strong> himself (1720–1797), tracing every line of the code back to its exact source in the Talmud. The skeptics of the fight chapter demanded the code stay tethered to its reasons; here is the tether, drawn by the sharpest mind of his age.'},
+       cap:'<em>Bi’ur HaGra</em> — the <span class="g" data-def="The Vilna Gaon — Rabbi Elijah of Vilna (1720–1797): the towering genius of Lithuanian Jewry, whose glosses trace every ruling of the code back to its exact source."><strong>Vilna Gaon</strong></span> himself (1720–1797), tracing every line of the code back to its exact source in the Talmud. The skeptics of the fight chapter demanded the code stay tethered to its reasons; here is the tether, drawn by the sharpest mind of his age.'},
       {id:'voices',label:'Later margin voices',x:1.1,y:23.9,w:12.1,h:60.5,c:POL,
        cap:'A stack of later glosses — <em>Netiv Chaim</em>, <em>Gilyon Maharsha</em>, <em>Imrei Baruch</em> — eighteenth- and nineteenth-century voices still filing objections, refinements, and cross-references. The seats keep filling.'},
       {id:'notes',label:'Editors’ notes',x:1.1,y:89.0,w:97.8,h:8.6,c:SOFT,
@@ -1291,7 +1288,8 @@ function assetURL(name){ return ASSET_BASE + name; }
   }
   mountPGX('pressPGX',talmudPage);
   mountPGX('mtPGX',mtPage);
-  mountPGX('saPGX',saPage);
+  const saStatic=document.getElementById('saStatic');
+  if(saStatic) saStatic.innerHTML=`<img src="${assetURL('pg sa.jpeg')}" alt="An early printing of the Shulchan Arukh: two clean columns — Karo’s rulings with the Rema’s glosses woven in" style="width:100%;display:block;border:1px solid var(--rule);border-radius:8px">`;
   mountPGX('sa2PGX',sa2Page);
 })();
 
@@ -1418,7 +1416,28 @@ function assetURL(name){ return ASSET_BASE + name; }
 
   const slider=document.getElementById('eraSlider'),prev=document.getElementById('eraPrev'),
         next=document.getElementById('eraNext'),titleEl=document.getElementById('eraTitle'),
-        capEl=document.getElementById('eraCap');
+        capEl=document.getElementById('eraCap'),ticksEl=document.getElementById('eraTicks'),
+        evNameEl=document.getElementById('evName');
+  const EVENTS=[
+    [500,'c. 500','Talmud sealed',0,0],[800,'600–1038','The Geonim',0,0],
+    [1070,'c. 1070','Rif & Rashi',1,0],[1180,'c. 1180','Mishneh Torah',2,0],
+    [1340,'c. 1340','The Tur',3,0],[1521,'1519–23','Talmud printed',4,1],
+    [1565,'1565','Shulchan Arukh',4,0],[1575,'1570s','The Rema’s glosses',4,1]
+  ];
+  let curEv=1;
+  ticksEl.innerHTML=EVENTS.map((e,i)=>
+    `<button class="tick r${e[4]}" type="button" data-ev="${i}" style="left:${(e[0]-500)/1100*100}%"><b>${e[1]}</b><i>${e[2]}</i></button>`).join('');
+  ticksEl.querySelectorAll('.tick').forEach(t=>t.addEventListener('click',()=>{setEvent(+t.dataset.ev);}));
+  function nearestEvent(year){
+    let best=0,bd=1e9;
+    EVENTS.forEach((e,i)=>{const d=Math.abs(e[0]-year);if(d<bd){bd=d;best=i;}});
+    return best;
+  }
+  function setEvent(i,skipSnap){
+    curEv=Math.max(0,Math.min(EVENTS.length-1,i));
+    cur=EVENTS[curEv][3];
+    render(skipSnap);
+  }
   let cur=0,popEl=null;
 
   function edgeOrDot(c){
@@ -1433,15 +1452,18 @@ function assetURL(name){ return ASSET_BASE + name; }
     const e=eras[cur];
     titleEl.textContent=e.title;
     capEl.textContent=e.cap;
-    slider.value=cur;
-    prev.disabled=cur===0; next.disabled=cur===eras.length-1;
-    document.querySelectorAll('#eraBox .tcell').forEach(c=>c.classList.toggle('on',+c.dataset.era===cur));
+    if(!arguments[0]) slider.value=EVENTS[curEv][0];
+    prev.disabled=curEv===0; next.disabled=curEv===EVENTS.length-1;
+    ticksEl.querySelectorAll('.tick').forEach((t,i)=>t.classList.toggle('on',i===curEv));
+    evNameEl.textContent=EVENTS[curEv][1]+' · '+EVENTS[curEv][2];
 
-    let svg=`<svg class="overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
-      <defs><marker id="arrE${cur}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"/></marker></defs>`;
+    const AC='#8a1d12';
+    let svg=`<svg class="overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`;
     e.arrows.forEach(a=>{
       const d=a.d||curveBetween(a.from,a.to,a.bend);
-      svg+=`<path class="mig" d="${d}" fill="none" stroke="${a.c}" stroke-width="${a.dash?5:7}" ${a.dash?'stroke-dasharray="14 12"':''} opacity=".8" marker-end="url(#arrE${cur})"/>`;
+      svg+=`<path class="mig halo" d="${d}" fill="none" stroke="#f6efdd" stroke-width="${a.dash?9:11}" ${a.dash?'stroke-dasharray="14 12"':''} opacity=".75"/>`;
+      svg+=`<path class="mig" d="${d}" fill="none" stroke="${AC}" stroke-width="${a.dash?5:6.5}" ${a.dash?'stroke-dasharray="14 12"':''} opacity=".95"/>`;
+      svg+=`<path class="tip" d="M0,-7 L15,0 L0,7 Z" fill="${AC}" stroke="#f6efdd" stroke-width="1.5" style="offset-path:path('${d}');offset-rotate:auto"/>`;
     });
     svg+=`</svg>`;
 
@@ -1512,16 +1534,24 @@ function assetURL(name){ return ASSET_BASE + name; }
     });
   }
 
+  const mmEl=document.getElementById('minimap');
+  if(mmEl){
+    const dimIo=new IntersectionObserver(es=>es.forEach(en=>mmEl.classList.toggle('dim',en.isIntersecting)),{threshold:0.12});
+    const eb=document.getElementById('eraBox'); if(eb) dimIo.observe(eb);
+  }
   document.addEventListener('click',ev=>{
     if(!mapMount.contains(ev.target)){
       const p=mapMount.querySelector('#mapPop'); if(p) p.classList.remove('show');
     }
   });
-  document.querySelectorAll('#eraBox .tcell').forEach(c=>c.addEventListener('click',()=>{cur=+c.dataset.era;render();}));
-  slider.addEventListener('input',()=>{cur=+slider.value;render();});
-  prev.addEventListener('click',()=>{if(cur>0){cur--;render();}});
-  next.addEventListener('click',()=>{if(cur<eras.length-1){cur++;render();}});
-  render();
+  slider.addEventListener('input',()=>{
+    const nearest=nearestEvent(+slider.value);
+    if(nearest!==curEv) setEvent(nearest,true);
+  });
+  slider.addEventListener('change',()=>{slider.value=EVENTS[curEv][0];});
+  prev.addEventListener('click',()=>setEvent(curEv-1));
+  next.addEventListener('click',()=>setEvent(curEv+1));
+  setEvent(1);
 
   /* ---------- floating minimap synced to scroll ---------- */
   const mm=document.getElementById('minimap');
@@ -1722,53 +1752,54 @@ function assetURL(name){ return ASSET_BASE + name; }
   }
 })();
 
-/* ---------- portrait medallions ---------- */
+/* ---------- portrait medallions: monogram + emblem watermark ---------- */
 (function(){
-  function medallion(hat,beard,col){
-    const ink="#2a2119", paper="#f0e4c4"; const p=[];
-    p.push(`<circle cx="40" cy="40" r="37" fill="${paper}" stroke="${col}" stroke-width="3"/>`);
-    p.push(`<circle cx="40" cy="40" r="32.5" fill="none" stroke="${ink}" stroke-width="0.8" opacity="0.5"/>`);
-    p.push(`<path d="M14,74 C16,58 26,50 40,50 C54,50 64,58 66,74 Z" fill="${col}"/>`);
-    p.push(`<path d="M40,52 L40,72 M30,55 L27,72 M50,55 L53,72" stroke="${ink}" stroke-width="1" opacity="0.45" fill="none"/>`);
-    p.push(`<path d="M33,52 L40,60 L47,52" fill="none" stroke="${paper}" stroke-width="1.4"/>`);
-    p.push(`<ellipse cx="40" cy="36" rx="12.5" ry="14" fill="${paper}" stroke="${ink}" stroke-width="1.4"/>`);
-    p.push(`<path d="M33.5,33 q2.5,-2 5,0 M41.5,33 q2.5,-2 5,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
-    p.push(`<circle cx="35.8" cy="34.6" r="1.1" fill="${ink}"/><circle cx="44.2" cy="34.6" r="1.1" fill="${ink}"/>`);
-    p.push(`<path d="M40,35 q-1.6,4.5 0,6.5 q1,0.8 2,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
-    if(beard==="long"){
-      p.push(`<path d="M29,40 C29,52 33,62 40,66 C47,62 51,52 51,40 C48,46 44,48 40,48 C36,48 32,46 29,40 Z" fill="${paper}" stroke="${ink}" stroke-width="1.3"/>`);
-      p.push(`<path d="M34,48 C35,54 37,59 40,62 M46,48 C45,54 43,59 40,62 M40,50 L40,61" stroke="${ink}" stroke-width="0.8" fill="none" opacity="0.7"/>`);
-      p.push(`<path d="M35,43.5 q5,3.5 10,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
-    }else{
-      p.push(`<path d="M28.5,38 C28,50 33,58 40,59.5 C47,58 52,50 51.5,38 C49,45 45,47.5 40,47.5 C35,47.5 31,45 28.5,38 Z" fill="${paper}" stroke="${ink}" stroke-width="1.3"/>`);
-      p.push(`<path d="M33,48 C34,52 36,55 40,56.5 M47,48 C46,52 44,55 40,56.5" stroke="${ink}" stroke-width="0.8" fill="none" opacity="0.7"/>`);
-      p.push(`<path d="M35.5,43.5 q4.5,3 9,0" stroke="${ink}" stroke-width="1.1" fill="none"/>`);
-    }
-    if(hat==="turban"){
-      p.push(`<path d="M25,29 C25,17 32,11 40,11 C48,11 55,17 55,29 C50,25.5 45,24 40,24 C35,24 30,25.5 25,29 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
-      p.push(`<path d="M27,24 Q40,17 53,24 M29,20 Q40,13.5 51,20" stroke="${ink}" stroke-width="0.9" fill="none" opacity="0.6"/>`);
-      p.push(`<path d="M25,29 Q40,22 55,29" stroke="${ink}" stroke-width="1.2" fill="none"/>`);
-    }else if(hat==="pointed"){
-      p.push(`<path d="M40,4 C43,10 46,16 47.5,24 Q40,20.5 32.5,24 C34,16 37,10 40,4 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
-      p.push(`<circle cx="40" cy="4.5" r="2.2" fill="${col}" stroke="${ink}" stroke-width="1.1"/>`);
-      p.push(`<path d="M28,26 Q40,20 52,26 Q40,23 28,26 Z" fill="${col}" stroke="${ink}" stroke-width="1.2"/>`);
-    }else if(hat==="hood"){
-      p.push(`<path d="M26,44 C23,28 29,13 40,13 C51,13 57,28 54,44 C54,32 49,25.5 40,25.5 C31,25.5 26,32 26,44 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
-      p.push(`<path d="M28,36 C28,28 33,23 40,23 M52,36 C52,28 47,23 40,23" stroke="${ink}" stroke-width="0.8" fill="none" opacity="0.55"/>`);
-    }else if(hat==="cap"){
-      p.push(`<path d="M26,25 C26,15 33,10.5 40,10.5 C47,10.5 54,15 54,25 Q40,19 26,25 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
-      p.push(`<ellipse cx="40" cy="24.5" rx="14.5" ry="3.4" fill="${col}" stroke="${ink}" stroke-width="1.1"/>`);
-    }else if(hat==="fur"){
-      p.push(`<path d="M28,24 C28,14 33,9 40,9 C47,9 52,14 52,24 Z" fill="${col}" stroke="${ink}" stroke-width="1.3"/>`);
-      for(let x=28;x<54;x+=5) p.push(`<circle cx="${x}" cy="24" r="3.1" fill="${col}" stroke="${ink}" stroke-width="0.9"/>`);
-    }
-    return `<svg viewBox="0 0 80 80" role="img" aria-hidden="true">${p.join('')}</svg>`;
+  const E={
+    droplet:'<path d="M12,3 C7.5,9.5 6.5,12.5 6.5,15.5 a5.5,5.5 0 0 0 11,0 C17.5,12.5 16.5,9.5 12,3 Z"/>',
+    grapes:'<circle cx="8.5" cy="11" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="15.5" cy="11" r="2"/><circle cx="10" cy="14.5" r="2"/><circle cx="14" cy="14.5" r="2"/><circle cx="12" cy="18" r="2"/><path d="M12,8 V4.5 M12,5.5 q3.5,-2 5.5,.5"/>',
+    staff:'<path d="M8,21 L15,4 M15,4 l3,1 M15,4 l-3,-1 M6,21 H11"/><circle cx="16.5" cy="8.5" r="2.4"/>',
+    book:'<rect x="6" y="5" width="12" height="15" rx="1.2"/><path d="M9,5 V20 M6,8 H4.5 M6,12 H4.5 M6,16 H4.5"/>',
+    compass:'<circle cx="12" cy="12" r="8.5"/><path d="M12,5 L14.4,12 L12,19 L9.6,12 Z"/>',
+    quill:'<path d="M5,19 C8.5,15 14.5,7.5 19,4 C17,9 12,16 7.5,18.8 Z"/><path d="M5,19 l-1.4,1.4"/>',
+    cedar:'<path d="M12,21 V14 M12,14 L6.5,16 M12,14 L17.5,16 M12,9.5 L7.5,11.5 M12,9.5 L16.5,11.5 M12,5 L9,7 M12,5 L15,7"/>',
+    signet:'<circle cx="12" cy="8.5" r="3.6"/><path d="M8.6,9.6 C8,16 16,16 15.4,9.6"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12,3 V6 M12,18 V21 M3,12 H6 M18,12 H21 M5.6,5.6 L7.8,7.8 M16.2,16.2 L18.4,18.4 M18.4,5.6 L16.2,7.8 M7.8,16.2 L5.6,18.4"/>',
+    bridge:'<path d="M3,16.5 H21 M5.5,16.5 Q12,7.5 18.5,16.5 M3,20 H21 M5.5,16.5 V20 M18.5,16.5 V20"/>',
+    columns:'<path d="M4.5,5.5 H19.5 M4.5,19 H19.5 M7,5.5 V19 M10.3,5.5 V19 M13.7,5.5 V19 M17,5.5 V19"/>',
+    table:'<path d="M4,9.5 H20 M6.5,9.5 V18.5 M17.5,9.5 V18.5 M10,9.5 V13.5 M14,9.5 V13.5"/>',
+    cloth:'<path d="M4,10 H20 M6.5,10 V18.5 M17.5,10 V18.5 M4.5,7.5 q3.5,-3 7.5,0 t7.5,0 M4,10 q1.5,2.8 0,4.5 M20,10 q-1.5,2.8 0,4.5"/>',
+    hands:'<path d="M7.2,19 V12.5 q0,-3 2,-3 t2,3 V19 M12.8,19 V12.5 q0,-3 2,-3 t2,3 V19 M9.2,12 l1.5,-2 M14.8,12 l-1.5,-2"/>',
+    rows:'<path d="M5,8 H19 M5,12 H19 M5,16 H19 M5,8.9 H19 M5,12.9 H19 M5,16.9 H19"/>',
+    well:'<path d="M5,11 L12,5 L19,11 M7,11 V19 M17,11 V19 M5.5,19 H18.5 M12,7 V13.5"/><rect x="10" y="13.5" width="4" height="3.2"/>',
+    shield:'<path d="M12,3.5 L19,6.2 V12 C19,16.8 15.4,19.8 12,21 C8.6,19.8 5,16.8 5,12 V6.2 Z"/><path d="M12,7 V16.5 M8.5,11.5 H15.5"/>'
+  };
+  const MEDS={
+    rif:['רי״ף','#a63024','droplet'], rashi:['רש״י','#3d7ea6','grapes'],
+    coucy:['סמ״ג','#3d7ea6','staff'], corbeil:['סמ״ק','#3d7ea6','book'],
+    rambam:['רמב״ם','#a63024','compass'], raavad:['ראב״ד','#6e7d27','quill'],
+    ramban:['רמב״ן','#a63024','cedar'], rashba:['רשב״א','#a63024','signet'],
+    meiri:['מאירי','#6e7d27','sun'], rosh:['רא״ש','#2c4a8a','bridge'],
+    tur:['טור','#a63024','columns'], karo:['מרן','#b97613','table'],
+    rema:['רמ״א','#6d4293','cloth'], shakh:['ש״ך','#6d4293','hands'],
+    taz:['ט״ז','#6d4293','rows'], beer:['באר','#6d4293','well'], mga:['מג״א','#6d4293','shield']
+  };
+  let mc=0;
+  function medallion(key){
+    const m=MEDS[key]; if(!m) return '';
+    const [mono,col,emb]=m;
+    const fs = mono.length<=3?38:(mono.length<=4?32:25);
+    const s=4.4, tx=60-12*s, cid='medclip'+(mc++);
+    return `<svg viewBox="0 0 120 120" width="100%" height="100%" role="img">
+<defs><clipPath id="${cid}"><circle cx="60" cy="60" r="53"/></clipPath></defs>
+<circle cx="60" cy="60" r="56" fill="var(--paper-card,#faf5e9)" stroke="${col}" stroke-width="5"/>
+<g clip-path="url(#${cid})"><g transform="translate(${tx.toFixed(1)},${tx.toFixed(1)}) scale(${s})" fill="none" stroke="${col}" stroke-width="0.95" stroke-linecap="round" stroke-linejoin="round" opacity=".42">${E[emb]}</g></g>
+<text x="60" y="${(60+fs*0.34).toFixed(0)}" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="600" font-size="${fs}" fill="#262019" stroke="#faf5e9" stroke-width="7" paint-order="stroke" stroke-linejoin="round">${mono}</text>
+</svg>`;
   }
   document.querySelectorAll('.pmed[data-port]').forEach(el=>{
-    const [hat,beard,col]=el.dataset.port.split(',');
-    el.innerHTML=medallion(hat,beard,col);
+    el.innerHTML=medallion(el.dataset.port);
     el.setAttribute('title',el.dataset.alt||'');
-    el.setAttribute('aria-label',(el.dataset.alt||'portrait')+' — a stylized illustration, not a historical likeness');
+    el.setAttribute('aria-label',(el.dataset.alt||'medallion')+' — monogram medallion');
   });
 })();
 
