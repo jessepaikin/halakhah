@@ -289,16 +289,16 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .citylabel{position:absolute;transform:translate(var(--lx,10px),-50%);top:0;font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;color:#2a2119;background:rgba(249,243,225,.88);padding:1px 6px;border-radius:4px;white-space:nowrap;pointer-events:none}
 .edgemarker{position:absolute;transform:translate(-100%,-50%);font-family:"Archivo",sans-serif;font-weight:700;font-size:11px;color:#2a2119;background:rgba(249,243,225,.92);padding:2px 8px;border-radius:4px;border:1.5px dashed #7a6742}
 .timebar{display:flex;align-items:center;gap:.8rem;margin-top:.9rem}
-.timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.85rem;border:none;background:var(--ink);color:var(--paper);border-radius:50%;width:24px;height:24px;line-height:1;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center}
-.timebar button:hover{background:var(--c-sefarad)}
-.timebar button:disabled{opacity:.3;cursor:default}
+.timebar > button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.85rem;border:none;background:var(--ink);color:var(--paper);border-radius:50%;width:24px;height:24px;line-height:1;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center}
+.timebar > button:hover{background:var(--c-sefarad)}
+.timebar > button:disabled{opacity:.3;cursor:default}
 .timebar input[type=range]{flex:1;cursor:pointer;-webkit-appearance:none;appearance:none;height:4px;background:var(--rule);border-radius:2px;margin:6px 0}
 .timebar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--c-sefarad);border:2px solid #fdf8ec;box-shadow:0 1px 3px rgba(0,0,0,.35)}
 .timebar input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--c-sefarad);border:2px solid #fdf8ec;box-shadow:0 1px 3px rgba(0,0,0,.35)}
 .sliderwrap{flex:1;position:relative}
 .sliderwrap input{width:100%;display:block}
 .ticks{position:relative;height:26px;margin:0 7px}
-.tick{position:absolute;top:0;transform:translateX(-50%);cursor:pointer;background:none;border:none;padding:0;font-family:"Archivo",sans-serif;-webkit-appearance:none;appearance:none}
+.tick{position:absolute;top:0;transform:translateX(-50%);cursor:pointer;background:none !important;border:none;border-radius:0;width:auto;height:auto;display:block;color:inherit;padding:0;font-family:"Archivo",sans-serif;-webkit-appearance:none;appearance:none}
 .tick .tdot{display:block;width:6px;height:6px;border-radius:50%;background:var(--ink-soft);margin:0 auto}
 .tick i{display:block;margin-top:5px;font-style:normal;font-size:.58rem;font-weight:600;letter-spacing:.02em;color:var(--ink-soft);white-space:nowrap}
 .tick.on .tdot{background:var(--c-sefarad);transform:scale(1.3)}
