@@ -268,7 +268,10 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 
 /* medieval map */
 .medmap{position:relative}
-#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae;max-width:min(100%,calc(62vh*1.501));margin:0 auto}
+.mapbox{--mapw:min(100%,calc(62vh*1.501))}
+#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae;max-width:var(--mapw);margin:0 auto}
+.mapintro{max-width:var(--mapw);margin:0 auto .7rem;font-size:.95rem;color:var(--ink-soft)}
+.mapbox .timebar,.mapbox .mapcapdyn{max-width:var(--mapw);margin-left:auto;margin-right:auto}
 #eraMap .mapimg{display:block;width:100%;height:auto}
 #eraMap .overlay{position:absolute;inset:0;width:100%;height:100%}
 .eralayer{position:absolute;inset:0;opacity:0;transition:opacity .85s ease;pointer-events:none}
@@ -286,8 +289,8 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .citylabel{position:absolute;transform:translate(var(--lx,10px),-50%);top:0;font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;color:#2a2119;background:rgba(249,243,225,.88);padding:1px 6px;border-radius:4px;white-space:nowrap;pointer-events:none}
 .edgemarker{position:absolute;transform:translate(-100%,-50%);font-family:"Archivo",sans-serif;font-weight:700;font-size:11px;color:#2a2119;background:rgba(249,243,225,.92);padding:2px 8px;border-radius:4px;border:1.5px dashed #7a6742}
 .timebar{display:flex;align-items:center;gap:.8rem;margin-top:.9rem}
-.timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.95rem;border:1.5px solid var(--ink);background:var(--paper-card);color:var(--ink);border-radius:50%;width:30px;height:30px;cursor:pointer;flex:none}
-.timebar button:hover{background:var(--ink);color:var(--paper)}
+.timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.85rem;border:none;background:var(--ink);color:var(--paper);border-radius:50%;width:24px;height:24px;line-height:1;cursor:pointer;flex:none;display:flex;align-items:center;justify-content:center}
+.timebar button:hover{background:var(--c-sefarad)}
 .timebar button:disabled{opacity:.3;cursor:default}
 .timebar input[type=range]{flex:1;cursor:pointer;-webkit-appearance:none;appearance:none;height:4px;background:var(--rule);border-radius:2px;margin:6px 0}
 .timebar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--c-sefarad);border:2px solid #fdf8ec;box-shadow:0 1px 3px rgba(0,0,0,.35)}
@@ -295,10 +298,10 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .sliderwrap{flex:1;position:relative}
 .sliderwrap input{width:100%;display:block}
 .ticks{position:relative;height:26px;margin:0 7px}
-.tick{position:absolute;top:0;transform:translateX(-50%);cursor:pointer;background:none;border:none;padding:0;font-family:"Archivo",sans-serif}
-.tick::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--ink-soft);opacity:.6}
-.tick i{display:block;margin-top:9px;font-style:normal;font-size:.58rem;font-weight:600;letter-spacing:.02em;color:var(--ink-soft);white-space:nowrap}
-.tick.on::before{background:var(--c-sefarad);opacity:1}
+.tick{position:absolute;top:0;transform:translateX(-50%);cursor:pointer;background:none;border:none;padding:0;font-family:"Archivo",sans-serif;-webkit-appearance:none;appearance:none}
+.tick .tdot{display:block;width:6px;height:6px;border-radius:50%;background:var(--ink-soft);margin:0 auto}
+.tick i{display:block;margin-top:5px;font-style:normal;font-size:.58rem;font-weight:600;letter-spacing:.02em;color:var(--ink-soft);white-space:nowrap}
+.tick.on .tdot{background:var(--c-sefarad);transform:scale(1.3)}
 .tick.on i{color:var(--c-sefarad);font-weight:700}
 @media(max-width:520px){.tick i{font-size:.5rem}}
 .eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:0 .2rem .5rem}
@@ -497,14 +500,8 @@ ul.next li{margin-bottom:.6em}
 
   <p>One origin story is worth pausing on, because it explains so much of what follows. The founding families of Ashkenaz came up from <strong>Italy</strong> — invited north as merchants by <span class="g" data-def="Charlemagne (742–814): king of the Franks and first Holy Roman Emperor, whose dynasty encouraged Jewish merchants to settle in the Rhineland — the founding population of Ashkenaz.">Charlemagne</span>’s successors — and they carried with them ancient customs rooted in the old <em>Land-of-Israel</em> tradition, which often differed from the Babylonian Talmud’s rulings. When the Babylonian Talmud swept Europe and became the standard, those cherished older practices weren’t abandoned; they were promoted to the newly sacred status of <span class="g" data-def="Minhag (min-HAHG): custom — a community’s inherited practice. In Ashkenaz especially, entrenched custom could carry nearly the force of law.">minhag</span> — binding local custom. Ashkenaz’s famous reverence for custom, in other words, isn’t stubbornness. It’s the community’s oldest inheritance, protected from its own new rulebook — and, after the Crusader massacres you’ll meet shortly, sanctified by martyrdom too.</p>
 
-  
-</div>
-
-<!-- ============ REFERENCE DESK ============ -->
-
-    <p>The story of halakhah <strong>moves when people are forced to move</strong>, and its greatest syntheses were written by refugees; drag the slider (or tap the arrows) through five eras and watch the centre of gravity travel from Baghdad to Kraków and Tzfat. Tap any city for its story.</p>
-
   <div class="mapbox" id="eraBox">
+    <p class="mapintro">The story of halakhah <strong>moves when people are forced to move</strong>, and its greatest syntheses were written by refugees; drag the slider (or tap the arrows) through five eras and watch the centre of gravity travel from Baghdad to Kraków and Tzfat. Tap any city for its story.</p>
     
     <div id="eraMap"></div>
     <div class="timebar">
@@ -1411,7 +1408,7 @@ function assetURL(name){ return ASSET_BASE + name; }
   let curEv=1;
   const SHORT=['500','600–1038','1070','1180','1340','1519','1565','1570s'];
   ticksEl.innerHTML=EVENTS.map((e,i)=>
-    `<button class="tick" type="button" data-ev="${i}" aria-label="${e[1]} ${e[2]}" style="left:${(i/(EVENTS.length-1)*100).toFixed(1)}%"><i>${SHORT[i]}</i></button>`).join('');
+    `<button class="tick" type="button" data-ev="${i}" aria-label="${e[1]} ${e[2]}" style="left:${(i/(EVENTS.length-1)*100).toFixed(1)}%"><span class="tdot"></span><i>${SHORT[i]}</i></button>`).join('');
   ticksEl.querySelectorAll('.tick').forEach(t=>t.addEventListener('click',()=>{setEvent(+t.dataset.ev);}));
   function nearestEvent(v){ return Math.max(0,Math.min(EVENTS.length-1,Math.round(v))); }
   function setEvent(i,skipSnap){
