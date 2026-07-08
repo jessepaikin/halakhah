@@ -247,8 +247,12 @@ section h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-
 #pgbar{position:fixed;top:0;left:0;height:3.5px;width:0%;background:linear-gradient(90deg,var(--c-babylon),var(--c-sefarad),var(--c-poland));z-index:70;transition:width .1s linear}
 
 /* left icon rail */
-#rail{position:fixed;left:10px;top:50%;transform:translateY(-50%);z-index:55;display:none;flex-direction:column;gap:4px;background:rgba(250,245,233,.92);border:1px solid var(--rule);border-radius:999px;padding:8px 5px;backdrop-filter:blur(4px)}
-@media(min-width:1150px){#rail{display:flex}}
+#rail{position:fixed;left:8px;top:50%;transform:translateY(-50%);z-index:55;display:none;flex-direction:column;gap:4px;background:rgba(250,245,233,.92);border:1px solid var(--rule);border-radius:999px;padding:8px 5px;backdrop-filter:blur(4px)}
+@media(min-width:1180px){#rail{display:flex}}
+#rail.open{display:flex;max-height:80vh;overflow-y:auto}
+#railToggle{position:fixed;left:10px;bottom:14px;z-index:56;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper-card);box-shadow:0 3px 12px rgba(38,32,25,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);padding:0}
+#railToggle[aria-expanded="true"]{background:var(--ink);color:var(--paper)}
+@media(min-width:1180px){#railToggle{display:none}}
 #rail a{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;color:var(--ink-soft);position:relative}
 #rail a svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 #rail a:hover,#rail a.on{background:var(--ink);color:var(--paper)}
@@ -264,7 +268,7 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 
 /* medieval map */
 .medmap{position:relative}
-#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae;max-width:min(100%,calc(52vh*1.501));margin:0 auto}
+#eraMap{position:relative;border-radius:8px;overflow:hidden;background:#e9d8ae;max-width:min(100%,calc(62vh*1.501));margin:0 auto}
 #eraMap .mapimg{display:block;width:100%;height:auto}
 #eraMap .overlay{position:absolute;inset:0;width:100%;height:100%}
 .eralayer{position:absolute;inset:0;opacity:0;transition:opacity .85s ease;pointer-events:none}
@@ -277,19 +281,26 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 @keyframes migdraw{to{stroke-dashoffset:0}}
 .citydot{position:absolute;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:50%;cursor:pointer;border:2px solid #f9f3e1;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 .citydot:hover,.citydot.sel{width:19px;height:19px}
+.eralayer.on .citydot.leave,.eralayer.on .citylabel.leave{animation:leavefade .9s ease 3.95s forwards}
+@keyframes leavefade{to{opacity:.45}}
 .citylabel{position:absolute;transform:translate(var(--lx,10px),-50%);top:0;font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;color:#2a2119;background:rgba(249,243,225,.88);padding:1px 6px;border-radius:4px;white-space:nowrap;pointer-events:none}
 .edgemarker{position:absolute;transform:translate(-100%,-50%);font-family:"Archivo",sans-serif;font-weight:700;font-size:11px;color:#2a2119;background:rgba(249,243,225,.92);padding:2px 8px;border-radius:4px;border:1.5px dashed #7a6742}
 .timebar{display:flex;align-items:center;gap:.8rem;margin-top:.9rem}
 .timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.95rem;border:1.5px solid var(--ink);background:var(--paper-card);color:var(--ink);border-radius:50%;width:30px;height:30px;cursor:pointer;flex:none}
 .timebar button:hover{background:var(--ink);color:var(--paper)}
 .timebar button:disabled{opacity:.3;cursor:default}
-.timebar input[type=range]{flex:1;accent-color:var(--c-sefarad);height:5px;cursor:pointer}
+.timebar input[type=range]{flex:1;cursor:pointer;-webkit-appearance:none;appearance:none;height:4px;background:var(--rule);border-radius:2px;margin:6px 0}
+.timebar input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border-radius:50%;background:var(--c-sefarad);border:2px solid #fdf8ec;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.timebar input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--c-sefarad);border:2px solid #fdf8ec;box-shadow:0 1px 3px rgba(0,0,0,.35)}
 .sliderwrap{flex:1;position:relative}
 .sliderwrap input{width:100%;display:block}
-.ticks{position:relative;height:12px;margin:0 9px}
-.tick{position:absolute;top:0;transform:translateX(-50%);width:20px;height:12px;cursor:pointer;background:none;border:none;padding:0}
-.tick::before{content:'';position:absolute;top:1px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--ink-soft);opacity:.55}
-.tick.on::before{background:var(--c-sefarad);opacity:1;width:8px;height:8px}
+.ticks{position:relative;height:26px;margin:0 7px}
+.tick{position:absolute;top:0;transform:translateX(-50%);cursor:pointer;background:none;border:none;padding:0;font-family:"Archivo",sans-serif}
+.tick::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--ink-soft);opacity:.6}
+.tick i{display:block;margin-top:9px;font-style:normal;font-size:.58rem;font-weight:600;letter-spacing:.02em;color:var(--ink-soft);white-space:nowrap}
+.tick.on::before{background:var(--c-sefarad);opacity:1}
+.tick.on i{color:var(--c-sefarad);font-weight:700}
+@media(max-width:520px){.tick i{font-size:.5rem}}
 .eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:0 .2rem .5rem}
 .mapPop{position:absolute;z-index:20;width:min(280px,70vw);background:var(--paper-card);border:1.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 26px rgba(38,32,25,.35);display:none}
 .mapPop.show{display:block}
@@ -383,6 +394,7 @@ ul.next li{margin-bottom:.6em}
 <body>
 <div id="pgbar"></div>
 <div id="rail" aria-label="Section navigation"></div>
+<button id="railToggle" aria-label="Show section navigation" aria-expanded="false"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
 <div id="minimap"><div class="cap">Where we are</div><div id="minimapMount"></div></div>
 <div id="lkModal" role="dialog" aria-modal="true" aria-label="Reference desk search">
   <div class="box">
@@ -494,7 +506,6 @@ ul.next li{margin-bottom:.6em}
 
   <div class="mapbox" id="eraBox">
     
-    <div class="eratitle" id="eraTitle"></div>
     <div id="eraMap"></div>
     <div class="timebar">
       <button id="eraPrev" aria-label="Previous event">‹</button>
@@ -1389,7 +1400,7 @@ function assetURL(name){ return ASSET_BASE + name; }
   ];
 
   const slider=document.getElementById('eraSlider'),prev=document.getElementById('eraPrev'),
-        next=document.getElementById('eraNext'),titleEl=document.getElementById('eraTitle'),
+        next=document.getElementById('eraNext'),
         capEl=document.getElementById('eraCap'),ticksEl=document.getElementById('eraTicks');
   const EVENTS=[
     [500,'c. 500','Talmud sealed',0,0],[800,'600–1038','The Geonim',0,0],
@@ -1398,8 +1409,9 @@ function assetURL(name){ return ASSET_BASE + name; }
     [1565,'1565','Shulchan Arukh',4,0],[1575,'1570s','The Rema’s glosses',4,1]
   ];
   let curEv=1;
+  const SHORT=['500','600–1038','1070','1180','1340','1519','1565','1570s'];
   ticksEl.innerHTML=EVENTS.map((e,i)=>
-    `<button class="tick" type="button" data-ev="${i}" aria-label="${e[1]} ${e[2]}" style="left:${(i/(EVENTS.length-1)*100).toFixed(1)}%"></button>`).join('');
+    `<button class="tick" type="button" data-ev="${i}" aria-label="${e[1]} ${e[2]}" style="left:${(i/(EVENTS.length-1)*100).toFixed(1)}%"><i>${SHORT[i]}</i></button>`).join('');
   ticksEl.querySelectorAll('.tick').forEach(t=>t.addEventListener('click',()=>{setEvent(+t.dataset.ev);}));
   function nearestEvent(v){ return Math.max(0,Math.min(EVENTS.length-1,Math.round(v))); }
   function setEvent(i,skipSnap){
@@ -1409,18 +1421,18 @@ function assetURL(name){ return ASSET_BASE + name; }
   }
   let cur=0,popEl=null;
 
-  function edgeOrDot(c){
+  function edgeOrDot(c,leaving){
+    const lv = leaving && leaving.has(c.n) ? ' leave' : '';
     const [cx,cy]=CITY_POS[c.n]||[800,530];
-    if(c.edge) return `<div class="edgemarker" style="left:${cx/W*100}%;top:${cy/H*100}%" data-city="${c.n}">${c.n} →</div>`;
-    const label=`<div class="citylabel" data-city="${c.n}" style="left:${cx/W*100}%;top:${cy/H*100}%;--lx:${c.end?'-108%':'12px'}">${c.n}</div>`;
-    const dot=`<div class="citydot" data-city="${c.n}" style="left:${cx/W*100}%;top:${cy/H*100}%;background:${c.c}"></div>`;
+    if(c.edge) return `<div class="edgemarker${lv}" style="left:${cx/W*100}%;top:${cy/H*100}%" data-city="${c.n}">${c.n} →</div>`;
+    const label=`<div class="citylabel${lv}" data-city="${c.n}" style="left:${cx/W*100}%;top:${cy/H*100}%;--lx:${c.end?'-108%':'12px'}">${c.n}</div>`;
+    const dot=`<div class="citydot${lv}" data-city="${c.n}" style="left:${cx/W*100}%;top:${cy/H*100}%;background:${c.c}"></div>`;
     return dot+label;
   }
 
   function render(){
     const e=eras[cur];
-    titleEl.textContent=e.title;
-    capEl.innerHTML=`<strong>${EVENTS[curEv][1]} — ${EVENTS[curEv][2]}.</strong> ${e.cap}`;
+    capEl.innerHTML=`<strong>${e.title} — ${EVENTS[curEv][2]}.</strong> ${e.cap}`;
     if(!arguments[0]) slider.value=curEv;
     prev.disabled=curEv===0; next.disabled=curEv===EVENTS.length-1;
     ticksEl.querySelectorAll('.tick').forEach((t,i)=>t.classList.toggle('on',i===curEv));
@@ -1435,7 +1447,8 @@ function assetURL(name){ return ASSET_BASE + name; }
     });
     svg+=`</svg>`;
 
-    const dots=e.cities.map(edgeOrDot).join('');
+    const leaving=new Set(e.arrows.map(a=>a.from).filter(Boolean));
+    const dots=e.cities.map(c=>edgeOrDot(c,leaving)).join('');
     mapMount.innerHTML=`<img class="mapimg" src="${assetURL('map.jpeg')}" alt="Stylized medieval-style map of Europe, North Africa, and the Near East">
       <div class="eralayer on">${svg}${dots}</div>
       <div class="mapPop" id="mapPop"></div>`;
@@ -1816,6 +1829,18 @@ function assetURL(name){ return ASSET_BASE + name; }
   const rail=document.getElementById('rail');
   rail.innerHTML=sections.map(([id,label])=>
     `<a href="#${id}" data-id="${id}" data-tip="${label}" aria-label="${label}">${svgFor(id,17)}</a>`).join('');
+  const railT=document.getElementById('railToggle');
+  if(railT){
+    function setOpen(v){
+      rail.classList.toggle('open',v);
+      railT.setAttribute('aria-expanded',v?'true':'false');
+    }
+    railT.addEventListener('click',e=>{e.stopPropagation();setOpen(!rail.classList.contains('open'));});
+    rail.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));
+    document.addEventListener('click',e=>{
+      if(rail.classList.contains('open') && !rail.contains(e.target) && e.target!==railT) setOpen(false);
+    });
+  }
   const railLookup=rail.querySelector('a[data-id="lookup"]');
   if(railLookup){
     railLookup.addEventListener('click',e=>{
