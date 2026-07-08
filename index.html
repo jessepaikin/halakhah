@@ -109,7 +109,7 @@ section h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-
 .rcard .motto{font-style:italic;color:var(--ink);display:block;margin-bottom:.45em}
 
 /* map */
-.mapbox{background:var(--paper-card);border:1px solid var(--rule);border-radius:12px;padding:1rem;margin:1.6rem 0;overflow-x:auto}
+.mapbox{background:var(--paper-card);border:1px solid var(--rule);border-radius:12px;padding:1rem;margin:1.6rem 0}
 .mapbox svg{display:block;min-width:640px;width:100%;height:auto}
 .mapcap{font-size:.9rem;color:var(--ink-soft);margin:.6rem .4rem 0}
 
@@ -168,9 +168,6 @@ section h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:600;letter-spacing:-
 .netbox{background:var(--paper-card);border:1px solid var(--rule);border-radius:12px;padding:1rem;margin:1.6rem 0}
 .net-scroll{overflow-x:auto}
 .netbox svg{display:block;min-width:900px;width:100%;height:auto}
-.net-legend{display:flex;flex-wrap:wrap;gap:1.2rem;font-size:.85rem;color:var(--ink-soft);margin:.7rem .3rem 0;font-family:"Archivo",sans-serif;font-weight:500}
-.net-legend .li{display:flex;align-items:center;gap:.45rem}
-.net-legend svg{min-width:0}
 .node{cursor:pointer}
 .node circle{stroke:var(--paper-card);stroke-width:2.5;transition:r .2s}
 .node text{font-family:"Archivo",sans-serif;font-weight:600;font-size:12.5px;fill:var(--ink)}
@@ -283,22 +280,16 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .citylabel{position:absolute;transform:translate(var(--lx,10px),-50%);top:0;font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;color:#2a2119;background:rgba(249,243,225,.88);padding:1px 6px;border-radius:4px;white-space:nowrap;pointer-events:none}
 .edgemarker{position:absolute;transform:translate(-100%,-50%);font-family:"Archivo",sans-serif;font-weight:700;font-size:11px;color:#2a2119;background:rgba(249,243,225,.92);padding:2px 8px;border-radius:4px;border:1.5px dashed #7a6742}
 .timebar{display:flex;align-items:center;gap:.8rem;margin-top:.9rem}
-.timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:1rem;border:1.5px solid var(--ink);background:var(--paper-card);color:var(--ink);border-radius:50%;width:36px;height:36px;cursor:pointer;flex:none}
+.timebar button{font-family:"Archivo",sans-serif;font-weight:700;font-size:.95rem;border:1.5px solid var(--ink);background:var(--paper-card);color:var(--ink);border-radius:50%;width:30px;height:30px;cursor:pointer;flex:none}
 .timebar button:hover{background:var(--ink);color:var(--paper)}
 .timebar button:disabled{opacity:.3;cursor:default}
 .timebar input[type=range]{flex:1;accent-color:var(--c-sefarad);height:5px;cursor:pointer}
 .sliderwrap{flex:1;position:relative}
 .sliderwrap input{width:100%;display:block}
-.ticks{position:relative;height:3.5rem;margin:2px 8px 0}
-.tick{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-family:"Archivo",sans-serif;font-size:.62rem;line-height:1.2;color:var(--ink-soft);white-space:nowrap;cursor:pointer;background:none;border:none;padding:0}
-.tick b{display:block;font-weight:700}
-.tick i{display:block;font-style:normal;font-weight:500}
-.tick.r1{top:1.9rem}
-.tick::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--ink-soft);opacity:.6}
-.tick.on b,.tick.on i{color:var(--c-sefarad)}
-.tick.on::before{background:var(--c-sefarad);opacity:1}
-@media(max-width:600px){.tick i{display:none}.ticks{height:2.6rem}.tick.r1{top:1.3rem}}
-.evname{font-family:"Archivo",sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.03em;color:var(--c-sefarad);margin:.15rem .2rem 0;text-align:center}
+.ticks{position:relative;height:12px;margin:0 9px}
+.tick{position:absolute;top:0;transform:translateX(-50%);width:20px;height:12px;cursor:pointer;background:none;border:none;padding:0}
+.tick::before{content:'';position:absolute;top:1px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:var(--ink-soft);opacity:.55}
+.tick.on::before{background:var(--c-sefarad);opacity:1;width:8px;height:8px}
 .eratitle{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;margin:0 .2rem .5rem}
 .mapPop{position:absolute;z-index:20;width:min(280px,70vw);background:var(--paper-card);border:1.5px solid var(--ink);border-radius:10px;padding:.85rem 1rem;box-shadow:0 8px 26px rgba(38,32,25,.35);display:none}
 .mapPop.show{display:block}
@@ -313,12 +304,14 @@ nav .wrap a svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-widt
 .mapPop .x{position:absolute;top:6px;right:10px;border:none;background:none;font-size:1.1rem;cursor:pointer;color:var(--ink-soft)}
 
 /* floating minimap */
-#minimap{transition:opacity .4s ease;position:fixed;right:14px;bottom:14px;width:190px;z-index:54;background:rgba(250,245,233,.95);border:1px solid var(--rule);border-radius:10px;padding:6px;display:none;box-shadow:0 4px 18px rgba(38,32,25,.18)}
-@media(min-width:1200px){#minimap.show{display:block}}
+#minimap{transition:opacity .45s ease,visibility .45s ease;position:fixed;right:14px;bottom:14px;width:190px;z-index:54;background:rgba(250,245,233,.95);border:1px solid var(--rule);border-radius:10px;padding:6px;display:none;box-shadow:0 4px 18px rgba(38,32,25,.18)}
+@media(min-width:1200px){#minimap{display:block;opacity:0;visibility:hidden}}
+#minimap.show{opacity:1;visibility:visible}
 #minimap .cap{font-family:"Archivo",sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-align:center;padding:2px 0 1px}
 #minimap #minimapMount{position:relative}
 #minimap img{display:block;width:100%;height:auto;border-radius:4px}
 #minimap .mmdot{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--c-sefarad);border:1.5px solid #f9f3e1;transform:translate(-50%,-50%);transition:left .8s ease,top .8s ease;box-shadow:0 0 0 3px rgba(166,48,36,.25)}
+#minimap .mmcity{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--c-sefarad);border:1px solid #f9f3e1;transform:translate(-50%,-50%)}
 #minimap .mmlabel{font-family:"Archivo",sans-serif;font-size:.66rem;font-weight:700;color:var(--ink);text-align:center;margin-top:3px}
 
 ol.filing{margin:.2rem 0 1rem 1.4rem;padding:0}
@@ -401,22 +394,7 @@ ul.next li{margin-bottom:.6em}
   </div>
 </div>
 
-<nav aria-label="Sections"><div class="wrap">
-  <a href="#top">Start</a>
-  <a href="#lookup">Look it up</a>
-  <a href="#problem">The problem</a>
-  <a href="#geonim">One address</a>
-  <a href="#worlds">The new map</a>
-  <a href="#taming">Taming the Talmud</a>
-  <a href="#rambam">The code war</a>
-  <a href="#rosh">The merger</a>
-  <a href="#press">Printing</a>
-  <a href="#karo">The Set Table</a>
-  <a href="#rema">The tablecloth</a>
-  <a href="#fight">The fight</a>
-  <a href="#chain">The whole chain</a>
-  <a href="#end">What now</a>
-</div></nav>
+
 
 <header class="hero" id="top">
   <div class="hero-heb" aria-hidden="true">שֻׁלְחָן עָרוּךְ</div>
@@ -521,12 +499,12 @@ ul.next li{margin-bottom:.6em}
     <div class="timebar">
       <button id="eraPrev" aria-label="Previous event">‹</button>
       <div class="sliderwrap">
-        <input type="range" id="eraSlider" min="500" max="1600" step="1" value="800" aria-label="Timeline — drag and release to snap to key events">
+        <input type="range" id="eraSlider" min="0" max="7" step="0.01" value="1" aria-label="Timeline — drag and release to snap to key events">
         <div class="ticks" id="eraTicks"></div>
       </div>
       <button id="eraNext" aria-label="Next event">›</button>
     </div>
-    <div class="evname" id="evName"></div>
+
     <p class="mapcapdyn" id="eraCap"></p>
   </div>
 </div></section>
@@ -1012,7 +990,7 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Rabbi Shlomo Yitzchaki (Rashi)', place:'Troyes, France (trained in Mainz & Worms)',
      wrote:'The running commentary on virtually the entire Talmud (and the Bible) — printed beside the text ever since.',
      why:'Invented the Ashkenazi strategy: explain everything, delete nothing, open the argument to every reader.'},
-    {id:'rtam', n:'Rabbenu Tam', d:'c. 1100–1171', yr:1138, band:'france', lab:'below',
+    {id:'rtam', n:'Rabbenu Tam', d:'c. 1100–1171', yr:1138, band:'france', lab:'above',
      full:'Rabbenu Tam (Jacob ben Meir)', place:'Ramerupt, France',
      wrote:'Leader of the Tosafot: cross-referencing critical notes on the whole Talmud, later printed opposite Rashi.',
      why:'Rashi’s grandson — and his most relentless critic. Made creative disagreement the engine of Ashkenazi law.'},
@@ -1020,7 +998,7 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Rabbi Moshe ben Maimon (Maimonides)', place:'Córdoba → Fez → Cairo',
      wrote:'The Mishneh Torah: all of Jewish law, perfectly ordered, no sources, no dissents. Also the era’s greatest philosophy.',
      why:'Codification at its logical extreme — a finished monument meant to make the debate unnecessary. Second pillar of Karo’s three.'},
-    {id:'raavad',ldy:-26, n:'The Raavad', d:'c. 1125–1198', yr:1165, band:'provence', lab:'above',
+    {id:'raavad', n:'The Raavad', d:'c. 1125–1198', yr:1165, band:'provence', lab:'above',
      full:'Rabbi Abraham ben David (the Raavad)', place:'Posquières, Provence',
      wrote:'Hassagot — stinging critical glosses on the Rif and on the Mishneh Torah, later printed inside them.',
      why:'Proved the counter-move to every code: don’t burn it, annotate it. The Rema’s method, four centuries early.'},
@@ -1032,15 +1010,15 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Rabbi Shlomo ben Aderet (the Rashba)', place:'Barcelona',
      wrote:'Roughly 3,000 surviving responsa consulted across both worlds; major Talmud commentaries; Torat HaBayit — issued in a long version (full arguments) and a short one (just rulings), the two-tier trick Karo would later repeat with the Beit Yosef and Shulchan Arukh.',
      why:'Ramban’s student and Spain’s chief legal address for a generation — a key “extra judge” when Karo’s three pillars deadlocked.'},
-    {id:'maharam',ldx:-28, n:'Maharam', d:'c. 1215–1293', yr:1252, band:'germany', lab:'above',
+    {id:'maharam', n:'Maharam', d:'c. 1215–1293', yr:1242, band:'germany', lab:'above',
      full:'The Maharam of Rothenburg (Meir ben Baruch)', place:'Rothenburg → died imprisoned in Ensisheim',
      wrote:'The last great Tosafist corpus: responsa and rulings that fixed Ashkenazi practice for centuries.',
      why:'Germany’s final towering authority. His imprisonment and death signaled that Ashkenaz’s future lay elsewhere — and his students carried it there.'},
-    {id:'mordechai',ldx:20, n:'The Mordechai', d:'c. 1250–1298', yr:1291, band:'germany', lab:'above',
+    {id:'mordechai', n:'The Mordechai', d:'c. 1250–1298', yr:1297, band:'germany', lab:'above',
      full:'Mordechai ben Hillel', place:'Germany (killed in the Rintfleisch massacres, 1298)',
      wrote:'The Mordechai: a vast digest of Franco-German rulings, keyed to the Rif’s framework.',
      why:'A portable archive of Ashkenazi law — and a core source when the Rema later reconstructed the Ashkenazi position.'},
-    {id:'rosh',ldx:18, n:'The Rosh', d:'c. 1250–1327', yr:1310, band:'sefarad', lab:'above',
+    {id:'rosh', n:'The Rosh', d:'c. 1250–1327', yr:1310, band:'sefarad', lab:'above',
      full:'Rabbenu Asher ben Yehiel (the Rosh)', place:'Worms, Germany → Toledo, Spain (fled 1303)',
      wrote:'Piskei HaRosh: a Rif-style digest of the Talmud, updated with three centuries of Tosafist analysis.',
      why:'The living merger — Ashkenazi method installed at the heart of Sefarad. Third pillar of Karo’s three, and the Ashkenazi vote on the bench.'},
@@ -1060,15 +1038,15 @@ function assetURL(name){ return ASSET_BASE + name; }
      full:'Rabbi Solomon Luria (the Maharshal)', place:'Lublin, Poland',
      wrote:'Yam Shel Shlomo: law re-derived from the Talmud itself, in open protest against ruling from codes.',
      why:'The loyal opposition at the finish line — the Rema’s cousin and critic, insisting the argument must never be outsourced to a table.'},
-    {id:'semag', n:'The Semag', d:'c. 1200–1264', yr:1240, band:'france', lab:'above',
+    {id:'semag', n:'The Semag', d:'c. 1200–1264', yr:1222, band:'france', lab:'above',
      full:'Moses of Coucy (the “Semag”)', place:'Coucy, France · preached across Spain, 1236',
      wrote:'Sefer Mitzvot Gadol: all practical law filed under the 613 commandments — Tosafist substance poured into a frame openly modelled on the Rambam.',
      why:'The first real cross-tradition code, a lifetime before the Rosh reached Toledo — and among the very first Hebrew books ever printed.'},
-    {id:'semak', n:'The Semak', d:'d. c. 1280', yr:1276, band:'france', lab:'below',
+    {id:'semak', n:'The Semak', d:'d. c. 1280', yr:1284, band:'france', lab:'above',
      full:'Isaac of Corbeil (the “Semak”)', place:'Corbeil, France',
      wrote:'Sefer Mitzvot Katan: the Semag pocket-sized, cut into seven daily portions so householders could review all of practical law each week.',
      why:'Law for laypeople. After the 1242 Talmud burning, portable digests like this were how French learning survived — a household staple across Ashkenaz for centuries.'},
-    {id:'meiri',ldx:-20, n:'The Meiri', d:'1249–1315', yr:1288, band:'provence', lab:'below',
+    {id:'meiri', n:'The Meiri', d:'1249–1315', yr:1288, band:'provence', lab:'above',
      full:'Menachem Meiri', place:'Perpignan, Provence–Catalonia border',
      wrote:'Beit HaBechirah: a serenely systematic digest of the entire Talmud — every opinion sorted, every conclusion stated in limpid Hebrew.',
      why:'Perhaps the era’s clearest Talmud summary — and it shaped almost nothing: it missed the printing press, slept in a Parma manuscript, and re-entered the conversation only in modern times. Unprinted meant unheard.'},
@@ -1094,7 +1072,7 @@ function assetURL(name){ return ASSET_BASE + name; }
     return {x:X(n.yr),y:y};
   }
   /* manual nudges to reduce collisions */
-  const nudge={rashi:-8,rtam:6,rif:-6,rambam:-14,ramban:22,rashba:-14,rosh:-2,tur:26,maharam:-10,mordechai:18,rema:-8,maharshal:20,karo:0,raavad:0,gershom:0,geonim:10,semag:6,semak:8,meiri:0,ran:-10};
+  const nudge={rashi:-8,rtam:6,rif:-6,rambam:-14,ramban:22,rashba:-14,rosh:-2,tur:26,maharam:-10,mordechai:18,rema:-8,maharshal:20,karo:0,raavad:0,gershom:0,geonim:10,semag:6,semak:34,meiri:0,ran:-10};
   function P(id){const p=pos(N[id]);p.y+=(nudge[id]||0);return p}
 
   let svg=`<svg viewBox="0 0 1100 ${Y0+34}" role="img" aria-label="Network chart of halakhic thinkers by time and region">`;
@@ -1116,10 +1094,6 @@ function assetURL(name){ return ASSET_BASE + name; }
   }
   infl.forEach(([a,b])=>{svg+=`<path class="edge" pathLength="100" data-a="${a}" data-b="${b}" d="${curve(a,b)}" stroke="${C[N[a].band]}"/>`});
   disp.forEach(([a,b])=>{svg+=`<path class="edge dis" pathLength="100" data-a="${a}" data-b="${b}" d="${curve(a,b)}" stroke="#a63024"/>`});
-  /* rosh journey marker */
-  {const g=bands.find(b=>b.id==='germany'), p=P('rosh');
-   svg+=`<path d="M${X(1298)},${(g.y0+g.y1)/2} C${X(1298)},260 ${p.x-30},${p.y-60} ${p.x-6},${p.y-10}" fill="none" stroke="#2c4a8a" stroke-width="2" stroke-dasharray="3 4" opacity=".6"/>
-   <text class="yeartick" x="${X(1298)-4}" y="${(g.y0+g.y1)/2-10}" text-anchor="end" fill="#2c4a8a">flees south, 1303 ↓</text>`;}
   /* nodes */
   nodes.forEach(n=>{
     const p=P(n.id);
@@ -1416,8 +1390,7 @@ function assetURL(name){ return ASSET_BASE + name; }
 
   const slider=document.getElementById('eraSlider'),prev=document.getElementById('eraPrev'),
         next=document.getElementById('eraNext'),titleEl=document.getElementById('eraTitle'),
-        capEl=document.getElementById('eraCap'),ticksEl=document.getElementById('eraTicks'),
-        evNameEl=document.getElementById('evName');
+        capEl=document.getElementById('eraCap'),ticksEl=document.getElementById('eraTicks');
   const EVENTS=[
     [500,'c. 500','Talmud sealed',0,0],[800,'600–1038','The Geonim',0,0],
     [1070,'c. 1070','Rif & Rashi',1,0],[1180,'c. 1180','Mishneh Torah',2,0],
@@ -1426,13 +1399,9 @@ function assetURL(name){ return ASSET_BASE + name; }
   ];
   let curEv=1;
   ticksEl.innerHTML=EVENTS.map((e,i)=>
-    `<button class="tick r${e[4]}" type="button" data-ev="${i}" style="left:${(e[0]-500)/1100*100}%"><b>${e[1]}</b><i>${e[2]}</i></button>`).join('');
+    `<button class="tick" type="button" data-ev="${i}" aria-label="${e[1]} ${e[2]}" style="left:${(i/(EVENTS.length-1)*100).toFixed(1)}%"></button>`).join('');
   ticksEl.querySelectorAll('.tick').forEach(t=>t.addEventListener('click',()=>{setEvent(+t.dataset.ev);}));
-  function nearestEvent(year){
-    let best=0,bd=1e9;
-    EVENTS.forEach((e,i)=>{const d=Math.abs(e[0]-year);if(d<bd){bd=d;best=i;}});
-    return best;
-  }
+  function nearestEvent(v){ return Math.max(0,Math.min(EVENTS.length-1,Math.round(v))); }
   function setEvent(i,skipSnap){
     curEv=Math.max(0,Math.min(EVENTS.length-1,i));
     cur=EVENTS[curEv][3];
@@ -1451,11 +1420,10 @@ function assetURL(name){ return ASSET_BASE + name; }
   function render(){
     const e=eras[cur];
     titleEl.textContent=e.title;
-    capEl.textContent=e.cap;
-    if(!arguments[0]) slider.value=EVENTS[curEv][0];
+    capEl.innerHTML=`<strong>${EVENTS[curEv][1]} — ${EVENTS[curEv][2]}.</strong> ${e.cap}`;
+    if(!arguments[0]) slider.value=curEv;
     prev.disabled=curEv===0; next.disabled=curEv===EVENTS.length-1;
     ticksEl.querySelectorAll('.tick').forEach((t,i)=>t.classList.toggle('on',i===curEv));
-    evNameEl.textContent=EVENTS[curEv][1]+' · '+EVENTS[curEv][2];
 
     const AC='#8a1d12';
     let svg=`<svg class="overlay" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`;
@@ -1548,7 +1516,7 @@ function assetURL(name){ return ASSET_BASE + name; }
     const nearest=nearestEvent(+slider.value);
     if(nearest!==curEv) setEvent(nearest,true);
   });
-  slider.addEventListener('change',()=>{slider.value=EVENTS[curEv][0];});
+  slider.addEventListener('change',()=>{slider.value=curEv;});
   prev.addEventListener('click',()=>setEvent(curEv-1));
   next.addEventListener('click',()=>setEvent(curEv+1));
   setEvent(1);
@@ -1568,7 +1536,20 @@ function assetURL(name){ return ASSET_BASE + name; }
     };
     let curSec=null,animTimer=null;
     function setDot(xPct,yPct,label){
+      clearAllCities();
+      mmDot.style.display='';
       mmDot.style.left=xPct+'%'; mmDot.style.top=yPct+'%'; mmLabel.textContent=label;
+    }
+    function clearAllCities(){ mmMount.querySelectorAll('.mmcity').forEach(d=>d.remove()); }
+    function showAllCities(label){
+      clearAllCities(); clearInterval(animTimer);
+      mmDot.style.display='none'; mmLabel.textContent=label;
+      for(const [n,[x,y]] of Object.entries(CITY_POS)){
+        if(n==='Barcelona') continue;
+        const d=document.createElement('div'); d.className='mmcity'; d.title=n;
+        d.style.left=(x/W*100)+'%'; d.style.top=(y/H*100)+'%';
+        mmMount.appendChild(d);
+      }
     }
     function animateKaro(){
       // Toledo -> Tzfat sweep, matching "Catastrophe, then the Set Table"
@@ -1591,6 +1572,7 @@ function assetURL(name){ return ASSET_BASE + name; }
           if(id===curSec) return;
           curSec=id;
           if(id==='karo'){ animateKaro(); }
+          else if(id==='worlds'){ showAllCities('The new map'); }
           else { clearInterval(animTimer); const [x,y,label]=REGION_POS[id]; setDot(x,y,label); }
         }
       });
@@ -1830,11 +1812,6 @@ function assetURL(name){ return ASSET_BASE + name; }
   function svgFor(id,size){
     return `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${ICONS[id]||''}</svg>`;
   }
-  // inject icons into top nav links
-  document.querySelectorAll('nav .wrap a[href^="#"]').forEach(a=>{
-    const id=a.getAttribute('href').slice(1);
-    if(ICONS[id]) a.innerHTML=svgFor(id,13)+a.innerHTML;
-  });
   // build left rail
   const rail=document.getElementById('rail');
   rail.innerHTML=sections.map(([id,label])=>
@@ -1858,23 +1835,6 @@ function assetURL(name){ return ASSET_BASE + name; }
     });
   },{rootMargin:'-40% 0px -55% 0px',threshold:0});
   targets.forEach(t=>io.observe(t));
-  // nav scroll chevrons
-  const nv=document.querySelector('nav');
-  const nwrap=nv&&nv.querySelector('.wrap');
-  if(nwrap){
-    nv.style.position=getComputedStyle(nv).position==='static'?'relative':getComputedStyle(nv).position;
-    const mk=(cls,txt)=>{const b=document.createElement('button');b.className='navchev '+cls;b.textContent=txt;b.setAttribute('aria-label',cls==='left'?'Scroll sections left':'Scroll sections right');nv.appendChild(b);return b;};
-    const lft=mk('left','‹'), rgt=mk('right','›');
-    function updChev(){
-      lft.hidden = nwrap.scrollLeft < 10;
-      rgt.hidden = nwrap.scrollLeft > nwrap.scrollWidth - nwrap.clientWidth - 10;
-    }
-    lft.addEventListener('click',()=>nwrap.scrollBy({left:-260,behavior:'smooth'}));
-    rgt.addEventListener('click',()=>nwrap.scrollBy({left:260,behavior:'smooth'}));
-    nwrap.addEventListener('scroll',updChev,{passive:true});
-    window.addEventListener('resize',updChev);
-    updChev();
-  }
   // progress bar
   const bar=document.getElementById('pgbar');
   function updateBar(){
